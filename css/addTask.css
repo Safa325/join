@@ -1,0 +1,120 @@
+@import url(general.css);
+
+
+#content-container {
+    margin: 64px;
+}
+
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    border: 1px solid gray;
+    padding: 32px;
+}
+
+.addTask-label {
+    font-size: 20px;
+    color: var(--clr-dark-gray);
+    margin-bottom: 8px;
+}
+
+.required::after {
+    content: '*';
+    color: var(--clr-light-red);
+}
+
+.addTask-input-element {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.addTask-inputField {
+    border-radius: 10px;
+    height: 48px;
+    border: 1px solid var(--clr-light-gray);
+    padding: 12px 16px;
+    font-size: 20px;
+    color: var(--clr-light-gray);
+    background-color: white;
+}
+
+.addTask-textarea {
+    min-height: 120px;
+    font-family: 'Inter', Helvetica, sans-serif;
+}
+
+.addTask-assigned {
+    padding-block: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    position: relative;
+}
+
+.addTask-searchField {
+    padding: 0;
+    font-size: 20px;
+    border: none;
+    color: var(--clr-dark-gray);
+}
+
+.addTask-arrow-btn-frame {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addTask-arrow-btn-frame:hover {
+    background-color: var(--clr-light-gray);
+}
+
+.addTask-arrow-btn {
+    cursor: pointer;
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+}
+
+#dropdown-container {
+    height: 250px;
+    background-color: white;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    box-shadow: var(--card-box-shadow);
+    padding: 16px 16px 16px 16px;
+    overflow-y: scroll;
+    position: relative;
+}
+
+
+
+.contact-element{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.addTask-profile-badge{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #FF7A00;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+.addTask-contact-name{
+    flex: 1;
+}

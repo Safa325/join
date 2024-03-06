@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/addTask.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <div id="content-container">
+
+        <h1>Add Task</h1>
+
+        <form id="addTask-Form" action="">
+            <div class="left-column">
+                <div class="addTask-input-element">
+                    <label class="addTask-label required" for="addTask-input-title">Title</label>
+                    <input class="addTask-inputField" type="text" id="addTask-input-title" placeholder="Enter a title"
+                        required>
+                </div>
+                <div class="addTask-input-element">
+                    <label class="addTask-label" for="addTask-input-description">Description</label>
+                    <textarea class="addTask-inputField addTask-textarea" type="text" id="addTask-input-description"
+                        placeholder="Enter a description"></textarea>
+                </div>
+                <div class="addTask-input-element">
+                    <label class="addTask-label required" for="addTask-assignedTo">Assigned To</label>
+                    <div class="addTask-inputField addTask-assigned">
+                        <input class="addTask-searchField" type="text" id="addTask-search-assign"
+                            placeholder="Select contacts to assign">
+                        <div class="addTask-arrow-btn-frame">
+                            <img onclick="toggleDropdown(event)" class="addTask-arrow-btn"
+                                src="./img/icons/arrow-down-small.svg" alt="">
+                        </div>
+
+                    </div>
+                    <div id="dropdown-container">
+                        <!-- Muss gerendert werden aus den Kontakten -->
+                        <div class="contact-element">
+                            <div class="addTask-profile-badge">RP</div>
+                            <p class="addTask-contact-name">Richard Peda</p>
+                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                        </div>
+
+                        <div class="contact-element">
+                            <div class="addTask-profile-badge">RP</div>
+                            <p class="addTask-contact-name">Richard Peda</p>
+                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                        </div>
+                        <div class="contact-element">
+                            <div class="addTask-profile-badge">RP</div>
+                            <p class="addTask-contact-name">Richard Peda</p>
+                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                        </div>
+                        <div class="contact-element">
+                            <div class="addTask-profile-badge">RP</div>
+                            <p class="addTask-contact-name">Richard Peda</p>
+                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                        </div>
+                        <div class="contact-element">
+                            <div class="addTask-profile-badge">RP</div>
+                            <p class="addTask-contact-name">Richard Peda</p>
+                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </form>
+
+
+
+
+    </div>
+
+
+    <script src="./JS/addTask.js"></script>
+</body>
+
+</html>
