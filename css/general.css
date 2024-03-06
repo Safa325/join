@@ -1,0 +1,40 @@
+@import url(font_Inter.css);
+
+
+:root {
+
+    --clr-dark-gray: #2A3647;
+    --clr-sidebar-active: #091931;
+    --clr-sidebar-hover:#2A3D59;
+    --clr-light-blue: #29ABE2;
+    --clr-font-light: #CDCDCD;
+
+
+    --clr-prio-red: #FF3D00;
+    --clr-prio-orange: #FFA800;
+    --clr-prio-green: #7AE229;
+
+    --clr-task-technical: #1FD7C1;
+    --clr-task-userstory: #0038FF;
+
+    --box-shadow: 0px 0px 4px 0px #0000001A;
+   
+
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Inter', Helvetica, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+
+
+
+
+/* h1:    Inter 700 61px */
+/* column title: Inter 700 20px */
