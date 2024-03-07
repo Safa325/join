@@ -28,46 +28,49 @@
                     <textarea class="addTask-inputField addTask-textarea" type="text" id="addTask-input-description"
                         placeholder="Enter a description"></textarea>
                 </div>
+
+                <!-- Contacts -->
+
                 <div class="addTask-input-element">
                     <label class="addTask-label required" for="addTask-search-assign">Assigned To</label>
                     <div class="addTask-inputField addTask-assigned">
                         <input class="addTask-searchField" type="text" id="addTask-search-assign"
                             placeholder="Select contacts to assign">
                         <div class="addTask-round-btn-frame">
-                            <img onclick="toggleDropdown(event)" class="addTask-arrow-btn"
+                            <img id="arrow-contacts" onclick="toggleDropdown('arrow-contacts', 'contact-dropdown-container')" class="addTask-arrow-btn"
                                 src="./img/icons/arrow-down-small.svg" alt="">
                         </div>
-
+                        <div class="addTask-dropdown-container contacts d-none" id="contact-dropdown-container">
+                            <!-- Muss gerendert werden aus den Kontakten -->
+                            <div class="contact-element">
+                                <div class="addTask-profile-badge">RP</div>
+                                <p class="addTask-dropdown-text">Richard Peda</p>
+                                <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                            </div>
+    
+                            <div class="contact-element">
+                                <div class="addTask-profile-badge">RP</div>
+                                <p class="addTask-dropdown-text">Richard Peda</p>
+                                <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                            </div>
+                            <div class="contact-element">
+                                <div class="addTask-profile-badge">RP</div>
+                                <p class="addTask-dropdown-text">Richard Peda</p>
+                                <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                            </div>
+                            <div class="contact-element">
+                                <div class="addTask-profile-badge">RP</div>
+                                <p class="addTask-dropdown-text">Richard Peda</p>
+                                <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                            </div>
+                            <div class="contact-element">
+                                <div class="addTask-profile-badge">RP</div>
+                                <p class="addTask-dropdown-text">Richard Peda</p>
+                                <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
+                            </div>
+                        </div>
                     </div>
-                    <div class="addTask-dropdown-container contacts" id="contact-dropdown-container">
-                        <!-- Muss gerendert werden aus den Kontakten -->
-                        <div class="contact-element">
-                            <div class="addTask-profile-badge">RP</div>
-                            <p class="addTask-dropdown-text">Richard Peda</p>
-                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
-                        </div>
-
-                        <div class="contact-element">
-                            <div class="addTask-profile-badge">RP</div>
-                            <p class="addTask-dropdown-text">Richard Peda</p>
-                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
-                        </div>
-                        <div class="contact-element">
-                            <div class="addTask-profile-badge">RP</div>
-                            <p class="addTask-dropdown-text">Richard Peda</p>
-                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
-                        </div>
-                        <div class="contact-element">
-                            <div class="addTask-profile-badge">RP</div>
-                            <p class="addTask-dropdown-text">Richard Peda</p>
-                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
-                        </div>
-                        <div class="contact-element">
-                            <div class="addTask-profile-badge">RP</div>
-                            <p class="addTask-dropdown-text">Richard Peda</p>
-                            <img class="addTask-checkbox" src="./img/icons/checkbox-unchecked.svg" alt="">
-                        </div>
-                    </div>
+                    
 
                 </div>
 
@@ -81,9 +84,9 @@
                 </div>
                 <!-- Urgent, Medium, Low - Prio -->
                 <div class="addTask-input-element">
-                    <label class="addTask-label" for="addTask-input-prio">Prio</label>
-                    <div class="addTask-btn-container">
-                        <div class="addTask-prio-btn urgent">Urgent
+                    <div class="addTask-label" >Prio</div>
+                    <div class="addTask-btn-container" id="addTask-input-prio">
+                        <div onclick="selectPrio('urgent')" id="addTask-prio-urgent" class="addTask-prio-btn urgent">Urgent
                             <svg width="35" height="26" viewBox="0 0 35 26" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -94,7 +97,7 @@
                                     fill="white" />
                             </svg>
                         </div>
-                        <div class="addTask-prio-btn medium">Medium
+                        <div onclick="selectPrio('medium')" id="addTask-prio-medium" class="addTask-prio-btn medium">Medium
                             <svg width="21" height="8" viewBox="0 0 21 8" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -105,7 +108,7 @@
                                     fill="#FFA800" />
                             </svg>
                         </div>
-                        <div class="addTask-prio-btn low">Low
+                        <div onclick="selectPrio('low')" id="addTask-prio-low" class="addTask-prio-btn low">Low
                             <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -120,53 +123,59 @@
 
 
                 </div>
+
+                <!-- Category -->
                 <div class="addTask-input-element">
                     <label class="addTask-label required" for="addTask-category">Category</label>
                     <div class="addTask-inputField addTask-assigned">
                         <input class="addTask-searchField" type="text" id="addTask-category"
                             placeholder="Select task category">
                         <div class="addTask-round-btn-frame">
-                            <img onclick="toggleDropdown(event)" class="addTask-arrow-btn"
+                            <img id="arrow-category" onclick="toggleDropdown('arrow-category', 'category-dropdown-container')" class="addTask-arrow-btn"
                                 src="./img/icons/arrow-down-small.svg" alt="">
                         </div>
-
-                    </div>
-                    <div class="addTask-dropdown-container" id="category-dropdown-container">
-                        <div class="category-element">
-                            <p class="addTask-dropdown-text">Technical Task</p>
-                        </div>
-                        <div class="category-element">
-                            <p class="addTask-dropdown-text">User Story</p>
-                        </div>
-                    </div>
-
-                    <div class="addTask-input-element">
-                        <label class="addTask-label" for="addTask-subtask">Subtask</label>
-                        <div class="addTask-inputField-subtask">
-                            <input class="addTask-inputField-sub" type="text" id="addTask-subtask"
-                                placeholder="Add new Subtask">
-
-                            <div class="addTask-delete-accept-container">
-                                <div class="addTask-round-btn-frame">
-                                    <img onclick="toggleDropdown(event)" class="addTask-add-btn" src="./img/icons/cancel.svg"
-                                        alt="">
-                                </div>
-                                <div class="addTask-round-btn-frame">
-                                    <img onclick="toggleDropdown(event)" class="addTask-add-btn" src="./img/icons/checked.svg"
-                                        alt="">
-                                </div>  
+                        <div class="addTask-dropdown-container d-none" id="category-dropdown-container">
+                            <div onclick="selectCategory(event)" class="category-element">
+                                <p class="addTask-dropdown-text">Technical Task</p>
                             </div>
-
-                            <div class="addTask-round-btn-frame">
-                                <img onclick="toggleDropdown(event)" class="addTask-add-btn" src="./img/icons/add.svg"
-                                    alt="">
+                            <div onclick="selectCategory(event)" class="category-element">
+                                <p class="addTask-dropdown-text">User Story</p>
                             </div>
                         </div>
-
-
                     </div>
-
+                    
                 </div>
+                <!-- Subtasks -->
+
+                <div class="addTask-input-element">
+                    <label class="addTask-label" for="addTask-subtask">Subtask</label>
+                    <div class="addTask-inputField-subtask">
+                        <input class="addTask-inputField-sub" type="text" id="addTask-subtask"
+                            placeholder="Add new Subtask">
+
+                        <div id="addTask-delete-accept-container" class="addTask-delete-accept-container">
+                            <div class="addTask-round-btn-frame">
+                                <img onclick="toggleDropdown(event)" class="addTask-add-btn"
+                                    src="./img/icons/cancel.svg" alt="">
+                            </div>
+                            <div class="addTask-round-btn-frame">
+                                <img onclick="toggleDropdown(event)" class="addTask-add-btn"
+                                    src="./img/icons/checked.svg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="addTask-round-btn-frame">
+                            <img onclick="toggleDropdown(event)" class="addTask-add-btn" src="./img/icons/add.svg"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
 
             </div>
 
