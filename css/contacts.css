@@ -1,0 +1,95 @@
+@import url(general.css);
+
+.contacts-container {
+    display: flex;
+}
+
+.contacts-left-column {
+    width: 456px;
+    background-color: white;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacts-details {
+    margin-top: 110px;
+    margin-left: 55px;
+}
+
+.contacts-details-headline {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.separator-upright-lightblue {
+    height: 59px;
+    width: 3px;
+    background-color: var(--clr-light-blue);
+    border-radius: 10px;
+}
+
+.h1-no-margin{
+    font-family: Inter;
+    font-weight: 700;
+    font-size: 61px;
+    margin: 0;
+}
+
+.contacts-claim {
+    font-weight: 400;
+    font-size: 27px;
+    color: var(--clr-dark-gray)
+}
+
+.btn-add-contact {
+    width: 100%;
+}
+
+.d-column-flex-start {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.person-container {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 352px;
+    height: 78px;
+    padding: 15px 24px 15px 24px;
+}
+
+.person-container:hover {
+    background-color: var(--clr-bg);
+}
+
+.initials-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;   
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.person-name {
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.person-email {  
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--clr-light-blue);
+}
