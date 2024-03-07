@@ -1,5 +1,11 @@
 let contacts = [
     {
+        'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [],
+        'I': [], 'J': [], 'K': [], 'L': [], 'M': [], 'N': [], 'O': [], 'P': [],
+        'Q': [], 'R': [], 'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [],
+        'Y': [], 'Z': []
+    },
+    {
         'badgecolor': "#FF7A00",
         'initials': "",
         'name': "Pia",
@@ -20,33 +26,78 @@ let contacts = [
         'surname': "Himmel",
         'email': "bitte@sommer.com"    
     },
+    {
+        'badgecolor': "#6E52FF",
+        'initials': "",
+        'name': "Karl",
+        'surname': "Ender",
+        'email': "Karl@ender.com"    
+    },
 ];
 
-function initContacts() {
+let letters = [];
+
+function addContact() {
+    let addContact = document.getElementById('add-contact-container');
+
+    addContact.innerHTML = /*HTML*/`
+    
+    `;
+
+}
+
+
+//noch nicht fertig - Findungsphase Konzept
+
+
+
+function initContacts(filter) {
     let list = document.getElementById('contacts-list');
+    list.innerHTML = '';
 
     for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i]['name'];
         let surname = contacts[i]['surname'];
         let email = contacts[i]['email'];
-        //initialien werden später beim anlegen des contacts erstellt und gepushed!
-        //eine Farbe für den Profile badge auch beim anlegen per random function zuweisen?!
         contacts[i]['initials'] = name.charAt(0)+surname.charAt(0);
         let initials = contacts[i]['initials'];
         let badge = contacts[i]['badgecolor'];
+        let firstLetter = initials.charAt(0);
 
-        list.innerHTML += /*HTML*/`
-        <div class="person-container">
-            <div class="initials-circle" style="background-color: ${badge};">${initials}</div>
-            <div class="d-column-flex-start">
-                <div class="person-name">
-                    <div>${name}</div>&nbsp
-                    <div>${surname}</div>
-                </div>
-                <div class="person-email">${email}</div>
-            </div>
-        </div>
-        `;
+        if (!filter || filter == firstLetter) {
+            list.innerHTML += generateContact(i, name, surname, email, initials, badge);
+        };
+
+        if (!letters.includes(firstLetter)) {
+            letters.push(firstLetter);
+        };
+        renderLetters();
+    };
+
+    
+}
+
+function renderLetters() {
+    let letterbox = document.getElementById('letterbox');
+    letterbox.innerHTML = '';
+
+    for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        letterbox.innerHTML += `<div>${letter}</div>`;
     }
-    console.log('contacts = ', contacts);
+}
+
+function generateContact(name, surname, email, initials, badge) {
+    return `<div id="letterbox"></div>
+    <div class="person-container">
+        <div class="initials-circle" style="background-color: ${badge};">${initials}</div>
+        <div class="d-column-flex-start">
+            <div class="person-name">
+                <div>${name}</div>&nbsp
+                <div>${surname}</div>
+            </div>
+            <div class="person-email">${email}</div>
+        </div>
+    </div>
+    `;
 }
