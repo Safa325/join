@@ -1,6 +1,6 @@
 @import url(general.css);
 
-.mb-12{
+.mb-12 {
     margin-bottom: 12px !important;
 }
 
@@ -15,26 +15,25 @@
 #addTask-form {
     display: flex;
     flex-direction: column;
+    max-width: 944px;
 }
 
-.addTask-column-wrapper{
+.addTask-column-wrapper {
     display: flex;
+
 }
 
 .addTask-column {
     display: flex;
     flex-direction: column;
     width: 500px;
-    /* border: 1px solid gray; */
-
 }
 
-.left-column {
-    padding-right: 32px;
-}
-
-.right-column {
-    padding-left: 32px;
+.addTask-separator {
+    margin-inline: 32px;
+    min-height: 90%;
+    width: 1px;
+    background-color: var(--clr-light-gray);
 }
 
 .addTask-label {
@@ -43,7 +42,8 @@
     margin-bottom: 8px;
 }
 
-.required::after {
+.required::after,
+.addTask-hint::before {
     content: '*';
     color: var(--clr-light-red);
 }
@@ -181,7 +181,7 @@
     height: 19px;
 }
 
-.addTask-badges-container{
+.addTask-badges-container {
     display: flex;
     flex-wrap: wrap;
     gap: 0
@@ -299,31 +299,130 @@
     gap: 8px;
 }
 
+.addTask-subtask-container {
+    width: 100%;
+    min-height: 150px;
+    padding-bottom: 12px
+}
+
+.addTask-subtask-element {
+    list-style: circle;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    position: relative;
+    padding-left: 16px;
+}
+
+.addTask-subtask-element:hover {
+    background-color: var(--clr-light-gray);
+}
+
+.addTask-subtask-listElement {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    position: relative;
+}
+
+.dot-before::before {
+    content: "\A   ";
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    left: 6px;
+    border-radius: 50%;
+    background: var(--clr-dark-gray);
+    display: inline-block;
+}
+
+.addTask-subtask-element.no-before::before{
+    content: none;
+}
+
+
+
+.addTask-subtask-listElement:focus {
+    outline: none;
+}
+
+
+
+.subtask-icon {
+    cursor: pointer;
+}
+
+.subtask-icon svg {
+    height: 18px;
+    width: 18px;
+}
+
+.subtask-delete {
+    margin-left: 8px;
+}
+
 .d-none {
     display: none;
 }
 
-.addTask-controls{
+.addTask-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.addTask-control-btn-container{
+
+.addTask-control-btn-container {
     display: flex;
     align-items: center;
     gap: 16px;
 }
-.addTask-control-btn{
+
+.addTask-control-btn {
     display: flex;
     align-items: center;
     height: 56px;
     border-radius: 10px;
     padding: 16px;
+    font-size: 21px;
+    cursor: pointer;
 }
-.addTask-control-btn:first-child{
+
+.cancel-btn {
+    border: 2px solid var(--clr-dark-gray);
+}
+
+.cancel-svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+}
+
+.cancel-btn:hover,
+.cancel-btn:hover svg path {
+    border-color: var(--clr-light-blue);
+    color: var(--clr-light-blue);
+    stroke: var(--clr-light-blue);
+}
+
+
+.create-btn {
     border: 1px solid var(--clr-dark-gray);
+    background-color: var(--clr-dark-gray);
+    color: white;
 }
-.addTask-control-btn:last-child{
-   background-color:  var(--clr-dark-gray);
-   color: white;
+
+.create-svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+}
+
+.addTask-control-btn:last-child:hover {
+    background-color: var(--clr-light-blue);
+    border-color: var(--clr-light-blue);
+
 }
