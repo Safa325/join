@@ -12,7 +12,7 @@
     <div id="content-container">
             <div class="contacts-container">
             <div class="contacts-left-column">
-                <button class="btn-grey btn-add-contact">Add new contact <img src="/join/img/icons/person_add.svg"></button>
+                <button class="btn-grey btn-add-contact">Add new contact<img src="/join/img/icons/person_add.svg"></button>
                 <div id="contacts-list"></div>
             </div>
             <div class="contacts-details">
@@ -32,7 +32,32 @@
             <div class="add-claim">Tasks are better with a team!</div>
             <div class="separator-across-lightblue"></div>
         </div>
-        <div class="right-container"></div>
+        <div class="right-container">
+            <div class="cancel-x"><img src="/join/img/icons/cancel.svg" alt=""></div>
+            <div class="person-uni-badge">
+                <img src="/join/img/icons/person.svg" alt="">
+            </div>
+            <div class="control-elements-container">
+                <div class="inputfields">
+                    <div class="addcontact-input-element">
+                        <input class="addcontact-inputField" type="text" id="addcontact-input-name" placeholder="Name" required>
+                        <img src="/join/img/icons/person-grey.svg" alt="">
+                    </div>
+                    <div class="addcontact-input-element">
+                        <input class="addcontact-inputField" type="email" id="addcontact-input-email" placeholder="Email" required>
+                        <img src="/join/img/icons/mail-grey.svg" alt="">
+                    </div>
+                    <div class="addcontact-input-element">
+                        <input class="addcontact-inputField" type="number" id="addcontact-input-phone" placeholder="Phone" required>
+                        <img src="/join/img/icons/call-grey.svg" alt="">
+                    </div>
+                </div>
+                <div class="cancel-create-buttons-container"></div>
+                <button class="btn-white">Cancel<img src="/join/img/icons/cancel.svg"></button>
+                <button class="btn-grey img-white">Create contact<img src="/join/img/icons/checked.svg"></button>
+            </div>
+        </div>
+        
     </div>
 
 </body>

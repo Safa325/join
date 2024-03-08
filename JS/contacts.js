@@ -1,11 +1,5 @@
 let contacts = [
     {
-        'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [],
-        'I': [], 'J': [], 'K': [], 'L': [], 'M': [], 'N': [], 'O': [], 'P': [],
-        'Q': [], 'R': [], 'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [],
-        'Y': [], 'Z': []
-    },
-    {
         'badgecolor': "#FF7A00",
         'initials': "",
         'name': "Pia",
@@ -65,7 +59,7 @@ function initContacts(filter) {
         let firstLetter = initials.charAt(0);
 
         if (!filter || filter == firstLetter) {
-            list.innerHTML += generateContact(i, name, surname, email, initials, badge);
+            list.innerHTML += generateContact(name, surname, email, initials, badge);
         };
 
         if (!letters.includes(firstLetter)) {

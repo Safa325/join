@@ -103,6 +103,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
+    display: flex;
 }
 
 .left-container {
@@ -127,6 +128,7 @@
     height: 3px;
     background-color: var(--clr-light-blue);
     border-radius: 10px;
+    margin-bottom: 60px;
 }
 
 .add-claim {
@@ -138,4 +140,81 @@
 
 .clr-white{
     color: white;
+}
+
+.right-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 83px;
+}
+
+.control-elements-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inputfields {
+    border-radius: 0 30px 30px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.addcontact-input-element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    width: 100%;
+    border-radius: 10px;
+    width: 422px;
+    height: 48px;
+    border: 1px solid var(--clr-light-gray);
+    background-color: white;
+    padding: 12px 16px;
+}
+
+
+.addcontact-inputField {
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-family: 'Inter', Helvetica, sans-serif;
+    color: var(--clr-dark-gray);
+    position: relative;
+}
+
+.addcontact-inputField:focus {
+    outline: none;
+    font-size: 20px;
+    font-family: 'Inter', Helvetica, sans-serif;
+    color: var(--clr-dark-gray);
+}
+
+.addcontact-inputField::placeholder {
+    color: var(--clr-light-gray);;
+}
+
+.person-uni-badge {
+    width: 120px;
+    height: 120px;
+    padding: 30px;
+    background-color: var(--clr-light-gray);
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 72px;
+}
+
+.cancel-x {
+    position: absolute;
+    top: 62px;
+    right: 62px;
+}
+
+.img-white img {
+    filter: brightness(0) saturate(100%) invert(100%);
 }
