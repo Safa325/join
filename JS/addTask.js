@@ -165,37 +165,83 @@ function createTask(event) {
     tasks.push(task)
 }
 
-function createSubtask(){
-    let subtask = document.getElementById('addTask-subtask-input').value;
-    subtasks.push(subtask);
+function createSubtask() {
+    let subtask = document.getElementById('addTask-subtask-input');
+    console.log('fire')
+    if (subtask.value) {
+        subtasks.push(subtask.value);
+    }
+
     renderSubtasks();
+    subtask.value = '';
+    disableSubtaskInput();
 }
 
-function renderSubtasks(){
+function enableSubtaskInput() {
+    let input = document.getElementById('addTask-subtask-input');
+    input.readOnly = false;
+    input.classList.add('inputField-enabled')
+    input.focus();
+    document.getElementById('addTask-button-plus').classList.add('d-none');
+    document.getElementById('addTask-delete-accept-container').classList.remove('d-none');
+}
+
+function disableSubtaskInput() {
+
+    let input = document.getElementById('addTask-subtask-input');
+    input.readOnly = true;
+    input.classList.remove('inputField-enabled')
+    input.value = '';
+    document.getElementById('addTask-button-plus').classList.remove('d-none')
+    document.getElementById('addTask-delete-accept-container').classList.add('d-none')
+}
+
+
+function enableEditSubtask(index) {
+    let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
+    input.readOnly = true;
+    input.classList.add('inputField-enabled')
+    input.focus()
+}
+
+function editSubtask(index) {
+    let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
+    subtasks.splice(index, 1, input.value)
+}
+
+function deleteSubtask(index) {
+    subtasks.splice(index, 1);
+    renderSubtasks()
+}
+
+function renderSubtasks() {
     let container = document.getElementById('addTask-subtask-container');
-   
+
     container.innerHTML = '';
     for (let index = 0; index < subtasks.length; index++) {
         const subtask = subtasks[index];
-        container.innerHTML += subTaskHTML(subtask)
+        container.innerHTML += subTaskHTML(subtask, index)
     }
 }
 
-function removePseudo(event){
+function removePseudo(event) {
     let element = event.target
     element.parentElement.classList.remove('dot-before')
 }
 
-function addPseudo(event){
+function addPseudo(event, index) {
     let element = event.target
     element.parentElement.classList.add('dot-before')
+    let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
+    input.disabled = true;
+
 }
 
-function subTaskHTML(subtask){
+function subTaskHTML(subtask, index) {
     return /*html*/`
         <div class="addTask-subtask-element dot-before">
-        <input onblur="addPseudo(event)" onfocus="removePseudo(event)" class="addTask-subtask-listElement" type="text" value="${subtask}">
-            <div class="subtask-icon subtask-edit">
+        <input readonly="true" onkeyup="editSubtask(${index})" onblur="addPseudo(event, ${index})" onfocus="removePseudo(event)" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask}">
+            <div onclick="enableEditSubtask(${index})" class="subtask-icon subtask-edit">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -203,7 +249,7 @@ function subTaskHTML(subtask){
                         fill="black" />
                 </svg>
             </div>
-            <div class="subtask-icon subtask-delete">
+            <div onclick="deleteSubtask(${index})" class="subtask-icon subtask-delete">
                 <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path

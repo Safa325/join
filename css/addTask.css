@@ -287,7 +287,11 @@
     border: none;
     font-size: 20px;
     border: none;
+    cursor: pointer;
+}
 
+.inputField-enabled{
+    cursor: text;
 }
 
 .addTask-inputField-sub:focus {

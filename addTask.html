@@ -134,13 +134,13 @@
 
                     <div class="addTask-input-element">
                         <label class="addTask-label" for="addTask-subtask-input">Subtask</label>
-                        <div class="addTask-inputField-subtask">
-                            <input class="addTask-inputField-sub" type="text" id="addTask-subtask-input"
+                        <div  class="addTask-inputField-subtask">
+                            <input  ondblclick="enableSubtaskInput()" readonly="true" class="addTask-inputField-sub" type="text" id="addTask-subtask-input"
                                 placeholder="Add new Subtask">
 
-                            <div id="addTask-delete-accept-container" class="addTask-delete-accept-container">
+                            <div id="addTask-delete-accept-container" class="addTask-delete-accept-container d-none">
                                 <div class="addTask-round-btn-frame">
-                                    <img onclick="toggleDropdown(event)" class="addTask-add-btn"
+                                    <img onclick="disableSubtaskInput()" class="addTask-add-btn"
                                         src="./img/icons/cancel.svg" alt="">
                                 </div>
                                 <div class="addTask-round-btn-frame">
@@ -149,8 +149,8 @@
                                 </div>
                             </div>
 
-                            <div class="addTask-round-btn-frame">
-                                <img onclick="toggleDropdown(event)" class="addTask-add-btn" src="./img/icons/add.svg"
+                            <div class="addTask-round-btn-frame" id="addTask-button-plus">
+                                <img onclick="enableSubtaskInput()" class="addTask-add-btn" src="./img/icons/add.svg"
                                     alt="">
                             </div>
                         </div>
