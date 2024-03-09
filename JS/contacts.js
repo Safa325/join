@@ -1,48 +1,127 @@
+let profileBadgeColors = [
+    '#FF7A00',
+    '#FF5EB3',
+    '#6E52FF',
+    '#9327FF',
+    '#00BEE8',
+    '#1FD7C1',
+    '#FF745E',
+    '#FFA35E',
+    '#FC71FF',
+    '#FFC701',
+    '#0038FF',
+    '#C3FF2B',
+    '#FFE62B',
+    '#FF4646',
+    '#FFBB2B',
+]
+
 let contacts = [
     {
-        'badgecolor': "#FF7A00",
-        'initials': "",
-        'name': "Pia",
-        'surname': "Nist",
-        'email': "PiaNist@mitherz.com"    
-    },
-    {
-        'badgecolor': "#FF5EB3",
-        'initials': "",
-        'name': "Rainer",
-        'surname': "Sonnenschein",
-        'email': "gutes@wetter.de"    
-    },
-    {
-        'badgecolor': "#6E52FF",
-        'initials': "",
-        'name': "Klara",
-        'surname': "Himmel",
-        'email': "bitte@sommer.com"    
-    },
-    {
-        'badgecolor': "#6E52FF",
-        'initials': "",
-        'name': "Karl",
-        'surname': "Ender",
-        'email': "Karl@ender.com"    
-    },
+        'A': [
+            {
+            'badgecolor': "#FF7A00",
+            'initials': "",
+            'name': "Alfred Neumann",
+            'email': "alfred@neumann.com",
+            'phone': "0176/1234567"
+            },
+            {
+            'badgecolor': "#FF7A00",
+            'initials': "",
+            'name': "Anna Fröhlich",
+            'email': "fröhlich@anna.com",
+            'phone': "0176/1234567"
+            },
+
+            ],
+   
+        'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [], 
+        'I': [], 'J': [], 
+        
+        'K': [
+            {
+                'badgecolor': "#6E52FF",
+                'initials': "",
+                'name': "Klara Himmel",
+                'email': "bitte@sommer.com"    
+            },
+            {
+                'badgecolor': "#6E52FF",
+                'initials': "",
+                'name': "Karl Ender",
+                'email': "Karl@ender.com"    
+            },
+        ], 
+        
+        'L': [], 'M': [], 'N': [], 'O': [], 
+        
+        'P': [
+            {
+                'badgecolor': "#FF7A00",
+                'initials': "",
+                'name': "Pia Nist",
+                'email': "PiaNist@mitherz.com"    
+            },
+        ], 
+
+        'Q': [], 
+        
+        'R': [
+            {
+                'badgecolor': "#FF5EB3",
+                'initials': "",
+                'name': "Rainer Sonnenschein",
+                'email': "gutes@wetter.de"    
+            },
+        ], 
+        
+        'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [], 
+        'Y': [], 'Z': [], 
+    }
 ];
+
+console.log('contacts ', contacts);
 
 let letters = [];
 
 function addContact() {
-    let addContact = document.getElementById('add-contact-container');
+    let inputName = document.getElementById('addcontact-input-name').value;
+    let inputEmail = document.getElementById('addcontact-input-email').value;
+    let inputPhone = document.getElementById('addcontact-input-phone').value;
 
-    addContact.innerHTML = /*HTML*/`
+    let min = 0;
+    let max = profileBadgeColors.length;
+    let indexBadge = Math.round(Math.random() * (max - min)) + min;
+    let badge = profileBadgeColors[indexBadge];
+
+    let firstletter = inputName.charAt(0);
     
-    `;
+    let string = inputName;
 
+    let names = string.split(' ');
+    let firstletters = names[0].substring(0,1).toUpperCase();
+        if (names.length > 1) {
+            firstletters += names[1].substring(0, 1).toUpperCase();
+        };
+    
+    let newContact = {
+        badgecolor: badge,
+        initials: firstletters,
+        name: inputName,
+        email: inputEmail,
+        phone: inputPhone
+    }
+
+    contacts['0'][firstletter].push(newContact);
+
+
+
+    console.log('contacts ', contacts);
 }
 
 
 //noch nicht fertig - Findungsphase Konzept
-
 
 
 function initContacts(filter) {
