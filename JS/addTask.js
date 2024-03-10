@@ -168,6 +168,7 @@ function setFilter() {
     let inputName = document.getElementById('addTask-search-assign').value;
     if (inputName.length > 0) {
         inputName = inputName.toLowerCase();
+        toggleDropdown('arrow-contacts', 'contact-dropdown-container')
     }
 
     filterArray(inputName);
@@ -260,15 +261,15 @@ function toggleContactSelection(index) {
 }
 
 
-function createTask() {
-
+function createTask(event) {
+    event.preventDefault()
     let titleField = document.getElementById('addTask-input-title');
     let descriptionField = document.getElementById('addTask-input-description');
     let dateField = document.getElementById('addTask-input-date');
     let assignedContacts = [];
     for (let index = 0; index < arrayOfFilterContact.length; index++) {
         let selection = arrayOfFilterContact[index]['selected'];
-       
+
         if (selection) {
             assignedContacts.push(arrayOfFilterContact[index])
         }
@@ -291,7 +292,7 @@ function createTask() {
 }
 
 function getAssignedContacts() {
-    
+
     console.log(myarray)
     return myarray
 }
@@ -356,9 +357,10 @@ function disableEditSubtask(index) {
 
 
 function editSubtask(event, index) {
+    event.preventDefault();
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     subtasks.splice(index, 1, input.value)
-    event.preventDefault();
+    
 }
 
 window.addEventListener('keyup', (event) => {
@@ -378,8 +380,10 @@ function indirectDisableEditSubtask() {
 }
 
 function createTaskEnter(event) {
+    
     if (event.key === 'Enter') {
         createSubtask()
+        event.preventDefault()
     }
 }
 
