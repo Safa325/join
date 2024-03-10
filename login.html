@@ -10,10 +10,10 @@
       integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
       crossorigin="anonymous"
     />
-    <title>My Projekt</title>
+    <title>Join</title>
     <link rel="stylesheet" href="./css/logIn.css" />
   </head>
-  <body onload="load()">
+  <body onload="load(),render()">
     <div class="logIn-logo">
       <img src="./img/icons/Capa 1.svg" alt="Join-Logo" />
     </div>
@@ -35,16 +35,21 @@
             <img src="./img/icons/mail.svg" alt="E-Mail" />
           </div>
         </div>
-        <div class="input-field">
-          <input
-            minlength="1"
-            type="password"
-            id="logInPassword"
-            required
-            placeholder="Password"
-          />
-          <div class="icon">
-            <img id="logInpwIcon" src="./img/icons/lock.svg" alt="Lock" />
+        <div class="loginPassword">
+          <div class="input-field" id="pwField">
+            <input
+              minlength="1"
+              type="password"
+              id="logInPassword"
+              required
+              placeholder="Password"
+            />
+            <div class="icon">
+              <img id="logInpwIcon" src="./img/icons/lock.svg" alt="Lock" />
+            </div>
+          </div>
+          <div class="login-error-pw none" id="errorMessage">
+            <p>Wrong password Ups! Try again.</p>
           </div>
         </div>
         <div class="input-checkbox" id="inputCheckbox" onclick="rememberMe()">
@@ -58,7 +63,9 @@
       </div>
       <div class="logIn-btns">
         <input class="logIn-btn" type="submit" value="Log in" />
-        <button id="guestLogIn" class="logIn-btn-guest">Guest Log in</button>
+        <button type="button" onclick="guestLogin()" class="logIn-btn-guest">
+          Guest Log in
+        </button>
       </div>
     </form>
 

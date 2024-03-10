@@ -1,30 +1,38 @@
 let rememberMeActiv = "false";
-let pwExists = "false";
-let emailExists = "false";
+let loginExists = "false";
 const loadSignUp = document.getElementById("loadSignUp");
 let loginIndex;
-let rememberMepw = "";
-let rememberMeEmail = "";
+let rememberMepw;
+let rememberMeEmail;
+const checkbox = document.getElementById("rememberMe");
 
 loadSignUp.addEventListener("click", function () {
   window.location.href = "signUp.html";
 });
 
-function rememberMe() {
-  const checkbox = document.getElementById("rememberMe");
-  if (pwInput.value.trim() !== "" && emailInput.value.trim() !== "") {
-    rememberMepw = pwInput.value.trim();
-    rememberMeEmail = emailInput.value.trim();
-    if (rememberMeActiv == "true") {
-      checkbox.src = "./img/icons/checkbox.svg";
-      rememberMeActiv = "false";
-    } else {
-      checkbox.src = "./img/icons/checkedbox.svg";
-      rememberMeActiv = "true";
-    }
-  } else {
-    alert("Please enter your user data");
+function render() {
+  fillInput();
+}
+
+function fillInput() {
+  if (rememberMeActiv == "true") {
+    pwInput.value = rememberMepw;
+    emailInput.value = rememberMeEmail;
+    checkbox.src = "./img/icons/checkbox-checked.svg";
   }
+}
+
+function rememberMe() {
+  if (rememberMeActiv == "true") {
+    checkbox.src = "./img/icons/checkbox-unchecked.svg";
+    rememberMeActiv = "false";
+    rememberMepw = "";
+    rememberMeEmail = "";
+  } else {
+    checkbox.src = "./img/icons/checkbox-checked.svg";
+    rememberMeActiv = "true";
+  }
+  save();
 }
 
 /**
@@ -56,40 +64,70 @@ pwIcon.addEventListener("click", function () {
   }
 });
 
-pwInput.addEventListener("input", function () {
-  for (let i = 0; i < userData.length; i++) {
-    const element = userData[i];
-    if (pwInput.value.trim() == element["password"]) {
-      pwExists = "true";
-      loginIndex = i;
-    } else {
-      pwExists = "false";
-      loginIndex = "";
-    }
-  }
-});
-
 const emailInput = document.getElementById("logInemail");
-
-emailInput.addEventListener("input", function () {
-  for (let i = 0; i < userData.length; i++) {
-    const element = userData[i];
-    if (emailInput.value.trim() == element["email"]) {
-      emailExists = "true";
-    } else {
-      emailExists = "false";
-    }
-  }
-});
 
 const logInForm = document.getElementById("logInForm");
 
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  if (emailExists == "true" && pwExists == "true") {
+  checkUserData();
+  hideErrorMessageLogin();
+  if (loginExists == "true") {
+    saveInputs();
     // window.location.href = "index.html";
     alert("Log in successfull");
   } else {
-    alert("user data is false");
+    errorMessageLogin();
   }
 });
+
+function checkUserData() {
+  for (let i = 0; i < userData.length; i++) {
+    const element = userData[i];
+    if (
+      emailInput.value.trim() == element["email"] &&
+      pwInput.value.trim() == element["password"]
+    ) {
+      loginExists = "true";
+      loginIndex = i;
+      break;
+    } else {
+      loginExists = "false";
+    }
+  }
+}
+
+function saveInputs() {
+  if (rememberMeActiv == "true") {
+    rememberMepw = pwInput.value.trim();
+    rememberMeEmail = emailInput.value.trim();
+  }
+  save();
+}
+
+function errorMessageLogin() {
+  let pwField = document.getElementById("pwField");
+  let errorM = document.getElementById("errorMessage");
+  if (errorM.classList.contains("none")) {
+    pwField.classList.add("loginPassword-field");
+    errorM.classList.remove("none");
+    pwInput.value = "";
+  }
+  rememberMepw = "";
+  rememberMeEmail = "";
+  save();
+}
+
+function hideErrorMessageLogin() {
+  let pwField = document.getElementById("pwField");
+  let errorM = document.getElementById("errorMessage");
+  if (pwField.classList.contains("loginPassword-field")) {
+    pwField.classList.remove("loginPassword-field");
+    errorM.classList.add("none");
+  }
+}
+
+function guestLogin() {
+  loginIndex = 0;
+  alert("guest Log in successfull");
+}

@@ -150,6 +150,27 @@ body {
   outline: none;
 }
 
+.loginPassword-field {
+  margin-bottom: 4px;
+  border-color: var(--clr-prio-red);
+}
+
+.loginPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 422px;
+  width: 100%;
+}
+
+.loginPassword p {
+  display: flex;
+  font-size: 12px;
+  color: var(--clr-prio-red);
+  margin: 0;
+}
+
 .input-checkbox {
   display: flex;
   justify-content: flex-start;
