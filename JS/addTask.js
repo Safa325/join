@@ -161,14 +161,41 @@ function toggleDropdown(id, dropdown) {
 
     let dropContainer = document.getElementById(dropdown);
     dropContainer.classList.toggle('d-none')
-
 }
+function openDropdown(id, dropdown) {
+    let element = document.getElementById(id)
+    element.classList.add('arrow-up')
+
+    let dropContainer = document.getElementById(dropdown);
+    dropContainer.classList.remove('d-none')
+}
+
+function closeDropdown(id, dropdown) {
+    let element = document.getElementById(id)
+    element.classList.remove('arrow-up')
+
+    let dropContainer = document.getElementById(dropdown);
+    dropContainer.classList.add('d-none')
+}
+
+document.addEventListener("click", function (e) {
+    let container = document.getElementById('addTask-assigned');
+    var rect = container.getBoundingClientRect();
+    let bottom = rect.bottom + 250;
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
+    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
+       closeDropdown('arrow-contacts', 'contact-dropdown-container');
+    } 
+})
 
 function setFilter() {
     let inputName = document.getElementById('addTask-search-assign').value;
+
     if (inputName.length > 0) {
+
         inputName = inputName.toLowerCase();
-        toggleDropdown('arrow-contacts', 'contact-dropdown-container')
+        openDropdown('arrow-contacts', 'contact-dropdown-container')
     }
 
     filterArray(inputName);
@@ -178,6 +205,7 @@ function setFilter() {
 
 function filterArray(input) {
     arrayOfFilterContact = [];
+
     for (let index = 0; index < arrayOfContacts.length; index++) {
 
         let name = arrayOfContacts[index]['name'];
@@ -232,11 +260,11 @@ function renderContacts() {
     container.innerHTML = '';
 
     for (let index = 0; index < arrayOfFilterContact.length; index++) {
-        let contact = arrayOfFilterContact[index];
-        let selection = contact['selected'];
+
+        let selection = arrayOfFilterContact[index]['selected'];
         let contactElementClass = selection ? 'contact-selected' : '';
         svg = contactCheckboxSvgHTML(selection)
-        html += contactHTML(contact, contactElementClass, index, svg)
+        html += contactHTML(arrayOfFilterContact[index], contactElementClass, index, svg)
     }
     container.innerHTML = html;
 };
@@ -282,6 +310,7 @@ function createTask(event) {
         'priority': priority,
         'category': category,
         'dueDate': dateField.value,
+        'status': 'todo',
         'subtasks': subtasks
     }
     tasks.push(task)
@@ -360,7 +389,7 @@ function editSubtask(event, index) {
     event.preventDefault();
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     subtasks.splice(index, 1, input.value)
-    
+
 }
 
 window.addEventListener('keyup', (event) => {
@@ -380,7 +409,7 @@ function indirectDisableEditSubtask() {
 }
 
 function createTaskEnter(event) {
-    
+
     if (event.key === 'Enter') {
         createSubtask()
         event.preventDefault()
