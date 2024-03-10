@@ -16,76 +16,50 @@ let profileBadgeColors = [
     '#FFBB2B',
 ]
 
-let contacts = [
-    {
-        'A': [
-            {
-            'badgecolor': "#FF7A00",
-            'initials': "",
-            'name': "Alfred Neumann",
-            'email': "alfred@neumann.com",
-            'phone': "0176/1234567"
-            },
-            {
-            'badgecolor': "#FF7A00",
-            'initials': "",
-            'name': "Anna Fröhlich",
-            'email': "fröhlich@anna.com",
-            'phone': "0176/1234567"
-            },
+let contacts = [];
 
-            ],
-   
-        'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [], 
-        'I': [], 'J': [], 
-        
-        'K': [
-            {
-                'badgecolor': "#6E52FF",
-                'initials': "",
-                'name': "Klara Himmel",
-                'email': "bitte@sommer.com"    
-            },
-            {
-                'badgecolor': "#6E52FF",
-                'initials': "",
-                'name': "Karl Ender",
-                'email': "Karl@ender.com"    
-            },
-        ], 
-        
-        'L': [], 'M': [], 'N': [], 'O': [], 
-        
-        'P': [
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "",
-                'name': "Pia Nist",
-                'email': "PiaNist@mitherz.com"    
-            },
-        ], 
+let registerLetters = [];
 
-        'Q': [], 
-        
-        'R': [
-            {
-                'badgecolor': "#FF5EB3",
-                'initials': "",
-                'name': "Rainer Sonnenschein",
-                'email': "gutes@wetter.de"    
-            },
-        ], 
-        
-        'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [], 
-        'Y': [], 'Z': [], 
+async function loadContacts() {
+    try {
+    contacts = JSON.parse(await getItem('contacts'));
+    } catch(e) {
+        console.warn('Could not load contacts')
     }
-];
+    getRegisterLetters();
+}
 
-console.log('contacts ', contacts);
+async function getRegisterLetters() {
+    for (let i = 0; i < contacts.length; i++) {
+        let register = contacts[i]['register'];
 
-let letters = [];
+        if (!registerLetters.includes(register)) {
+            registerLetters.push(register);
+        }
+    };
+    registerLetters.sort();
+    
+    console.log('contacts ', contacts);
+    console.log('registerLetters ', registerLetters);
+}
 
-function addContact() {
+function addNewContact() {
+    document.getElementById('add-contact-container').classList.remove('slide-out-animation');
+    document.getElementById('add-contact-container').classList.remove('d-none');
+    document.getElementById('add-contact-container').classList.add('slide-in-animation');
+}
+
+function closeAddNewContact() {
+    document.getElementById('add-contact-container').classList.remove('slide-in-animation');
+    document.getElementById('add-contact-container').classList.add('slide-out-animation');
+    setTimeout(hideOverlay, 1000);
+}
+
+function hideOverlay() {
+    document.getElementById('add-contact-container').classList.add('d-none');
+}
+
+async function createContact() {
     let inputName = document.getElementById('addcontact-input-name').value;
     let inputEmail = document.getElementById('addcontact-input-email').value;
     let inputPhone = document.getElementById('addcontact-input-phone').value;
@@ -104,73 +78,106 @@ function addContact() {
         if (names.length > 1) {
             firstletters += names[1].substring(0, 1).toUpperCase();
         };
-    
+
     let newContact = {
         badgecolor: badge,
         initials: firstletters,
+        register: firstletter,
         name: inputName,
         email: inputEmail,
         phone: inputPhone
-    }
+    };
 
-    contacts['0'][firstletter].push(newContact);
+    createContactBtn.disabled = true;
+    contacts.push(newContact);
 
+    await setItem('contacts', JSON.stringify(contacts));
 
-
-    console.log('contacts ', contacts);
+    inputName.innerHTML = ``;
+    inputEmail.innerHTML = ``;
+    inputPhone.innerHTML = ``;
+    initContacts();
 }
 
-
-//noch nicht fertig - Findungsphase Konzept
-
-
-function initContacts(filter) {
+function generateRegister() {
     let list = document.getElementById('contacts-list');
     list.innerHTML = '';
 
-    for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i]['name'];
-        let surname = contacts[i]['surname'];
-        let email = contacts[i]['email'];
-        contacts[i]['initials'] = name.charAt(0)+surname.charAt(0);
-        let initials = contacts[i]['initials'];
-        let badge = contacts[i]['badgecolor'];
-        let firstLetter = initials.charAt(0);
-
-        if (!filter || filter == firstLetter) {
-            list.innerHTML += generateContact(name, surname, email, initials, badge);
-        };
-
-        if (!letters.includes(firstLetter)) {
-            letters.push(firstLetter);
-        };
-        renderLetters();
-    };
-
-    
-}
-
-function renderLetters() {
-    let letterbox = document.getElementById('letterbox');
-    letterbox.innerHTML = '';
-
-    for (let i = 0; i < letters.length; i++) {
-        const letter = letters[i];
-        letterbox.innerHTML += `<div>${letter}</div>`;
+    for (let i = 0; i < registerLetters.length; i++) {
+        var registerLetter = registerLetters[i];
+        
+        list.innerHTML += /*HTML*/`
+        <div id="registerbox-${registerLetter}" class="d-column-flex-start">
+            <div class="registerbox">${registerLetter}</div>
+        </div>
+        `;
     }
 }
 
-function generateContact(name, surname, email, initials, badge) {
-    return `<div id="letterbox"></div>
-    <div class="person-container">
-        <div class="initials-circle" style="background-color: ${badge};">${initials}</div>
+async function initContacts() {
+    await loadContacts();
+
+    await generateRegister();
+
+    for (let i = 0; i < contacts.length; i++) {
+        let badgecolor = contacts[i]['badgecolor'];
+        let initials = contacts[i]['initials'];
+        let register = contacts[i]['register'];
+        let name = contacts[i]['name'];
+        let email = contacts[i]['email'];
+        let phone = contacts[i]['phone'];
+
+        let contactlist = document.getElementById(`registerbox-${register}`);
+        contactlist.innerHTML += generateContact(badgecolor, initials, name, email, phone, i);
+        
+    };
+}
+
+function generateContact(badgecolor, initials, name, email, phone, i) {
+    return `
+    <div class="person-container" onclick="showContactDetails(${i})">
+        <div class="initials-circle" style="background-color: ${badgecolor};">${initials}</div>
         <div class="d-column-flex-start">
             <div class="person-name">
-                <div>${name}</div>&nbsp
-                <div>${surname}</div>
+                <div>${name}</div>
             </div>
             <div class="person-email">${email}</div>
         </div>
     </div>
     `;
+}
+
+function showContactDetails(i) {
+
+    let badgecolor = contacts[i]['badgecolor'];
+        let initials = contacts[i]['initials'];
+        let register = contacts[i]['register'];
+        let name = contacts[i]['name'];
+        let email = contacts[i]['email'];
+        let phone = contacts[i]['phone'];
+
+    let details = document.getElementById('contacts-details');
+    details.innerHTML = ``;
+
+    details.innerHTML = /*HTML*/`
+    <div id="details-container" class="d-column-flex-start">
+        <div id="detail-header">
+            <div class="person-uni-badge" style="background-color: ${badgecolor};">${initials}</div>
+            <div id="name-right">
+                <span id="name">${name}</span>
+                <div id="function-container"></div>
+            </div>
+        </div>
+        <span>Contact Information</span>
+        <div id="email-detail">
+            <span>E-Mail</span>
+            <span id="email-selected-contact">${email}</span>
+        </div>
+        <div id="phone-detail">
+            <span>Phone</span>
+            <span id="phone-selected-contact">${phone}</span>
+        </div>
+    </div>
+    `;
+
 }
