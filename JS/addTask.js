@@ -15,52 +15,144 @@ let profileBadgeColors = [
     '#FF4646',
     '#FFBB2B',
 ]
+let contacts = [
+    {
+        'A': [
+            {
+                'badgecolor': "#FF7A00",
+                'initials': "AN",
+                'name': "Alfred Neumann",
+                'email': "alfred@neumann.com",
+                'phone': "0176/1234567"
+            },
+            {
+                'badgecolor': "#FF7A00",
+                'initials': "AF",
+                'name': "Anna Fröhlich",
+                'email': "fröhlich@anna.com",
+                'phone': "0176/1234567"
+            },
 
-let tempContacts = [
-    {
-        'badgecolor': "#FF7A00",
-        'initials': "PN",
-        'name': "Pia Nist",
-        'email': "PiaNist@mitherz.com"
-    },
-    {
-        'badgecolor': "#FF5EB3",
-        'initials': "RS",
-        'name': "Rainer Sonnenschein",
-        'email': "gutes@wetter.de"
-    },
-    {
-        'badgecolor': "#6E52FF",
-        'initials': "KH",
-        'name': "Klara Himmel",
-        'email': "bitte@sommer.com"
-    },
-    {
-        'badgecolor': "#6E52FF",
-        'initials': "KE",
-        'name': "Karl Ender",
-        'email': "Karl@ender.com"
-    },
-]
+        ],
 
+        'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [],
+        'I': [], 'J': [],
+
+        'K': [
+            {
+                'badgecolor': "#6E52FF",
+                'initials': "KH",
+                'name': "Klara Himmel",
+                'email': "bitte@sommer.com"
+            },
+            {
+                'badgecolor': "#6E52FF",
+                'initials': "KE",
+                'name': "Karl Ender",
+                'email': "Karl@ender.com"
+            },
+        ],
+
+        'L': [], 'M': [], 'N': [], 'O': [],
+
+        'P': [
+            {
+                'badgecolor': "#FF7A00",
+                'initials': "PN",
+                'name': "Pia Nist",
+                'email': "PiaNist@mitherz.com"
+            },
+        ],
+
+        'Q': [],
+
+        'R': [
+            {
+                'badgecolor': "#FF5EB3",
+                'initials': "RS",
+                'name': "Rainer Sonnenschein",
+                'email': "gutes@wetter.de"
+            },
+        ],
+
+        'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [],
+        'Y': [], 'Z': [],
+    }
+];
+
+// let tempContacts = [
+//     {
+//         'badgecolor': "#FF7A00",
+//         'initials': "PN",
+//         'name': "Pia Nist",
+//         'email': "PiaNist@mitherz.com"
+//     },
+//     {
+//         'badgecolor': "#FF5EB3",
+//         'initials': "RS",
+//         'name': "Rainer Sonnenschein",
+//         'email': "gutes@wetter.de"
+//     },
+//     {
+//         'badgecolor': "#6E52FF",
+//         'initials': "KH",
+//         'name': "Klara Himmel",
+//         'email': "bitte@sommer.com"
+//     },
+//     {
+//         'badgecolor': "#6E52FF",
+//         'initials': "KE",
+//         'name': "Karl Ender",
+//         'email': "Karl@ender.com"
+//     },
+// ]
+
+let arrayOfContacts = []
+let arrayOfFilterContact = []
 let tasks = [];
 let isContactSelected = [];
 let priority = 'medium';
 let category = '';
 let subtasks = [];
 
+
 function addTaskInit() {
+    generateContactArray()
+    initContactCopy()
     selectPrio(priority)
-    initSelection()
-    renderContacts()
+    renderContacts(arrayOfContacts)
     renderBadges()
     renderSubtasks()
 }
 
-function initSelection() {
-    for (let index = 0; index < tempContacts.length; index++) {
-        isContactSelected.push(false) //No selection     
+function generateContactArray() {
+    let entries = []
+    for (let i = 65; i <= 90; i++) {
+        let firstLetter = String.fromCharCode(i);
+        for (let index = 0; index < contacts.length; index++) {
+            const element = contacts[index];
+            let contactEntry = element[firstLetter]
+            if (contactEntry.length > 0) {
+                entries.push(contactEntry)
+            }
+        }
     }
+    entries.forEach(elements => {
+        elements.forEach(element => {
+            arrayOfContacts.push(element)
+        });
+    });
+}
+
+function preventEnter() {
+    return false
+}
+
+function initContactCopy() {
+    arrayOfFilterContact = [...arrayOfContacts];
+    arrayOfFilterContact.forEach(element => {
+        element.selected = false;
+    });
 }
 
 function toggleDropdown(id, dropdown) {
@@ -70,6 +162,31 @@ function toggleDropdown(id, dropdown) {
     let dropContainer = document.getElementById(dropdown);
     dropContainer.classList.toggle('d-none')
 
+}
+
+function setFilter() {
+    let inputName = document.getElementById('addTask-search-assign').value;
+    if (inputName.length > 0) {
+        inputName = inputName.toLowerCase();
+    }
+
+    filterArray(inputName);
+    renderContacts();
+}
+
+
+function filterArray(input) {
+    arrayOfFilterContact = [];
+    for (let index = 0; index < arrayOfContacts.length; index++) {
+
+        let name = arrayOfContacts[index]['name'];
+        name = name.toLowerCase()
+        let length = input.length;
+        let subString = name.substring(0, length);
+        if (subString == input) {
+            arrayOfFilterContact.push(arrayOfContacts[index])
+        }
+    }
 }
 
 
@@ -113,9 +230,9 @@ function renderContacts() {
     let svg, html = '';
     container.innerHTML = '';
 
-    for (let index = 0; index < tempContacts.length; index++) {
-        let contact = tempContacts[index];
-        let selection = isContactSelected[index];
+    for (let index = 0; index < arrayOfFilterContact.length; index++) {
+        let contact = arrayOfFilterContact[index];
+        let selection = contact['selected'];
         let contactElementClass = selection ? 'contact-selected' : '';
         svg = contactCheckboxSvgHTML(selection)
         html += contactHTML(contact, contactElementClass, index, svg)
@@ -127,32 +244,36 @@ function renderBadges() {
     let container = document.getElementById('contact-badges-container');
     let html;
     container.innerHTML, html = '';
-    for (let index = 0; index < isContactSelected.length; index++) {
-        let selection = isContactSelected[index];
+    for (let index = 0; index < arrayOfFilterContact.length; index++) {
+        let selection = arrayOfFilterContact[index]['selected'];;
         if (selection) {
-            html += badgesHTML(tempContacts[index])
+            html += badgesHTML(arrayOfFilterContact[index])
         }
     }
     container.innerHTML = html;
 }
 
 function toggleContactSelection(index) {
-    isContactSelected[index] = !isContactSelected[index];
+    arrayOfFilterContact[index]['selected'] = !arrayOfFilterContact[index]['selected'];
     renderContacts()
     renderBadges()
 }
 
+
 function createTask() {
+
     let titleField = document.getElementById('addTask-input-title');
     let descriptionField = document.getElementById('addTask-input-description');
     let dateField = document.getElementById('addTask-input-date');
     let assignedContacts = [];
-    for (let index = 0; index < isContactSelected.length; index++) {
-        let selection = isContactSelected[index];
+    for (let index = 0; index < arrayOfFilterContact.length; index++) {
+        let selection = arrayOfFilterContact[index]['selected'];
+       
         if (selection) {
-            assignedContacts.push(tempContacts[index])
+            assignedContacts.push(arrayOfFilterContact[index])
         }
     }
+
     let task = {
         'title': titleField.value,
         'description': descriptionField.value,
@@ -163,19 +284,28 @@ function createTask() {
         'subtasks': subtasks
     }
     tasks.push(task)
+    titleField.value = descriptionField.value = dateField.value = '';
+    subtasks = [];
+    renderSubtasks();
+    selectPrio(priority);
+}
+
+function getAssignedContacts() {
+    
+    console.log(myarray)
+    return myarray
 }
 
 function createSubtask() {
     let subtask = document.getElementById('addTask-subtask-input');
-    console.log('fire')
-    console.log(subtask.value)
+    console.log(subtask)
     if (subtask.value) {
         subtasks.push(subtask.value);
     }
 
     renderSubtasks();
     subtask.value = '';
-    disableSubtaskInput();
+    // disableSubtaskInput();
 }
 
 function enableSubtaskInput() {
@@ -200,7 +330,7 @@ function disableSubtaskInput() {
 function disableSubtaskInputDelayed() {
     setTimeout(() => {
         disableSubtaskInput()
-    }, 100);
+    }, 500);
 }
 
 
@@ -229,52 +359,36 @@ function editSubtask(event, index) {
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     subtasks.splice(index, 1, input.value)
     event.preventDefault();
-    // console.log(event)
-    // console.log(event.keyCode)
-
-    // if (event.keyCode === 13) {
-    //     disableEditSubtask(index)
-    // }
-
 }
 
-window.addEventListener('keyup',(event) => {   
-    console.log(event.key) 
-
-    if(event.key == 'Enter'){
+window.addEventListener('keyup', (event) => {
+    if (event.key == 'Enter') {
         indirectDisableEditSubtask();
-        // indirectCreateSubtask(); 
-        console.log('Enterkey') 
     }
-      
 });
 
-// window.addEventListener("keyup", indirectDisableEditSubtask)
-// window.addEventListener("click", indirectDisableEditSubtask)
 
 function indirectDisableEditSubtask() {
     let activeElement = this.document.activeElement;
-    // console.log(activeElement)
+
     let elements = document.querySelectorAll('.addTask-subtask-listElement')
     elements.forEach((element, index) => {
-        // if (activeElement != element) {
-            disableEditSubtask(index)
-        // }
+        disableEditSubtask(index)
     });
 }
 
 function createTaskEnter(event) {
-    if(event.key === 'Enter') {
-        createSubtask()    
+    if (event.key === 'Enter') {
+        createSubtask()
     }
 }
 
-function indirectCreateSubtask(){
+function indirectCreateSubtask() {
     let activeElement = this.document.activeElement;
     let subtask = document.getElementById('addTask-subtask-input')
     if (activeElement == subtask) {
         // disableSubtaskInputDelayed()
-        console.log('indirectCreateSubtask')
+        // console.log('indirectCreateSubtask')
         createSubtask()
     }
 }
