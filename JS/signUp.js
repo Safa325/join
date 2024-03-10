@@ -57,7 +57,7 @@ let signUpForm = document.getElementById("signUpForm");
  */
 inputCheckbox.addEventListener("mouseover", function () {
   if (checkboxAccept == "true") {
-    checkbox.src = "./img/icons/checkedbox.svg";
+    checkbox.src = "./img/icons/checkbox-checked.svg";
   }
 });
 
@@ -65,7 +65,7 @@ inputCheckbox.addEventListener("mouseover", function () {
  * Setzt das Bild des Kontrollkästchens zurück, wenn die Maus das Kontrollkästchen verlässt.
  */
 inputCheckbox.addEventListener("mouseout", function () {
-  checkbox.src = "./img/icons/checkbox.svg";
+  checkbox.src = "./img/icons/checkbox-unchecked.svg";
 });
 
 /**
@@ -75,7 +75,7 @@ function acceptCheckbox() {
   if (checkboxAccept == "true") {
     checkboxAccept = "false";
   } else {
-    checkbox.src = "./img/icons/checkedbox.svg";
+    checkbox.src = "./img/icons/checkbox-checked.svg";
     checkboxAccept = "true";
   }
 }
