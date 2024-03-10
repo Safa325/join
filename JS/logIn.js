@@ -74,8 +74,7 @@ logInForm.addEventListener("submit", function (e) {
   hideErrorMessageLogin();
   if (loginExists == "true") {
     saveInputs();
-    // window.location.href = "index.html";
-    alert("Log in successfull");
+    window.location.href = "index.html";
   } else {
     errorMessageLogin();
   }
@@ -129,5 +128,5 @@ function hideErrorMessageLogin() {
 
 function guestLogin() {
   loginIndex = 0;
-  alert("guest Log in successfull");
+  window.location.href = "index.html";
 }
