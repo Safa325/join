@@ -15,8 +15,8 @@
     <div id="content-container">
 
         <h1 class="addTask-headline">Add Task</h1>
-
-        <form id="addTask-form" onsubmit="createTask(event); return false">
+       
+        <form id="addTask-form" onsubmit="createTask(); return false;">
 
             <div class="addTask-column-wrapper">
                 <div class="addTask-column left-column">
@@ -36,7 +36,7 @@
                     <div class="addTask-input-element mb-12">
                         <label class="addTask-label" for="addTask-search-assign">Assigned To</label>
                         <div class="addTask-inputField addTask-assigned">
-                            <input class="addTask-searchField" type="text" id="addTask-search-assign"
+                            <input onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
                                 <img id="arrow-contacts"
@@ -135,7 +135,7 @@
                     <div class="addTask-input-element">
                         <label class="addTask-label" for="addTask-subtask-input">Subtask</label>
                         <div ondblclick="enableSubtaskInput()" class="addTask-inputField-subtask">
-                            <input onkeydown="createTaskEnter(event)" onblur="disableSubtaskInputDelayed()" readonly="true" class="addTask-inputField-sub"
+                            <input onkeydown="createTaskEnter(event)"  readonly="true" class="addTask-inputField-sub"
                                 type="text" id="addTask-subtask-input" placeholder="Add new Subtask">
 
                             <div id="addTask-delete-accept-container" class="addTask-delete-accept-container d-none">
