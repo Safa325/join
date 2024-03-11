@@ -363,18 +363,16 @@ footer {
     height: 56px;
   }
 
+  .border-bottom {
+    width: 88px;
+  }
+
   .signUp-btn {
     width: 180px;
   }
 }
 
 @media (max-width: 330px) {
-  .closeSignUp {
-    position: absolute;
-    top: 32px;
-    left: 16px;
-  }
-
   .signUp {
     margin: 0 8px;
   }

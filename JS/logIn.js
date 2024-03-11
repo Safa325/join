@@ -130,3 +130,29 @@ function guestLogin() {
   loginIndex = 0;
   window.location.href = "index.html";
 }
+
+function logoAnimation() {
+  return /*html*/ `<div class="logoAnimation" id='animationLogo'>
+  <div class="animation-body" id=signUpSuccess>
+    <img src="./img/icons/Capa 1.svg" alt="Logo">
+  </div>
+</div>`;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (!sessionStorage.getItem("animationPlayed")) {
+    document.body.insertAdjacentHTML("beforeend", logoAnimation());
+    sessionStorage.setItem("animationPlayed", true);
+    setTimeout(function () {
+      document.getElementById("logInLogo").style.display = "flex";
+    }, 1500);
+    setTimeout(function () {
+      let logo = document.getElementById("animationLogo");
+      if (logo) {
+        logo.remove();
+      }
+    }, 1600);
+  } else {
+    document.getElementById("logInLogo").style.display = "flex";
+  }
+});

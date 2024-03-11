@@ -57,7 +57,7 @@ body {
   position: absolute;
   top: 80px;
   left: 77px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   height: 122px;
@@ -191,7 +191,6 @@ body {
 
 .input-checkbox img:hover {
   background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -283,4 +282,149 @@ footer {
 
 .none {
   display: none;
+}
+
+@keyframes fade-out {
+  0% {
+    background-color: var(--clr-background-boton);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.logoAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: transparent;
+  animation: fade-out 1.5s ease forwards;
+}
+
+@keyframes slide-topLeft {
+  0% {
+    top: 35%;
+    left: 35%;
+    transform: translateY(0);
+    transform: translateX(0);
+    visibility: hidden;
+  }
+  50% {
+    visibility: visible;
+  }
+  /* ab width: 680px */
+  100% {
+    visibility: visible;
+    top: -26px;
+    left: -10px;
+    transform: translateY(-100%);
+    transform: translatex(-100%);
+    transform: scale(0.365);
+  }
+}
+
+.animation-body {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 334.07px;
+  width: 274px;
+  animation: slide-topLeft 1.5s ease forwards;
+}
+
+.animation-body img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 680px) {
+  .logIn-logo {
+    top: 37px;
+    left: 38px;
+    width: 64px;
+    height: 78.03px;
+  }
+
+  .logIn {
+    position: absolute;
+    height: 515px;
+    width: calc(100% - 32px);
+    top: 165.5px;
+    left: 0;
+    right: 0;
+    margin: 0 16px;
+    padding: 32px 8px;
+  }
+
+  .logIn h1 {
+    font-size: 47px;
+    width: 139px;
+    height: 56px;
+    margin-top: 32px;
+  }
+
+  .border-bottom {
+    width: 88px;
+  }
+
+  .input-checkbox {
+    max-width: 422px;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .logIn-btns {
+    flex-direction: column;
+  }
+
+  .logIn-btn {
+    width: 180px;
+  }
+
+  .logIn-btn-guest {
+    margin: 0;
+    margin: 22px 0 32px;
+  }
+
+  .notUser {
+    width: 292px;
+    height: 49px;
+    font-size: 20px;
+    font-weight: 400;
+    top: 778px;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  @keyframes slide-topLeft {
+    0% {
+      top: 35%;
+      left: 35%;
+      transform: translateY(0);
+      transform: translateX(0);
+      visibility: hidden;
+    }
+    50% {
+      visibility: visible;
+    }
+    /* bis width: 680px */
+    100% {
+      visibility: visible;
+      top: -91px;
+      left: -67px;
+      transform: translateY(-100%);
+      transform: translatex(-100%);
+      transform: scale(0.233);
+    }
+  }
 }
