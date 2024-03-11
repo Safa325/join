@@ -1,0 +1,14 @@
+@import url(general.css);
+
+#content-container {
+    margin: 64px;
+}
+
+.board-headline {
+    margin-block: 0;
+}
+
+.board-headline-menu{
+    display: flex;
+    align-items: center;
+}

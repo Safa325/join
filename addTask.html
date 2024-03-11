@@ -38,7 +38,7 @@
                     <div  class="addTask-input-element mb-12">
                         <label class="addTask-label" for="addTask-search-assign">Assigned To</label>
                         <div id="addTask-assigned" class="addTask-inputField addTask-assigned">
-                            <input  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
+                            <input onblur="clearOutlineBlue('addTask-assigned')" onfocus="setOutlineBlue('addTask-assigned')"  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
                                 <img id="arrow-contacts"

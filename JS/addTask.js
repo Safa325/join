@@ -211,7 +211,7 @@ function createTask(event) {
     titleField.value = descriptionField.value = dateField.value = '';
     subtasks = [];
     renderSubtasks();
-    selectPrio(priority);
+    selectPrio('medium');
 }
 
 function createSubtask() {
@@ -219,7 +219,6 @@ function createSubtask() {
     if (subtask.value) {
         subtasks.push(subtask.value);
     }
-
     renderSubtasks();
     subtask.value = '';
     disableSubtaskInput();
@@ -351,10 +350,14 @@ function addPseudo(index) {
 
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     input.readOnly = true;
-
 }
 
-
+function setOutlineBlue(id){
+    document.getElementById(id).classList.add('blue-outline')
+}
+function clearOutlineBlue(id){
+    document.getElementById(id).classList.remove('blue-outline')
+}
 
 function subTaskHTML(subtask, index) {
     return /*html*/`
