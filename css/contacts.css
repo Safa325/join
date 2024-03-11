@@ -307,3 +307,33 @@ body{
     font-size: 20px;
     font-weight: 400;
 }
+
+.details-container {
+    margin-left: 55px;
+    margin-top: 39px;
+
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+}
+
+.name-right {
+    font-size: 47px;
+    font-weight: 500;
+    height: 88px;
+}
+
+.function-container{
+    display: flex;
+}
+
+.edit-delete-btn {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--clr-dark-gray);
+    gap: 8px;
+}
