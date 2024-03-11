@@ -64,6 +64,14 @@ function closeDropdown() {
     dropContainer.classList.add('d-none')
 }
 
+function toggleCategoryDropdown(){
+    let element = document.getElementById('arrow-category')
+    element.classList.toggle('arrow-up')
+
+    let dropContainer = document.getElementById('category-dropdown-container');
+    dropContainer.classList.toggle('d-none')
+}
+
 document.addEventListener("click", function (e) {
     let container = document.getElementById('addTask-assigned');
     var rect = container.getBoundingClientRect();
@@ -136,7 +144,7 @@ function selectCategory(event) {
     }
     inputField.value = text;
     category = text;
-    toggleDropdown()
+    toggleCategoryDropdown()
 
 }
 
@@ -199,22 +207,15 @@ function createTask(event) {
         'status': 'todo',
         'subtasks': subtasks
     }
-    tasks.push(task)
+    userData[userIndex]['tasks'].push(task);
     titleField.value = descriptionField.value = dateField.value = '';
     subtasks = [];
     renderSubtasks();
     selectPrio(priority);
 }
 
-function getAssignedContacts() {
-
-    console.log(myarray)
-    return myarray
-}
-
 function createSubtask() {
     let subtask = document.getElementById('addTask-subtask-input');
-    console.log(subtask)
     if (subtask.value) {
         subtasks.push(subtask.value);
     }
