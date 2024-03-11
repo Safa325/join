@@ -10,14 +10,17 @@ let userData = [
 
 function save() {
   let userDatas = JSON.stringify(userData);
-  let rememberMeActivS = JSON.stringify(rememberMeActiv);
-  let rememberMeEmailS = JSON.stringify(rememberMeEmail);
-  let rememberMepwS = JSON.stringify(rememberMepw);
+  if (typeof rememberMeActiv !== "undefined") {
+    let rememberMeActivS = JSON.stringify(rememberMeActiv);
+    let rememberMeEmailS = JSON.stringify(rememberMeEmail);
+    let rememberMepwS = JSON.stringify(rememberMepw);
+
+    localStorage.setItem("rememberMeActiv", rememberMeActivS);
+    localStorage.setItem("rememberMeEmail", rememberMeEmailS);
+    localStorage.setItem("rememberMePw", rememberMepwS);
+  }
 
   localStorage.setItem("userData", userDatas);
-  localStorage.setItem("rememberMeActiv", rememberMeActivS);
-  localStorage.setItem("rememberMeEmail", rememberMeEmailS);
-  localStorage.setItem("rememberMePw", rememberMepwS);
 }
 
 function load() {
