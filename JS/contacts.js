@@ -1,17 +1,22 @@
+async function initContacts() {
+    await getUserData();
+    console.log('userData vom Server. Onload initialisiert ', userData);
 
-let registerLetters = [];
-
-async function getRegisterLetters() {
     let userContacts = userData[userIndex]['contacts'];
 
-    for (let i = 0; i < userContacts.length; i++) {
-        let register = userContacts[i]['register'];
+    await generateRegister();
 
-        if (!registerLetters.includes(register)) {
-            registerLetters.push(register);
-        }
+    for (let i = 0; i < userContacts.length; i++) {
+        let badgecolor = userContacts[i]['badgecolor'];
+        let initials = userContacts[i]['initials'];
+        let register = userContacts[i]['register'];
+        let name = userContacts[i]['name'];
+        let email = userContacts[i]['email'];
+        let phone = userContacts[i]['phone'];
+
+        let contactlist = document.getElementById(`registerbox-${register}`);
+        contactlist.innerHTML += generateContact(badgecolor, initials, name, email, phone, i);   
     };
-    registerLetters.sort();
 }
 
 function addNewContact() {
@@ -30,7 +35,62 @@ function hideOverlay() {
     document.getElementById('add-contact-container').classList.add('d-none');
 }
 
+let registerLetters = [];
 
+async function getRegisterLetters() {
+    let userContacts = userData[userIndex]['contacts'];
+
+    for (let i = 0; i < userContacts.length; i++) {
+        let register = userContacts[i]['register'];
+
+        if (!registerLetters.includes(register)) {
+            registerLetters.push(register);
+        }
+    };
+    registerLetters.sort();
+}
+
+async function createContact() {
+    let inputName = document.getElementById('addcontact-input-name').value;
+    let inputEmail = document.getElementById('addcontact-input-email').value;
+    let inputPhone = document.getElementById('addcontact-input-phone').value;
+
+    //Badgecolor random zuweisen
+    let min = 0;
+    let max = profileBadgeColors.length;
+    let indexBadge = Math.round(Math.random() * (max - min)) + min;
+    let badge = profileBadgeColors[indexBadge];
+
+    let firstletter = inputName.charAt(0);
+    
+    let string = inputName;
+
+    let names = string.split(' ');
+    let firstletters = names[0].substring(0,1).toUpperCase();
+        if (names.length > 1) {
+            firstletters += names[1].substring(0, 1).toUpperCase();
+        };
+
+    let newContact =
+        {
+        badgecolor: badge,
+        initials: firstletters,
+        register: firstletter,
+        name: inputName,
+        email: inputEmail,
+        phone: inputPhone
+    };
+    
+    userData[userIndex]['contacts'].push(newContact);
+
+    await setItem('userData', JSON.stringify(userData));
+
+    clearAddContactForm();
+
+    await initContacts();
+
+    closeAddNewContact();
+}
 
 function generateRegister() {
     getRegisterLetters();
@@ -48,28 +108,6 @@ function generateRegister() {
     }
 }
 
-async function initContacts() {
-    await getUserData();
-    console.log('userData vom Server. Onload initialisiert ', userData);
-
-    let userContacts = userData[userIndex]['contacts'];
-
-    await generateRegister();
-
-    for (let i = 0; i < userContacts.length; i++) {
-        let badgecolor = userContacts[i]['badgecolor'];
-        let initials = userContacts[i]['initials'];
-        let register = userContacts[i]['register'];
-        let name = userContacts[i]['name'];
-        let email = userContacts[i]['email'];
-        let phone = userContacts[i]['phone'];
-
-        let contactlist = document.getElementById(`registerbox-${register}`);
-        contactlist.innerHTML += generateContact(badgecolor, initials, name, email, phone, i);
-        
-    };
-}
-
 function generateContact(badgecolor, initials, name, email, phone, i) {
     return `
     <div class="person-container" onclick="showContactDetails(${i})">
@@ -82,6 +120,12 @@ function generateContact(badgecolor, initials, name, email, phone, i) {
         </div>
     </div>
     `;
+}
+
+function clearAddContactForm() {
+    document.getElementById('addcontact-input-name').innerHTML = '';
+    document.getElementById('addcontact-input-email').innerHTML = '';
+    document.getElementById('addcontact-input-phone').innerHTML = '';
 }
 
 function showContactDetails(i) {

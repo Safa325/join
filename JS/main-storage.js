@@ -26,29 +26,34 @@ let userData = [];                          //userData ALLER User
 let userIndex = 0;                          //dieser Index variabel je nach aktiven User. 0 = Guest
 
 
-//3. USERDATA anlegen (set) und/oder abrufen (get)!
+//3. USERDATA anlegen (set) und/oder abrufen (get)! ...und die UserData löschen!
 
 async function setUserData() {
-    let userName = 'guest';             //hier den sign up inuserput Name einfügen
+    let userName = 'guest';             //hier den sign up input Name einfügen
     let userEmail = 'guest@guest.com';  //hier den sign up input E-Mail einfügen
     let userPassword = 'guest';         //hier den sign up input Passwort oder bestätigtes Passwort einfügen
 
 
-    let newUser = {
+    let newUser =
+        {
         name: userName,
         email: userEmail,
         password: userPassword,
         contacts: [],
         tasks: [],
     }
+    ;
     //Abfrage, ob User bereits angelegt -> habe ich bisher nicht hinbekommen. Es wurde immer Alert geschmissen:
 
-    /* if(userData['email'] == !userEmail) { */
     userData.push(newUser);
     await setItem('userData', JSON.stringify(userData));
-    /* } else {
+
+    /* if(userData[userIndex]['email'] == !userEmail) {
+    userData.push(newUser);
+    await setItem('userData', JSON.stringify(userData));
+    } else {
         alert('There is already a user with this email address.')
-    } */
+    }; */
 }
 
 async function getUserData() {
@@ -57,15 +62,6 @@ async function getUserData() {
         } catch(e) {
             console.warn('Could not load User')
         };
-        getUserContacts();
-}
-
-async function getUserContacts() {
-    try {
-        userContacts = JSON.parse(await getItem('contacts'));
-        } catch(e) {
-            console.warn('Could not load contacts')
-        };
 }
 
 //löscht die gesamten Userdata!!!
@@ -73,50 +69,3 @@ async function deleteAllUserData() {
     userData = [];
     await setItem('userData', JSON.stringify(userData));
 }
-
-//4.1 CONTACTS am User speichern!
-
-//funktioniert noch nicht richtig!
-
-async function createContact() {
-    let inputName = document.getElementById('addcontact-input-name').value;
-    let inputEmail = document.getElementById('addcontact-input-email').value;
-    let inputPhone = document.getElementById('addcontact-input-phone').value;
-
-    //Badgecolor random zuweisen
-    let min = 0;
-    let max = profileBadgeColors.length;
-    let indexBadge = Math.round(Math.random() * (max - min)) + min;
-    let badge = profileBadgeColors[indexBadge];
-
-    let firstletter = inputName.charAt(0);
-    
-    let string = inputName;
-
-    let names = string.split(' ');
-    let firstletters = names[0].substring(0,1).toUpperCase();
-        if (names.length > 1) {
-            firstletters += names[1].substring(0, 1).toUpperCase();
-        };
-
-    let newContact = {
-        badgecolor: badge,
-        initials: firstletters,
-        register: firstletter,
-        name: inputName,
-        email: inputEmail,
-        phone: inputPhone
-    };
-
-    userData[userIndex]['contacts'].push(newContact);
-
-    await setItem('contacts', JSON.stringify(userData[userIndex]['contacts']));
-
-    inputName.innerHTML = ``;
-    inputEmail.innerHTML = ``;
-    inputPhone.innerHTML = ``;
-    await initContacts();
-    closeAddNewContact();
-}
-
-//4.2 TASKS am User speichern!
