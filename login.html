@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <title>Join</title>
+    <link rel="stylesheet" href="./css/logIn.css" />
+  </head>
+  <body onload="load(),render()">
+    <div class="logIn-logo" id="logInLogo">
+      <img src="./img/icons/Capa 1.svg" alt="Join-Logo" />
+    </div>
+    <div class="notUser">
+      <p>Not a Join user?</p>
+      <button id="loadSignUp">Sign up</button>
+    </div>
+    <form class="logIn" id="logInForm">
+      <div class="logInHeader">
+        <h1>
+          Log in
+          <div class="border-bottom"></div>
+        </h1>
+      </div>
+      <div class="input-layout">
+        <div class="input-field">
+          <input type="email" id="logInemail" required placeholder="Email" />
+          <div class="icon">
+            <img src="./img/icons/mail.svg" alt="E-Mail" />
+          </div>
+        </div>
+        <div class="loginPassword">
+          <div class="input-field" id="pwField">
+            <input
+              minlength="1"
+              type="password"
+              id="logInPassword"
+              required
+              placeholder="Password"
+            />
+            <div class="icon">
+              <img id="logInpwIcon" src="./img/icons/lock.svg" alt="Lock" />
+            </div>
+          </div>
+          <div class="login-error-pw none" id="errorMessage">
+            <p>Wrong password Ups! Try again.</p>
+          </div>
+        </div>
+        <div class="input-checkbox" id="inputCheckbox" onclick="rememberMe()">
+          <img
+            src="./img/icons/checkbox-unchecked.svg"
+            alt="Checkbox"
+            id="rememberMe"
+          />
+          <p>Remember me</p>
+        </div>
+      </div>
+      <div class="logIn-btns">
+        <input class="logIn-btn" type="submit" value="Log in" />
+        <button type="button" onclick="guestLogin()" class="logIn-btn-guest">
+          Guest Log in
+        </button>
+      </div>
+    </form>
+
+    <footer>
+      <div class="dataProtection">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Legal notice</a>
+      </div>
+    </footer>
+    <script src="./JS/logIn.js"></script>
+    <script src="./JS/storagS.js"></script>
+  </body>
+</html>
