@@ -305,7 +305,7 @@ footer {
   height: 100vh;
   width: 100vw;
   background-color: transparent;
-  animation: fade-out 1.5s ease forwards;
+  animation: fade-out 1.2s ease forwards;
 }
 
 @keyframes slide-topLeft {
@@ -337,7 +337,7 @@ footer {
   align-items: center;
   height: 334.07px;
   width: 274px;
-  animation: slide-topLeft 1.5s ease forwards;
+  animation: slide-topLeft 1.2s ease forwards;
 }
 
 .animation-body img {
@@ -408,8 +408,8 @@ footer {
 
   @keyframes slide-topLeft {
     0% {
-      top: 35%;
-      left: 35%;
+      top: 25%;
+      left: 20%;
       transform: translateY(0);
       transform: translateX(0);
       visibility: hidden;
