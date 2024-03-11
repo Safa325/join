@@ -91,9 +91,15 @@ body{
     padding: 15px 24px 15px 24px;
 }
 
-.person-container:hover {
+.element-active {
+    background-color: var(--clr-sidebar-hover);
+}
+
+.person-container:hover:not(.element-active) {
     background-color: var(--clr-bg);
 }
+
+
 
 .initials-circle {
     width: 42px;

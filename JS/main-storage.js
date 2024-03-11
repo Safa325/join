@@ -1,6 +1,3 @@
-// INFORMATION: Funktion getUserData() gibt uns 
-
-
 //1. STORAGE Funktionen und Konstanten deklarieren!
 
 const STORAGE_TOKEN = '9S1H4HWTZGHLKS4NMCOP04FRPPUG3BPBWN1B6HFV';
@@ -21,7 +18,41 @@ async function getItem(key) {
 //2. ARRAYS!
 let profileBadgeColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',];
 
-let userData = [];                          //userData ALLER User
+let userData = [
+    {
+        name: 'Bill Gates',
+        email: 'billy-g@apple.com',
+        password: '12345678',
+        contacts: [
+            {
+                badgecolor: '#FF7A00',
+                initials: 'CG',
+                register: 'C',
+                name: 'Claire Grube',
+                email: 'cgrube@mail.de',
+                phone: '+49 40 276 5436'
+            },
+            {
+                badgecolor: '#FF5EB3',
+                initials: 'VP',
+                register: 'V',
+                name: 'Volker Putt',
+                email: 'volkerputt@yahoo.com',
+                phone: '+49 30 2589963'
+            },
+            {
+                badgecolor: '#6E52FF',
+                initials: 'ME',
+                register: 'M',
+                name: 'Mister Ed',
+                email: 'ed@add.at',
+                phone: '+43 77 94836'
+            },
+        
+        ],
+        tasks: [],
+    }
+];                          //userData ALLER User
 
 let userIndex = 0;                          //dieser Index variabel je nach aktiven User. 0 = Guest
 

@@ -56,7 +56,7 @@ function renderListOfContacts() {
 function openAddNewContact() {
     document.getElementById('add-contact-container').classList.remove('slide-out-animation');
     document.getElementById('add-contact-container').classList.remove('d-none');
-    document.getElementById('add-contact-container').classList.add('slide-in-animation');
+    document.getElementById('add-contact-container').classList.add('slide-in-animation');    
 }
 
 function closeAddNewContact() {
@@ -113,7 +113,7 @@ async function setNewContact(newContact) {
 
 function generateContact(badgecolor, initials, name, email, phone, i) {
     return `
-    <div class="person-container" onclick="showContactDetails(${i})">
+    <div name="test" id="person-container-${i}" class="person-container" onclick="showContactDetails(${i})">
         <div class="initials-circle" style="background-color: ${badgecolor};">${initials}</div>
         <div class="d-column-flex-start">
             <div class="person-name">
@@ -131,8 +131,21 @@ function clearAddContactForm() {
     document.getElementById('addcontact-input-phone').innerHTML = '';
 }
 
+function setHighlight(i) {
+    document.getElementById(`person-container-${i}`).classList.add('element-active');
+}
+
+function removeHighlight() {
+    let containers = document.querySelectorAll('.person-container');
+    containers.forEach(element => {
+    element.classList.remove('element-active')})
+}
+
 function showContactDetails(i) {
+
     let userContacts = userData[userIndex]['contacts'];
+    removeHighlight();
+    setHighlight(i);
 
     let badgecolor = userContacts[i]['badgecolor'];
         let initials = userContacts[i]['initials'];
@@ -144,7 +157,6 @@ function showContactDetails(i) {
     details.innerHTML = ``;
 
     details.innerHTML = renderContactDetailsHTML(badgecolor, initials, name, email, phone);
-
 }
 
 function renderContactDetailsHTML(badgecolor, initials, name, email, phone) {
