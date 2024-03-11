@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/addTask.css">
-    <title>Document</title>
+    <script src="./JS/main-storage.js"></script>
+    <script src="./JS/addTask.js"></script>
+    <title>Add Task</title>
 </head>
 
-<body onload="addTaskInit()">
+<body onload="addTaskInit();">
 
 
 
@@ -40,7 +42,7 @@
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
                                 <img id="arrow-contacts"
-                                    onclick="toggleDropdown('arrow-contacts', 'contact-dropdown-container')"
+                                    onclick="toggleDropdown()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container contacts d-none" id="contact-dropdown-container">
@@ -193,7 +195,7 @@
     </div>
 
 
-    <script src="./JS/addTask.js"></script>
+   
 </body>
 
 </html>
