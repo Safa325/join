@@ -1,46 +1,17 @@
-let profileBadgeColors = [
-    '#FF7A00',
-    '#FF5EB3',
-    '#6E52FF',
-    '#9327FF',
-    '#00BEE8',
-    '#1FD7C1',
-    '#FF745E',
-    '#FFA35E',
-    '#FC71FF',
-    '#FFC701',
-    '#0038FF',
-    '#C3FF2B',
-    '#FFE62B',
-    '#FF4646',
-    '#FFBB2B',
-]
-
-let contacts = [];
 
 let registerLetters = [];
 
-async function loadContacts() {
-    try {
-    contacts = JSON.parse(await getItem('contacts'));
-    } catch(e) {
-        console.warn('Could not load contacts')
-    }
-    getRegisterLetters();
-}
-
 async function getRegisterLetters() {
-    for (let i = 0; i < contacts.length; i++) {
-        let register = contacts[i]['register'];
+    let userContacts = userData[userIndex]['contacts'];
+
+    for (let i = 0; i < userContacts.length; i++) {
+        let register = userContacts[i]['register'];
 
         if (!registerLetters.includes(register)) {
             registerLetters.push(register);
         }
     };
     registerLetters.sort();
-    
-    console.log('contacts ', contacts);
-    console.log('registerLetters ', registerLetters);
 }
 
 function addNewContact() {
@@ -59,47 +30,10 @@ function hideOverlay() {
     document.getElementById('add-contact-container').classList.add('d-none');
 }
 
-async function createContact() {
-    let inputName = document.getElementById('addcontact-input-name').value;
-    let inputEmail = document.getElementById('addcontact-input-email').value;
-    let inputPhone = document.getElementById('addcontact-input-phone').value;
 
-    let min = 0;
-    let max = profileBadgeColors.length;
-    let indexBadge = Math.round(Math.random() * (max - min)) + min;
-    let badge = profileBadgeColors[indexBadge];
-
-    let firstletter = inputName.charAt(0);
-    
-    let string = inputName;
-
-    let names = string.split(' ');
-    let firstletters = names[0].substring(0,1).toUpperCase();
-        if (names.length > 1) {
-            firstletters += names[1].substring(0, 1).toUpperCase();
-        };
-
-    let newContact = {
-        badgecolor: badge,
-        initials: firstletters,
-        register: firstletter,
-        name: inputName,
-        email: inputEmail,
-        phone: inputPhone
-    };
-
-    createContactBtn.disabled = true;
-    contacts.push(newContact);
-
-    await setItem('contacts', JSON.stringify(contacts));
-
-    inputName.innerHTML = ``;
-    inputEmail.innerHTML = ``;
-    inputPhone.innerHTML = ``;
-    initContacts();
-}
 
 function generateRegister() {
+    getRegisterLetters();
     let list = document.getElementById('contacts-list');
     list.innerHTML = '';
 
@@ -115,17 +49,20 @@ function generateRegister() {
 }
 
 async function initContacts() {
-    await loadContacts();
+    await getUserData();
+    console.log('userData vom Server. Onload initialisiert ', userData);
+
+    let userContacts = userData[userIndex]['contacts'];
 
     await generateRegister();
 
-    for (let i = 0; i < contacts.length; i++) {
-        let badgecolor = contacts[i]['badgecolor'];
-        let initials = contacts[i]['initials'];
-        let register = contacts[i]['register'];
-        let name = contacts[i]['name'];
-        let email = contacts[i]['email'];
-        let phone = contacts[i]['phone'];
+    for (let i = 0; i < userContacts.length; i++) {
+        let badgecolor = userContacts[i]['badgecolor'];
+        let initials = userContacts[i]['initials'];
+        let register = userContacts[i]['register'];
+        let name = userContacts[i]['name'];
+        let email = userContacts[i]['email'];
+        let phone = userContacts[i]['phone'];
 
         let contactlist = document.getElementById(`registerbox-${register}`);
         contactlist.innerHTML += generateContact(badgecolor, initials, name, email, phone, i);
@@ -148,13 +85,14 @@ function generateContact(badgecolor, initials, name, email, phone, i) {
 }
 
 function showContactDetails(i) {
+    let userContacts = userData[userIndex]['contacts'];
 
-    let badgecolor = contacts[i]['badgecolor'];
-        let initials = contacts[i]['initials'];
-        let register = contacts[i]['register'];
-        let name = contacts[i]['name'];
-        let email = contacts[i]['email'];
-        let phone = contacts[i]['phone'];
+    let badgecolor = userContacts[i]['badgecolor'];
+        let initials = userContacts[i]['initials'];
+        let register = userContacts[i]['register'];
+        let name = userContacts[i]['name'];
+        let email = userContacts[i]['email'];
+        let phone = userContacts[i]['phone'];
 
     let details = document.getElementById('contacts-details');
     details.innerHTML = ``;
