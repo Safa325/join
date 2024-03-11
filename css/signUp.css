@@ -10,7 +10,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0;
   background-color: var(--clr-background-boton);
 }
@@ -32,20 +32,27 @@ body {
   object-fit: cover;
 }
 
+/* .signUp-container {
+  display: flex;
+  justify-content: center;
+} */
+
 .signUp {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 598px;
+  min-width: 300px;
   width: 100%;
   max-height: 630px;
+  min-height: 595px;
   height: 100%;
   padding: 48px 88px;
   border-radius: 30px;
-  gap: 32px;
   background-color: #ffffff;
   box-shadow: var(--box-shadow);
+  gap: 32px;
 }
 
 .signUpHeader {
@@ -55,7 +62,7 @@ body {
 .closeSignUp {
   position: relative;
   top: 8px;
-  left: -80px;
+  left: -120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,8 +96,8 @@ body {
   font-size: 61px;
   font-weight: 700;
   height: 89px;
-  width: 315px;
   max-width: 315px;
+  width: 100%;
   text-align: center;
   margin: 0;
 }
@@ -180,7 +187,6 @@ body {
 
 .input-checkbox img:hover {
   background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -317,4 +323,59 @@ footer {
 
 .none {
   display: none;
+}
+
+@media (max-width: 1000px) {
+  .signUp-logo {
+    top: 37px;
+    left: 38px;
+    width: 64px;
+    height: 78.03px;
+  }
+}
+
+@media (max-width: 680px) {
+  .signUp-logo {
+    width: 64px;
+    height: 78.03px;
+  }
+
+  .closeSignUp {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+  }
+
+  .signUp {
+    position: absolute;
+    height: 595px;
+    width: calc(100% - 32px);
+    top: 165.5px;
+    left: 0;
+    right: 0;
+    margin: 0 16px;
+    padding: 32px 8px;
+  }
+
+  .signUp h1 {
+    font-size: 47px;
+    width: 173px;
+    height: 56px;
+  }
+
+  .signUp-btn {
+    width: 180px;
+  }
+}
+
+@media (max-width: 330px) {
+  .closeSignUp {
+    position: absolute;
+    top: 32px;
+    left: 16px;
+  }
+
+  .signUp {
+    margin: 0 8px;
+  }
 }
