@@ -16,7 +16,7 @@
 
         <h1 class="addTask-headline">Add Task</h1>
        
-        <form id="addTask-form" onsubmit="createTask(); return false;">
+        <form id="addTask-form" onsubmit="createTask(event); return false;">
 
             <div class="addTask-column-wrapper">
                 <div class="addTask-column left-column">
@@ -33,10 +33,10 @@
 
                     <!-- Contacts -->
 
-                    <div class="addTask-input-element mb-12">
+                    <div  class="addTask-input-element mb-12">
                         <label class="addTask-label" for="addTask-search-assign">Assigned To</label>
-                        <div class="addTask-inputField addTask-assigned">
-                            <input onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
+                        <div id="addTask-assigned" class="addTask-inputField addTask-assigned">
+                            <input  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
                                 <img id="arrow-contacts"
