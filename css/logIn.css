@@ -287,6 +287,7 @@ footer {
 @keyframes fade-out {
   0% {
     background-color: var(--clr-background-boton);
+    animation-delay: 1s;
   }
   100% {
     background-color: transparent;
@@ -304,8 +305,7 @@ footer {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: transparent;
-  animation: fade-out 1.2s ease forwards;
+  background-color: var(--clr-background-boton);
 }
 
 @keyframes slide-topLeft {
@@ -314,7 +314,8 @@ footer {
     left: 35%;
     transform: translateY(0);
     transform: translateX(0);
-    visibility: hidden;
+    visibility: visible;
+    animation-delay: 1s;
   }
   50% {
     visibility: visible;
@@ -337,7 +338,7 @@ footer {
   align-items: center;
   height: 334.07px;
   width: 274px;
-  animation: slide-topLeft 1.2s ease forwards;
+  /* animation: slide-topLeft 2.2s ease forwards; */
 }
 
 .animation-body img {
@@ -406,6 +407,10 @@ footer {
     margin: auto;
   }
 
+  .logoAnimation {
+    background-color: var(--clr-dark-gray);
+  }
+
   @keyframes slide-topLeft {
     0% {
       top: 25%;
@@ -425,6 +430,15 @@ footer {
       transform: translateY(-100%);
       transform: translatex(-100%);
       transform: scale(0.233);
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      background-color: var(--clr-dark-gray);
+    }
+    100% {
+      background-color: transparent;
     }
   }
 }

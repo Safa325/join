@@ -132,17 +132,40 @@ function guestLogin() {
 }
 
 function logoAnimation() {
-  return /*html*/ `<div class="logoAnimation" id='animationLogo'>
-  <div class="animation-body" id=signUpSuccess>
-    <img src="./img/icons/Capa 1.svg" alt="Logo">
+  return /*html*/ `<div class="logoAnimation" id="animationLogo1">
+  <div class="animation-body" id="animationLogo">
+    <img id="logInLogo1" src="./img/icons/Capa 1.svg" alt="Logo">
   </div>
 </div>`;
+}
+
+function checkWidth() {
+  const img = document.getElementById("logInLogo1");
+  if (window.innerWidth <= 680) {
+    img.src = "./img/join_logo.svg";
+    setTimeout(function () {
+      img.src = "./img/icons/Capa 1.svg";
+    }, 1000);
+  } else {
+    img.src = "./img/icons/Capa 1.svg";
+  }
+}
+
+function addAnimation() {
+  setTimeout(function () {
+    document.getElementById("animationLogo").style.animation =
+      "slide-topLeft 1.2s ease forwards";
+    document.getElementById("animationLogo1").style.animation =
+      "fade-out 1.2s ease forwards";
+  }, 200);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   if (!sessionStorage.getItem("animationPlayed")) {
     document.body.insertAdjacentHTML("beforeend", logoAnimation());
+    checkWidth();
     sessionStorage.setItem("animationPlayed", true);
+    addAnimation();
     setTimeout(function () {
       document.getElementById("logInLogo").style.display = "flex";
     }, 1500);
