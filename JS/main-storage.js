@@ -72,14 +72,12 @@ let userData = [
   },
 ]; //userData ALLER User
 
-let userNameInput = 'Bill Gates';
-
 let userIndex = "";
 
-function findUserIndex() {
+function findUserIndex(name) {
   for (let i = 0; i < userData.length; i++) {
   const user = userData[i]['name'];
-  if(userNameInput == user){
+  if(name == user){
     userIndex = i;
   };
   };
@@ -127,6 +125,7 @@ async function chekEmailExists(name, email, password) {
   if (emailExist == "false") {
     debugger;
     setUserData(name, email, password);
+    findUserIndex(name);
     animationSuccess();
   }
 }
@@ -137,7 +136,7 @@ async function getUserData() {
   } catch (e) {
     console.warn("Could not load User");
   }
-  findUserIndex();
+  
 }
 
 //löscht die gesamten Userdata!!!
