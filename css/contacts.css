@@ -19,11 +19,11 @@
 }
 
 .fade-in-animation {
-    animation: fade-in 0.3s ease-in-out forwards;
+    animation: fade-in 0.5s ease-in-out forwards;
 }
 
 .fade-out-animation {
-    animation: fade-out 0.3s ease-in-out forwards;
+    animation: fade-out 0.5s ease-in-out forwards;
 }
 
 /****************/
@@ -39,7 +39,8 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    
+    opacity: 0.0;
 }
 
 #overlay-window {

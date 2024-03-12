@@ -221,16 +221,33 @@ function setSlideInEffects() {
     document.getElementById('add-contact-container').classList.remove('d-none');
     document.getElementById('add-contact-container').classList.add('d-flex');
     document.getElementById('add-contact-container').classList.add('slide-in-animation');    
-    document.getElementById('dark-background').classList.add('dark-background'); 
+    setTimeout(setDarkBackground, 400);
 }
 
 function setSlideOutEffects() {
     document.getElementById('add-contact-container').classList.remove('slide-in-animation');
     document.getElementById('add-contact-container').classList.add('slide-out-animation');
-    document.getElementById('dark-background').classList.remove('dark-background'); 
-    setTimeout(hideOverlay, 1000);
+    setTimeout(clearDarkBackground, 400);
+    setTimeout(hideOverlay, 600);
+    setTimeout(removeZindex, 1000);
+}
+
+function setDarkBackground() { 
+    document.getElementById('dark-background').style = ('z-index: 1;');
+    if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
+        document.getElementById('dark-background').classList.remove('fade-out-animation');
+    };
+    document.getElementById('dark-background').classList.add('fade-in-animation'); 
+}
+
+function clearDarkBackground() {
+    document.getElementById('dark-background').classList.add('fade-out-animation'); 
 }
 
 function hideOverlay() {
     document.getElementById('add-contact-container').classList.add('d-none');
+}
+
+function removeZindex() {
+    document.getElementById('dark-background').style = ('z-index: 0;');
 }
