@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/addTask.css">
-    <title>Document</title>
+    <script src="./JS/main-storage.js"></script>
+    <script src="./JS/addTask.js"></script>
+    <title>Add Task</title>
 </head>
 
-<body onload="addTaskInit()">
+<body onload="addTaskInit();">
 
 
 
@@ -36,11 +38,11 @@
                     <div  class="addTask-input-element mb-12">
                         <label class="addTask-label" for="addTask-search-assign">Assigned To</label>
                         <div id="addTask-assigned" class="addTask-inputField addTask-assigned">
-                            <input  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
+                            <input onblur="clearOutlineBlue('addTask-assigned')" onfocus="setOutlineBlue('addTask-assigned')"  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
                                 <img id="arrow-contacts"
-                                    onclick="toggleDropdown('arrow-contacts', 'contact-dropdown-container')"
+                                    onclick="toggleDropdown()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container contacts d-none" id="contact-dropdown-container">
@@ -116,7 +118,7 @@
                                 placeholder="Select task category" required>
                             <div class="addTask-round-btn-frame">
                                 <img id="arrow-category"
-                                    onclick="toggleDropdown('arrow-category', 'category-dropdown-container')"
+                                    onclick="toggleCategoryDropdown()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container d-none" id="category-dropdown-container">
@@ -193,7 +195,7 @@
     </div>
 
 
-    <script src="./JS/addTask.js"></script>
+   
 </body>
 
 </html>

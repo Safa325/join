@@ -1,111 +1,8 @@
-let profileBadgeColors = [
-    '#FF7A00',
-    '#FF5EB3',
-    '#6E52FF',
-    '#9327FF',
-    '#00BEE8',
-    '#1FD7C1',
-    '#FF745E',
-    '#FFA35E',
-    '#FC71FF',
-    '#FFC701',
-    '#0038FF',
-    '#C3FF2B',
-    '#FFE62B',
-    '#FF4646',
-    '#FFBB2B',
-]
-let contacts = [
-    {
-        'A': [
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "AN",
-                'name': "Alfred Neumann",
-                'email': "alfred@neumann.com",
-                'phone': "0176/1234567"
-            },
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "AF",
-                'name': "Anna Fröhlich",
-                'email': "fröhlich@anna.com",
-                'phone': "0176/1234567"
-            },
 
-        ],
 
-        'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [],
-        'I': [], 'J': [],
+let contacts = []
 
-        'K': [
-            {
-                'badgecolor': "#6E52FF",
-                'initials': "KH",
-                'name': "Klara Himmel",
-                'email': "bitte@sommer.com"
-            },
-            {
-                'badgecolor': "#6E52FF",
-                'initials': "KE",
-                'name': "Karl Ender",
-                'email': "Karl@ender.com"
-            },
-        ],
 
-        'L': [], 'M': [], 'N': [], 'O': [],
-
-        'P': [
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "PN",
-                'name': "Pia Nist",
-                'email': "PiaNist@mitherz.com"
-            },
-        ],
-
-        'Q': [],
-
-        'R': [
-            {
-                'badgecolor': "#FF5EB3",
-                'initials': "RS",
-                'name': "Rainer Sonnenschein",
-                'email': "gutes@wetter.de"
-            },
-        ],
-
-        'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [],
-        'Y': [], 'Z': [],
-    }
-];
-
-// let tempContacts = [
-//     {
-//         'badgecolor': "#FF7A00",
-//         'initials': "PN",
-//         'name': "Pia Nist",
-//         'email': "PiaNist@mitherz.com"
-//     },
-//     {
-//         'badgecolor': "#FF5EB3",
-//         'initials': "RS",
-//         'name': "Rainer Sonnenschein",
-//         'email': "gutes@wetter.de"
-//     },
-//     {
-//         'badgecolor': "#6E52FF",
-//         'initials': "KH",
-//         'name': "Klara Himmel",
-//         'email': "bitte@sommer.com"
-//     },
-//     {
-//         'badgecolor': "#6E52FF",
-//         'initials': "KE",
-//         'name': "Karl Ender",
-//         'email': "Karl@ender.com"
-//     },
-// ]
 
 let arrayOfContacts = []
 let arrayOfFilterContact = []
@@ -116,8 +13,10 @@ let category = '';
 let subtasks = [];
 
 
-function addTaskInit() {
-    generateContactArray()
+async function addTaskInit() {
+    await getUserData()
+    getContactsFromUser()
+  
     initContactCopy()
     selectPrio(priority)
     renderContacts(arrayOfContacts)
@@ -125,57 +24,52 @@ function addTaskInit() {
     renderSubtasks()
 }
 
-function generateContactArray() {
-    let entries = []
-    for (let i = 65; i <= 90; i++) {
-        let firstLetter = String.fromCharCode(i);
-        for (let index = 0; index < contacts.length; index++) {
-            const element = contacts[index];
-            let contactEntry = element[firstLetter]
-            if (contactEntry.length > 0) {
-                entries.push(contactEntry)
-            }
-        }
-    }
-    entries.forEach(elements => {
-        elements.forEach(element => {
-            arrayOfContacts.push(element)
-        });
-    });
+/**
+ * gets contacts of logged in user
+ */
+function getContactsFromUser() {
+    let user = userData[userIndex];
+    contacts = [...user.contacts];
 }
-
-function preventEnter() {
-    return false
-}
-
+/**
+ * prepare an array for selection
+ */
 function initContactCopy() {
-    arrayOfFilterContact = [...arrayOfContacts];
+    arrayOfFilterContact = [...contacts];
     arrayOfFilterContact.forEach(element => {
         element.selected = false;
     });
 }
 
-function toggleDropdown(id, dropdown) {
-    let element = document.getElementById(id)
+function toggleDropdown() {
+    let element = document.getElementById('arrow-contacts')
     element.classList.toggle('arrow-up')
 
-    let dropContainer = document.getElementById(dropdown);
+    let dropContainer = document.getElementById('contact-dropdown-container');
     dropContainer.classList.toggle('d-none')
 }
-function openDropdown(id, dropdown) {
-    let element = document.getElementById(id)
+function openDropdown() {
+    let element = document.getElementById('arrow-contacts')
     element.classList.add('arrow-up')
 
-    let dropContainer = document.getElementById(dropdown);
+    let dropContainer = document.getElementById('contact-dropdown-container');
     dropContainer.classList.remove('d-none')
 }
 
-function closeDropdown(id, dropdown) {
-    let element = document.getElementById(id)
+function closeDropdown() {
+    let element = document.getElementById('arrow-contacts')
     element.classList.remove('arrow-up')
 
-    let dropContainer = document.getElementById(dropdown);
+    let dropContainer = document.getElementById('contact-dropdown-container');
     dropContainer.classList.add('d-none')
+}
+
+function toggleCategoryDropdown(){
+    let element = document.getElementById('arrow-category')
+    element.classList.toggle('arrow-up')
+
+    let dropContainer = document.getElementById('category-dropdown-container');
+    dropContainer.classList.toggle('d-none')
 }
 
 document.addEventListener("click", function (e) {
@@ -185,8 +79,8 @@ document.addEventListener("click", function (e) {
     let mouseX = e.clientX;
     let mouseY = e.clientY;
     if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
-       closeDropdown('arrow-contacts', 'contact-dropdown-container');
-    } 
+        closeDropdown();
+    }
 })
 
 function setFilter() {
@@ -195,7 +89,7 @@ function setFilter() {
     if (inputName.length > 0) {
 
         inputName = inputName.toLowerCase();
-        openDropdown('arrow-contacts', 'contact-dropdown-container')
+        openDropdown()
     }
 
     filterArray(inputName);
@@ -250,7 +144,7 @@ function selectCategory(event) {
     }
     inputField.value = text;
     category = text;
-    toggleDropdown('arrow-category', 'category-dropdown-container')
+    toggleCategoryDropdown()
 
 }
 
@@ -313,29 +207,21 @@ function createTask(event) {
         'status': 'todo',
         'subtasks': subtasks
     }
-    tasks.push(task)
+    userData[userIndex]['tasks'].push(task);
     titleField.value = descriptionField.value = dateField.value = '';
     subtasks = [];
     renderSubtasks();
-    selectPrio(priority);
-}
-
-function getAssignedContacts() {
-
-    console.log(myarray)
-    return myarray
+    selectPrio('medium');
 }
 
 function createSubtask() {
     let subtask = document.getElementById('addTask-subtask-input');
-    console.log(subtask)
     if (subtask.value) {
         subtasks.push(subtask.value);
     }
-
     renderSubtasks();
     subtask.value = '';
-    // disableSubtaskInput();
+    disableSubtaskInput();
 }
 
 function enableSubtaskInput() {
@@ -364,7 +250,8 @@ function disableSubtaskInputDelayed() {
 }
 
 
-function enableEditSubtask(index) {
+function enableEditSubtask(event, index) {
+    event.preventDefault()
     removePseudo(index)
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     input.readOnly = false;
@@ -400,8 +287,6 @@ window.addEventListener('keyup', (event) => {
 
 
 function indirectDisableEditSubtask() {
-    let activeElement = this.document.activeElement;
-
     let elements = document.querySelectorAll('.addTask-subtask-listElement')
     elements.forEach((element, index) => {
         disableEditSubtask(index)
@@ -416,15 +301,23 @@ function createTaskEnter(event) {
     }
 }
 
+function editSubtaskPreventEnter(event) {
+
+    if (event.key === 'Enter') {
+
+        event.preventDefault()
+    }
+}
+
 function indirectCreateSubtask() {
     let activeElement = this.document.activeElement;
     let subtask = document.getElementById('addTask-subtask-input')
     if (activeElement == subtask) {
-        // disableSubtaskInputDelayed()
-        // console.log('indirectCreateSubtask')
+
         createSubtask()
     }
 }
+
 
 
 
@@ -457,16 +350,20 @@ function addPseudo(index) {
 
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     input.readOnly = true;
-
 }
 
-
+function setOutlineBlue(id){
+    document.getElementById(id).classList.add('blue-outline')
+}
+function clearOutlineBlue(id){
+    document.getElementById(id).classList.remove('blue-outline')
+}
 
 function subTaskHTML(subtask, index) {
     return /*html*/`
         <div class="addTask-subtask-element dot-before" id="addTask-subtask-element_${index}">
-        <input readonly="true" onkeyup="editSubtask(event, ${index})"  ondblclick="enableEditSubtask(${index})" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask}">
-            <div onclick="enableEditSubtask(${index})" class="subtask-icon subtask-edit" id="subtask-edit_${index}">
+        <input readonly="true" onkeyup="editSubtask(event, ${index})" onkeydown="editSubtaskPreventEnter(event)" ondblclick="enableEditSubtask(event, ${index})" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask}">
+            <div onclick="enableEditSubtask(event, ${index})" class="subtask-icon subtask-edit" id="subtask-edit_${index}">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
