@@ -16,17 +16,17 @@
 .board-column-container {
     display: flex;
     gap: 24px;
+    flex-shrink: 0;
 }
 
 .board-column {
     display: flex;
     flex-direction: column;
-    width: 246px;
+    width: 252px;
+    flex-shrink: 0;
     min-height: 500px;
-  
     gap: 16px;
     margin-top: 32px;
-  
 }
 
 .board-column-header {
@@ -38,7 +38,7 @@
 }
 
 .board-colum-headline {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     margin: 0;
 }
@@ -82,6 +82,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    min-height: 50vh;
 }
 
 
@@ -141,6 +142,8 @@
 .board-task-profile-badge-container{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    padding-left: 16px;
 }
 
 .board-task-profile-badge {
@@ -155,8 +158,25 @@
     justify-content: center;
     margin-right: 8px;
     font-size: 10px;
-}
-
-.board-task-profile-badge:not(:first-child){
     margin-left: -16px;
 }
+
+
+
+.board-task-footer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.board-task-priority-container{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
