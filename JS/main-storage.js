@@ -52,7 +52,7 @@ let userData = [
         ],
         tasks: [],
     }
-];                          //userData ALLER User
+];                                          //userData ALLER User
 
 let userIndex = 0;                          //dieser Index variabel je nach aktiven User. 0 = Guest
 

@@ -49,13 +49,6 @@ body{
     border-radius: 10px;
 }
 
-.h1-no-margin{
-    font-family: Inter;
-    font-weight: 700;
-    font-size: 61px;
-    margin: 0;
-}
-
 .contacts-claim {
     font-weight: 400;
     font-size: 27px;
@@ -91,8 +84,9 @@ body{
     padding: 15px 24px 15px 24px;
 }
 
-.element-active {
+.element-active:not(.person-email) {
     background-color: var(--clr-sidebar-hover);
+    color: white;
 }
 
 .person-container:hover:not(.element-active) {
