@@ -12,15 +12,14 @@
 </head>
 <body onload="initContacts()">
     <div class="main-contacts-container">
-        <div id="content-container">
-            <div class="contacts-container">
+            
                 <div class="contacts-left-column">
                     <div class="btn-container">
                         <button class="btn-grey btn-add-contact" onclick="openAddNewContact()">Add new contact<img src="./img/icons/person_add.svg"></button>
                     </div>
-                    <div class="list-container">
-                        <div id="contacts-list"></div>
-                    </div>
+                    
+                    <div id="contacts-list"></div>
+                    
                 </div>
 
             
@@ -31,50 +30,16 @@
                         <span class="contacts-claim">Better with a team</span>
                     </div>
 
-                    <div id="contacts-details" class="contacts-details">
+                    <div id="contacts-details">
 
                         
 
                     </div>
 
                 </div>   
-            </div>
-        </div>
+            
     </div>
-    <div id="add-contact-container" class="add-contact-container d-none">    
-        <div class="left-container">
-            <img src="./img/join_logo.svg" alt="">
-            <div class="h1-no-margin clr-white">Add contact</div>
-            <div class="add-claim">Tasks are better with a team!</div>
-            <div class="separator-across-lightblue"></div>
-        </div>
-        <div class="right-container">
-            <div class="cancel-x" onclick="closeAddNewContact()"><img src="./img/icons/cancel.svg" alt=""></div>
-            <div class="person-uni-badge">
-                <img src="./img/icons/person.svg" alt="">
-            </div>
-            <div class="control-elements-container">
-                <div class="inputfields">
-                    <div class="addcontact-input-element">
-                        <input class="addcontact-inputField" type="text" id="addcontact-input-name" placeholder="Name" required>
-                        <img src="./img/icons/person-grey.svg" alt="">
-                    </div>
-                    <div class="addcontact-input-element">
-                        <input class="addcontact-inputField" type="email" id="addcontact-input-email" placeholder="Email" required>
-                        <img src="./img/icons/mail-grey.svg" alt="">
-                    </div>
-                    <div class="addcontact-input-element">
-                        <input class="addcontact-inputField" type="tel" id="addcontact-input-phone" placeholder="Phone" required>
-                        <img src="./img/icons/call-grey.svg" alt="">
-                    </div>
-                </div>
-                <div class="cancel-create-buttons-container">
-                    <button class="btn-white btn-pos" onclick="closeAddNewContact()">Cancel<img src="./img/icons/cancel.svg"></button>
-                    <button id="createContactBtn" class="btn-grey img-white btn-pos" onclick="createContact()">Create contact<img src="./img/icons/checked.svg"></button>
-                </div>
-            </div>
-        </div>
-    </div>   
+    
 
 </body>
 </html>

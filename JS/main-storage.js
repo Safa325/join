@@ -72,12 +72,12 @@ let userData = [
   },
 ]; //userData ALLER User
 
-let userIndex = "";
+let userIndex = "0";
 
-function findUserIndex(name) {
+function findUserIndex(email) {
   for (let i = 0; i < userData.length; i++) {
-  const user = userData[i]['name'];
-  if(name == user){
+  const userMail = userData[i]['email'];
+  if(email == userMail){
     userIndex = i;
   };
   };
@@ -125,7 +125,7 @@ async function chekEmailExists(name, email, password) {
   if (emailExist == "false") {
     debugger;
     setUserData(name, email, password);
-    findUserIndex(name);
+    findUserIndex(email);
     animationSuccess();
   }
 }
