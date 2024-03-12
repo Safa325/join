@@ -23,12 +23,13 @@ function initAddTaskHTML() {
   includeHTML();
 }
 
-function initBoardHTML() {
+async function initBoardHTML() {
   document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
   document.getElementById("main-content-container").innerHTML = /*HTML*/ `
     <div w3-include-html="board.html"></div>
     `;
-  includeHTML();
+  await includeHTML();
+  initBoard();
 }
 
 async function initContactsHTML() {
