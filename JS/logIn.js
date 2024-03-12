@@ -67,6 +67,23 @@ const emailInput = document.getElementById("logInemail");
 
 const logInForm = document.getElementById("logInForm");
 
+function checkUserData() {
+  for (let i = 0; i < userData.length; i++) {
+    const element = userData[i];
+    userIndex = i;
+    if (
+      emailInput.value.trim() == element["email"] &&
+      pwInput.value.trim() == element["password"]
+    ) {
+      loginExists = "true";
+      saveSession();
+      break;
+    } else {
+      loginExists = "false";
+    }
+  }
+}
+
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
   checkUserData();
@@ -78,22 +95,6 @@ logInForm.addEventListener("submit", function (e) {
     errorMessageLogin();
   }
 });
-
-function checkUserData() {
-  for (let i = 0; i < userData.length; i++) {
-    const element = userData[i];
-    if (
-      emailInput.value.trim() == element["email"] &&
-      pwInput.value.trim() == element["password"]
-    ) {
-      loginExists = "true";
-      userIndex = i;
-      break;
-    } else {
-      loginExists = "false";
-    }
-  }
-}
 
 function saveInputs() {
   if (rememberMeActiv == "true") {
@@ -128,6 +129,7 @@ function hideErrorMessageLogin() {
 function guestLogin() {
   userIndex = 0;
   window.location.href = "index.html";
+  saveSession();
 }
 
 function logoAnimation() {

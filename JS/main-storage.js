@@ -74,15 +74,14 @@ let userData = [
 
 let userIndex = "0";
 
-function findUserIndex(email) {
-  for (let i = 0; i < userData.length; i++) {
-  const userMail = userData[i]['email'];
-  if(email == userMail){
-    userIndex = i;
-  };
-  };
-}
-
+// function findUserIndex(email) {
+//   for (let i = 0; i < userData.length; i++) {
+//     const userMail = userData[i]["email"];
+//     if (email == userMail) {
+//       userIndex = i;
+//     }
+//   }
+// }
 
 //3. USERDATA anlegen (set) und/oder abrufen (get)! ...und die UserData löschen!
 
@@ -123,9 +122,8 @@ async function chekEmailExists(name, email, password) {
     }
   }
   if (emailExist == "false") {
-    debugger;
     setUserData(name, email, password);
-    findUserIndex(email);
+    // findUserIndex(email);
     animationSuccess();
   }
 }
@@ -136,11 +134,24 @@ async function getUserData() {
   } catch (e) {
     console.warn("Could not load User");
   }
-  
 }
 
 //löscht die gesamten Userdata!!!
 async function deleteAllUserData() {
   userData = [];
   await setItem("userData", JSON.stringify(userData));
+}
+
+function saveSession() {
+  let userIndexSession = JSON.stringify(userIndex);
+
+  sessionStorage.setItem("userIndex", userIndexSession);
+}
+
+function loadSession() {
+  let userIndexSession = sessionStorage.getItem("userIndex");
+
+  if (userIndexSession) {
+    userIndex = JSON.parse(userIndexSession);
+  }
 }
