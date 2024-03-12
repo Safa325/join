@@ -1,7 +1,6 @@
 let rememberMeActiv = "false";
 let loginExists = "false";
 const loadSignUp = document.getElementById("loadSignUp");
-let loginIndex;
 let rememberMepw;
 let rememberMeEmail;
 const checkbox = document.getElementById("rememberMe");
@@ -88,7 +87,7 @@ function checkUserData() {
       pwInput.value.trim() == element["password"]
     ) {
       loginExists = "true";
-      loginIndex = i;
+      userIndex = i;
       break;
     } else {
       loginExists = "false";
@@ -127,7 +126,7 @@ function hideErrorMessageLogin() {
 }
 
 function guestLogin() {
-  loginIndex = 0;
+  userIndex = 0;
   window.location.href = "index.html";
 }
 
@@ -170,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("logInLogo").style.display = "flex";
     }, 1500);
     setTimeout(function () {
-      let logo = document.getElementById("animationLogo");
+      let logo = document.getElementById("animationLogo1");
       if (logo) {
         logo.remove();
       }
