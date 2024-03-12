@@ -16,7 +16,7 @@ let subtasks = [];
 async function addTaskInit() {
     await getUserData()
     getContactsFromUser()
-  
+
     initContactCopy()
     selectPrio(priority)
     renderContacts(arrayOfContacts)
@@ -64,7 +64,7 @@ function closeDropdown() {
     dropContainer.classList.add('d-none')
 }
 
-function toggleCategoryDropdown(){
+function toggleCategoryDropdown() {
     let element = document.getElementById('arrow-category')
     element.classList.toggle('arrow-up')
 
@@ -215,12 +215,19 @@ function createTask(event) {
 }
 
 function createSubtask() {
-    let subtask = document.getElementById('addTask-subtask-input');
-    if (subtask.value) {
-        subtasks.push(subtask.value);
+    let subtaskText = document.getElementById('addTask-subtask-input');
+    let subtask = [];
+    if (subtaskText.value) {
+
+        subtask = {
+            'title': subtaskText.value,
+            'done': false
+        }
+
+        subtasks.push(subtask);
     }
     renderSubtasks();
-    subtask.value = '';
+    subtaskText.value = '';
     disableSubtaskInput();
 }
 
@@ -352,10 +359,10 @@ function addPseudo(index) {
     input.readOnly = true;
 }
 
-function setOutlineBlue(id){
+function setOutlineBlue(id) {
     document.getElementById(id).classList.add('blue-outline')
 }
-function clearOutlineBlue(id){
+function clearOutlineBlue(id) {
     document.getElementById(id).classList.remove('blue-outline')
 }
 
