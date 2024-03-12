@@ -110,3 +110,9 @@ header {
     font-weight: bold;
     color: var(--clr-light-blue);
 }
+
+.main-content-container {
+    position: absolute;
+    left: 232px;
+    top: 96px;
+}
