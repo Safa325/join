@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/board.css">
+    <script src="./JS/board.js"></script>
     <title>Board</title>
 </head>
 
-<body>
+<body onload="initBoard()">
     <div id="content-container">
         <div class="board-headline-menu">
             <h1 class="board-headline">Board</h1>
@@ -17,7 +18,7 @@
         </div>
 
         <div class="board-column-container">
-            <div class="board-column">
+            <div id="column-todo" class="board-column">
 
                 <div class="board-column-header">
                     <p class="board-colum-headline">todo</p>
@@ -33,6 +34,34 @@
                 <div class="board-column-noTask">
                     No tasks To Do
                 </div>
+
+                <div id="todo-card-container" class="card-container">
+
+
+                    <!-- <div class="board-task-card">
+                        <p class="board-task-category">User Story</p>
+                        <h6 class="board-task-title">Kochwelt Page & Recipe</h6>
+                        <p class="board-task-description">Build start page with recipe recommendation</p>
+
+                        <div class="board-task-progress">
+                            <div class="board-task-progressbar">
+                                <div class="board-task-progress-inner"></div>
+                            </div>
+                            <p>1/2 Subtasks</p>
+                        </div>
+
+                        <div class="board-task-profile-badge-container">
+                            <div class="board-task-profile-badge">RP</div>
+                            <div class="board-task-profile-badge">NA</div>
+                            <div class="board-task-profile-badge">LI</div>
+                        </div>
+
+                    </div> -->
+
+
+                </div>
+
+
 
             </div>
 
