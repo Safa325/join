@@ -64,6 +64,8 @@
     height: 48px;
  border: 2px dotted var(--clr-font-light-grey);
  border-radius: 10px;
+ background-color: var(--clr-bg-light-grey);
+ color: var(--clr-font-light-grey);
  display: flex;
  justify-content: center;
  align-items: center;
