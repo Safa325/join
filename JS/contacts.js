@@ -1,12 +1,12 @@
 let registerLetters = [];
 
 async function initContacts() {
-    await getUserData();
+    
     await getArrayOfRegisterLetters();
     await renderRegisterboxes();
     await renderListOfContacts();
 
-    console.log('userData vom Server. Onload initialisiert ', userData);
+    
 }
 
 async function getArrayOfRegisterLetters() {

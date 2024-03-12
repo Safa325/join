@@ -72,7 +72,19 @@ let userData = [
   },
 ]; //userData ALLER User
 
-let userIndex = 0; //dieser Index variabel je nach aktiven User. 0 = Guest
+let userNameInput = 'Bill Gates';
+
+let userIndex = "";
+
+function findUserIndex() {
+  for (let i = 0; i < userData.length; i++) {
+  const user = userData[i]['name'];
+  if(userNameInput == user){
+    userIndex = i;
+  };
+  };
+}
+
 
 //3. USERDATA anlegen (set) und/oder abrufen (get)! ...und die UserData löschen!
 
@@ -125,6 +137,7 @@ async function getUserData() {
   } catch (e) {
     console.warn("Could not load User");
   }
+  findUserIndex();
 }
 
 //löscht die gesamten Userdata!!!

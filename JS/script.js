@@ -1,5 +1,9 @@
 async function init() {
     await includeHTML();
+    await getUserData();
+
+    console.log('userData vom Server. Onload initialisiert ', userData);
+    console.log('userIndex', userIndex);
 }
 
 function initSummaryHTML() {
@@ -29,8 +33,8 @@ function initBoardHTML() {
 async function initContactsHTML() {
     document.getElementById('main-content-container').innerHTML = /*HTML*/``;
     document.getElementById('main-content-container').innerHTML = /*HTML*/`
-    <div w3-include-html="contacts.html"></div>
+    <div w3-include-html="contacts.html" class="fade-in-animation"></div>
     `;
-    includeHTML();
-    await initContacts();
+    await includeHTML();
+    initContacts();
 }
