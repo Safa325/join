@@ -118,3 +118,30 @@ header {
     left: 232px;
     top: 96px;
 }
+
+.dark-background {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    opacity: 0.0;
+}
+
+#overlay-window {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.placeholder {
+    width: calc(100vw - 232px);
+    height: calc(100vh - 96px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

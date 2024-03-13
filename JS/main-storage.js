@@ -1,4 +1,4 @@
-//1. STORAGE Funktionen und Konstanten deklarieren!
+//1. STORAGE - declare functions and contants!
 
 const STORAGE_TOKEN = "9S1H4HWTZGHLKS4NMCOP04FRPPUG3BPBWN1B6HFV";
 const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
@@ -37,7 +37,7 @@ let profileBadgeColors = [
   "#FFBB2B",
 ];
 
-let userData = [
+let userData = [ //backup-user if there is no connection to storage
   {
     name: "Bill Gates",
     email: "billy-g@apple.com",
@@ -70,9 +70,9 @@ let userData = [
     ],
     tasks: [],
   },
-]; //userData ALLER User
+];
 
-let userIndex = "0";
+let userIndex = "0"; //VOR ABGABE: Index auf "" setzen und function findUserIndex(email) aktivieren!
 
 // function findUserIndex(email) {
 //   for (let i = 0; i < userData.length; i++) {
@@ -83,12 +83,12 @@ let userIndex = "0";
 //   }
 // }
 
-//3. USERDATA anlegen (set) und/oder abrufen (get)! ...und die UserData löschen!
+//3. USERDATA - set, get and delete userData
 
 async function setUserData(name, email, password) {
-  let userName = name; //hier den sign up input Name einfügen
-  let userEmail = email; //hier den sign up input E-Mail einfügen
-  let userPassword = password; //hier den sign up input Passwort oder bestätigtes Passwort einfügen
+  let userName = name;
+  let userEmail = email;
+  let userPassword = password;
 
   let newUser = {
     name: userName,
@@ -98,17 +98,9 @@ async function setUserData(name, email, password) {
     tasks: [],
   };
 
-  //Abfrage, ob User bereits angelegt -> habe ich bisher nicht hinbekommen. Es wurde immer Alert geschmissen:
-
   userData.push(newUser);
   await setItem("userData", JSON.stringify(userData));
 
-  /* if(userData[userIndex]['email'] == !userEmail) {
-    userData.push(newUser);
-    await setItem('userData', JSON.stringify(userData));
-    } else {
-        alert('There is already a user with this email address.')
-    }; */
 }
 
 async function chekEmailExists(name, email, password) {
@@ -128,6 +120,7 @@ async function chekEmailExists(name, email, password) {
   }
 }
 
+//ädt die gesamten Userdata!!!
 async function getUserData() {
   try {
     userData = JSON.parse(await getItem("userData"));
@@ -139,6 +132,11 @@ async function getUserData() {
 //löscht die gesamten Userdata!!!
 async function deleteAllUserData() {
   userData = [];
+  await setItem("userData", JSON.stringify(userData));
+}
+
+async function deleteUserByIndex(deleteIndex) {
+  userData.splice(deleteIndex, 1);
   await setItem("userData", JSON.stringify(userData));
 }
 

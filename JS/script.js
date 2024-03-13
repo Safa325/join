@@ -3,7 +3,7 @@ async function init() {
   await includeHTML();
   await getUserData();
 
-  console.log("userData vom Server. Onload initialisiert ", userData);
+  console.log("userData", userData);
   console.log("userIndex", userIndex);
 }
 
