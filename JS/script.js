@@ -1,13 +1,14 @@
 async function init() {
   loadSession();
-  await includeHTML();
+  // await includeHTML();
   await getUserData();
+  await initSummaryHTML();
 
   console.log("userData", userData);
   console.log("userIndex", userIndex);
 }
 
-function initSummaryHTML() {
+async function initSummaryHTML() {
   document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
   document.getElementById("main-content-container").innerHTML = /*HTML*/ `
     <div w3-include-html="summary.html"></div>
@@ -15,12 +16,13 @@ function initSummaryHTML() {
   includeHTML();
 }
 
-function initAddTaskHTML() {
+async function initAddTaskHTML() {
   document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
   document.getElementById("main-content-container").innerHTML = /*HTML*/ `
     <div w3-include-html="addTask.html"></div>
     `;
-  includeHTML();
+  await includeHTML();
+  addTaskInit();
 }
 
 async function initBoardHTML() {
