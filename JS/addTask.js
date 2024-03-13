@@ -1,19 +1,17 @@
 
 
 let contacts = []
-
-
-
 let arrayOfContacts = []
 let arrayOfFilterContact = []
-let tasks = [];
+// let tasks = [];
 let isContactSelected = [];
 let priority = 'medium';
 let category = '';
 let subtasks = [];
-
+let assignContainer
 
 async function addTaskInit() {
+    assignContainer = document.getElementById("addTask-assigned");
     await getUserData()
     getContactsFromUser()
 
@@ -72,16 +70,24 @@ function toggleCategoryDropdown() {
     dropContainer.classList.toggle('d-none')
 }
 
+
+
+
+
 document.addEventListener("click", function (e) {
-    let container = document.getElementById('addTask-assigned');
-    var rect = container.getBoundingClientRect();
-    let bottom = rect.bottom + 250;
-    let mouseX = e.clientX;
-    let mouseY = e.clientY;
-    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
-        closeDropdown();
+    if (assignContainer != null) {
+        var rect = assignContainer.getBoundingClientRect();
+        let bottom = rect.bottom + 250;
+        let mouseX = e.clientX;
+        let mouseY = e.clientY;
+        if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
+            closeDropdown();
+        }
     }
 })
+
+
+
 
 function setFilter() {
     let inputName = document.getElementById('addTask-search-assign').value;

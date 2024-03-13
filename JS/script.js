@@ -13,7 +13,9 @@ async function initSummaryHTML() {
   document.getElementById("main-content-container").innerHTML = /*HTML*/ `
     <div w3-include-html="summary.html"></div>
     `;
-  includeHTML();
+  await includeHTML();
+  clearAllNavActive();
+  setNavActive('sidebar-nav-summary');
 }
 
 async function initAddTaskHTML() {
@@ -23,6 +25,8 @@ async function initAddTaskHTML() {
     `;
   await includeHTML();
   addTaskInit();
+  clearAllNavActive();
+  setNavActive('sidebar-nav-tasks');
 }
 
 async function initBoardHTML() {
@@ -32,6 +36,8 @@ async function initBoardHTML() {
     `;
   await includeHTML();
   initBoard();
+  clearAllNavActive();
+  setNavActive('sidebar-nav-board');
 }
 
 async function initContactsHTML() {
@@ -41,4 +47,19 @@ async function initContactsHTML() {
     `;
   await includeHTML();
   initContacts();
+  clearAllNavActive();
+  setNavActive('sidebar-nav-contacts');
+}
+
+function clearAllNavActive() {
+  let nav = document.querySelectorAll('.sidebar-nav-element');
+  nav.forEach(element => {
+    element.classList.remove('sidebar-element-active')
+  });
+}
+
+function setNavActive(id) {
+  let nav = document.getElementById(id);
+  nav.classList.add('sidebar-element-active')
+
 }
