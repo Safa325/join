@@ -85,6 +85,7 @@
   width: 264px;
   height: 168px;
   box-shadow: var(--card-box-shadow);
+  padding: 38px 19px;
 }
 
 .top-icon {
@@ -94,6 +95,12 @@
   height: 69px;
   width: 69px;
   margin: 0 18px 0 0;
+}
+
+.top-icon img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
 }
 
 .top-content {
@@ -123,7 +130,7 @@
   height: 24px;
   font-size: 20px;
   font-weight: 400;
-  color: var(--clr-dark-grey);
+  color: var(--clr-dark-gray);
 }
 
 .overview-mid {
@@ -176,4 +183,29 @@
   border-right: 3px solid var(--clr-light-gray);
   height: 102.02px;
   width: auto;
+}
+
+.mid-card-right {
+  display: flex;
+  flex-direction: column;
+  width: 178px;
+  height: 57px;
+}
+
+.card-right-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 178px;
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--clr-dark-gray);
+  margin-bottom: 13px;
+}
+
+.mid-card-right .subtitel {
+  width: 148px;
+  height: 19px;
+  font-size: 16px;
 }
