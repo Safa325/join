@@ -2,14 +2,16 @@
 
 .summary-container {
   position: absolute;
-  top: 206px;
-  left: 328px;
+  top: 0px;
+  left: 0px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   width: auto;
   height: auto;
+  margin-top: 110px;
+  margin-left: 96px;
 }
 
 .summary-header {
