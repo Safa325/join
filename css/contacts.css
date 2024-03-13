@@ -189,6 +189,10 @@ body{
     border: none;
 }
 
+.edit-delete-btn:hover {
+    color: var(--clr-light-blue);
+}
+
 .contact-information-header {
     font-weight: 400;
     font-size: 20px;
