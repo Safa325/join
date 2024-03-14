@@ -7,7 +7,7 @@
     <title>Join</title>
     <link rel="stylesheet" href="css/summary.css" />
   </head>
-  <body>
+  <body onload="initSummary()">
     <div class="summary-container">
       <div class="summary-header">
         <div class="summary-titel">
@@ -19,18 +19,22 @@
       <div class="summary-body">
         <div class="summary-overview">
           <div class="overview-top">
-            <div class="overview-top-card">
+            <div class="overview-top-card" id="toDoCard">
               <div class="top-icon">
-                <img src="./img/icons/pencil-dark.svg" alt="Pencil" />
+                <img
+                  id="pencil"
+                  src="./img/icons/pencil-dark.svg"
+                  alt="Pencil"
+                />
               </div>
               <div class="top-content">
                 <div class="task-number" id="toDo">1</div>
                 <div class="subtitel">To-do</div>
               </div>
             </div>
-            <div class="overview-top-card">
+            <div class="overview-top-card" id="doneCard">
               <div class="top-icon">
-                <img src="./img/icons/done-dark.svg" alt="Done" />
+                <img id="done" src="./img/icons/done-dark.svg" alt="Done" />
               </div>
               <div class="top-content">
                 <div class="task-number" id="done">1</div>

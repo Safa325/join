@@ -55,7 +55,7 @@
   justify-content: space-between;
   align-items: flex-start;
   height: 100%;
-  max-height: 560px;
+  max-height: 562px;
   width: 100%;
   max-width: calc(560px + 80px + 338px);
 }
@@ -64,8 +64,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  height: 100%;
+  width: 560px;
+  height: 562px;
 }
 
 .overview-top {
@@ -277,4 +277,21 @@
   font-size: 64px;
   font-weight: 700;
   color: var(--clr-light-blue);
+}
+
+.overview-top-card:hover,
+.overview-mid-card:hover,
+.overview-bottom-card:hover {
+  cursor: pointer;
+  scale: 1.0285;
+  background-color: var(--clr-dark-gray);
+  color: white;
+  border-radius: 30px;
+  box-shadow: var(--btn-hvr-box-shadow);
+}
+
+.overview-top-card:hover .subtitel,
+.overview-mid-card:hover .subtitel,
+.overview-bottom-card:hover .subtitel {
+  color: white;
 }
