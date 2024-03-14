@@ -37,7 +37,8 @@ let profileBadgeColors = [
   "#FFBB2B",
 ];
 
-let userData = [ //backup-user if there is no connection to storage
+let userData = [
+  //backup-user if there is no connection to storage
   {
     name: "Bill Gates",
     email: "billy-g@apple.com",
@@ -100,7 +101,6 @@ async function setUserData(name, email, password) {
 
   userData.push(newUser);
   await setItem("userData", JSON.stringify(userData));
-
 }
 
 async function chekEmailExists(name, email, password) {
@@ -124,6 +124,7 @@ async function chekEmailExists(name, email, password) {
 async function getUserData() {
   try {
     userData = JSON.parse(await getItem("userData"));
+    loadSession();
   } catch (e) {
     console.warn("Could not load User");
   }
