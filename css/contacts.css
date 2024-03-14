@@ -41,14 +41,14 @@ body{
 }
 
 .main-contacts-container{
-    width: 100vw;
-    height: 100vh;
+    width: calc(100vw - 232px);
+    height: calc(100vh - 96px);
     display: flex;
 }
 
 .contacts-left-column {
     width: 456px;
-    padding-bottom: 15vh;
+    
     background-color: white;
     display: flex;
     flex-direction: column;

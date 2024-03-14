@@ -71,3 +71,19 @@ async function openHelpHTML() {
     `;
   await includeHTML();
 }
+
+async function openLegalNoticeHTML() {
+  document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
+  document.getElementById("main-content-container").innerHTML = /*HTML*/ `
+    <div w3-include-html="legalnotice.html"></div>
+    `;
+  await includeHTML();
+}
+
+async function openPrivacyPolicyHTML() {
+  document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
+  document.getElementById("main-content-container").innerHTML = /*HTML*/ `
+    <div w3-include-html="privacypolicy.html"></div>
+    `;
+  await includeHTML();
+}

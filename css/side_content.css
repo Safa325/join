@@ -1,14 +1,15 @@
 @import url(general.css);
 
-.main-help-container {
+.main-sidecontent-container {
     width: calc(100vw - 232px);
     height: calc(100vh - 96px);
     overflow-y: scroll;
-padding-left: 96px;
+    padding-left: 96px;
+    padding-right: 96px;
 }
 
 /* Scrollbar */
-.main-help-container::-webkit-scrollbar {
+.main-sidecontent-container::-webkit-scrollbar {
     scrollbar-width: 0px;
 }
 
