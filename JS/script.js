@@ -15,7 +15,8 @@ async function initSummaryHTML() {
     `;
   await includeHTML();
   clearAllNavActive();
-  setNavActive('sidebar-nav-summary');
+  setNavActive("sidebar-nav-summary");
+  initSummary();
 }
 
 async function initAddTaskHTML() {
@@ -26,7 +27,7 @@ async function initAddTaskHTML() {
   await includeHTML();
   addTaskInit();
   clearAllNavActive();
-  setNavActive('sidebar-nav-tasks');
+  setNavActive("sidebar-nav-tasks");
 }
 
 async function initBoardHTML() {
@@ -37,7 +38,7 @@ async function initBoardHTML() {
   await includeHTML();
   initBoard();
   clearAllNavActive();
-  setNavActive('sidebar-nav-board');
+  setNavActive("sidebar-nav-board");
 }
 
 async function initContactsHTML() {
@@ -48,20 +49,19 @@ async function initContactsHTML() {
   await includeHTML();
   initContacts();
   clearAllNavActive();
-  setNavActive('sidebar-nav-contacts');
+  setNavActive("sidebar-nav-contacts");
 }
 
 function clearAllNavActive() {
-  let nav = document.querySelectorAll('.sidebar-nav-element');
-  nav.forEach(element => {
-    element.classList.remove('sidebar-element-active')
+  let nav = document.querySelectorAll(".sidebar-nav-element");
+  nav.forEach((element) => {
+    element.classList.remove("sidebar-element-active");
   });
 }
 
 function setNavActive(id) {
   let nav = document.getElementById(id);
-  nav.classList.add('sidebar-element-active')
-
+  nav.classList.add("sidebar-element-active");
 }
 
 async function openHelpHTML() {

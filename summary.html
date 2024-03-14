@@ -7,7 +7,7 @@
     <title>Join</title>
     <link rel="stylesheet" href="css/summary.css" />
   </head>
-  <body onload="initSummary()">
+  <body>
     <div class="summary-container">
       <div class="summary-header">
         <div class="summary-titel">
@@ -19,7 +19,12 @@
       <div class="summary-body">
         <div class="summary-overview">
           <div class="overview-top">
-            <div class="overview-top-card" id="toDoCard">
+            <div
+              class="overview-top-card"
+              id="toDoCard"
+              onmouseover="hoverPencil()"
+              onmouseout="outPencil()"
+            >
               <div class="top-icon">
                 <img
                   id="pencil"
@@ -32,7 +37,12 @@
                 <div class="subtitel">To-do</div>
               </div>
             </div>
-            <div class="overview-top-card" id="doneCard">
+            <div
+              class="overview-top-card"
+              id="doneCard"
+              onmouseover="hoverDone()"
+              onmouseout="outDone()"
+            >
               <div class="top-icon">
                 <img id="done" src="./img/icons/done-dark.svg" alt="Done" />
               </div>
@@ -55,7 +65,7 @@
               </div>
               <div class="mid-card-mid"></div>
               <div class="mid-card-right">
-                <div class="card-right-date" id="actuell-data">
+                <div class="card-right-date" id="actuell-date">
                   October 16, 2022
                 </div>
                 <div class="subtitel">Upcoming Deadline</div>
@@ -91,6 +101,7 @@
       </div>
     </div>
     <script src="./JS/main-storage.js"></script>
+    <script src="./JS/script.js"></script>
     <script src="./JS/summary.js"></script>
   </body>
 </html>

@@ -198,7 +198,7 @@
 
 .card-right-date {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   height: 25px;
   width: 178px;
@@ -292,6 +292,7 @@
 
 .overview-top-card:hover .subtitel,
 .overview-mid-card:hover .subtitel,
+.overview-mid-card:hover .card-right-date,
 .overview-bottom-card:hover .subtitel {
   color: white;
 }
