@@ -74,6 +74,43 @@ let tasks = [
                 'done': false
             }
         ]
+    },
+    
+    {
+        'title': 'Kochwelt Page & Recipe Recommender',
+        'description': 'Build start page with recipe recommendation...',
+        'assignedTo': [
+            {
+                badgecolor: "#FC71FF",
+                initials: "CG",
+                register: "C",
+                name: "Claire Grube",
+                email: "cgrube@mail.de",
+                phone: "+49 40 276 5436",
+            },
+            {
+                badgecolor: "#FF5EB3",
+                initials: "VP",
+                register: "V",
+                name: "Volker Putt",
+                email: "volkerputt@yahoo.com",
+                phone: "+49 30 2589963",
+            }
+        ],
+        'priority': 'medium',
+        'category': 'User Story',
+        'dueDate': '2024-03-12',
+        'status': 'todo',
+        'subtasks': [
+            {
+                'title': 'Implement Recipe Recommondation',
+                'done': true
+            },
+            {
+                'title': 'Start Page Layout',
+                'done': false
+            }
+        ]
     }
 ]
 
@@ -96,46 +133,60 @@ function renderAllColumns(containerId) {
 }
 
 function renderAllCards() {
-    let filteredTasks = tasks.filter((task) => task.status == 'todo');
-    renderCards(filteredTasks, 'todo_', 'todo-card-container')
-    filteredTasks = tasks.filter((task) => task.status == 'inProgress');
-    renderCards(filteredTasks, 'inProgress_', 'inProgress-card-container')
-    filteredTasks = tasks.filter((task) => task.status == 'awaitFeedback');
-    renderCards(filteredTasks, 'awaitFeedback_', 'awaitFeedback-card-container')
-    filteredTasks = tasks.filter((task) => task.status == 'done');
-    renderCards(filteredTasks, 'done_', 'done-card-container')
-}
-
-function renderCards(tasks, prefix, containerId) {
-    let container = document.getElementById(containerId);
-    container.innerHTML = ''
+    // let filteredTasks = tasks.filter((task) => task.status == 'todo');
+    // renderCards(filteredTasks, 'todo_', 'todo-card-container')
+    // filteredTasks = tasks.filter((task) => task.status == 'inProgress');
+    // renderCards(filteredTasks, 'inProgress_', 'inProgress-card-container')
+    // filteredTasks = tasks.filter((task) => task.status == 'awaitFeedback');
+    // renderCards(filteredTasks, 'awaitFeedback_', 'awaitFeedback-card-container')
+    // filteredTasks = tasks.filter((task) => task.status == 'done');
+    // renderCards(filteredTasks, 'done_', 'done-card-container')
 
     for (let index = 0; index < tasks.length; index++) {
-        const task = tasks[index];
-        let prefixID = prefix + index;
-        console.log(prefixID)
-        let assignHTML = renderCardContacts(task)
-        let color = getBadgeColor(task)
-        let { total, finished, progress } = getSubtaskStatus(task);
-        console.log(progress)
-        let prioHTML = priorityHTML(task['priority'])
-        container.innerHTML += cardHTML(task, prefixID, color, prioHTML, assignHTML, total, finished, progress)
+        let task = tasks[index];
+        switch (task['status']) {
+            case 'todo':
+                renderCards(task,index, 'todo_', 'todo-card-container')
+                break;
+            case 'inProgress':
+                renderCards(task,index, 'inProgress_', 'inProgress-card-container')
+            default:
+                break;
+        }
     }
+}
+
+function renderCards(tasks,index, prefix, containerId) {
+    let container = document.getElementById(containerId);
+    // container.innerHTML = ''
+
+    // for (let index = 0; index < tasks.length; index++) {
+    //     const task = tasks[index];
+        let prefixID = prefix + index;
+        // let prefixID = 1;
+        console.log(prefixID)
+        let assignHTML = renderCardContacts(tasks)
+        let color = getBadgeColor(tasks)
+        let { total, finished, progress } = getSubtaskStatus(tasks);
+        console.log(progress)
+        let prioHTML = priorityHTML(tasks['priority'])
+        container.innerHTML += cardHTML(tasks, prefixID, color, prioHTML, assignHTML, total, finished, progress)
+    // }
 }
 
 function allowDrop(ev) {
     ev.preventDefault();
-  }
-  
-  function drag(ev) {
+}
+
+function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
-  }
-  
-  function drop(ev) {
+}
+
+function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     ev.currentTarget.appendChild(document.getElementById(data));
-  }
+}
 
 function getSubtaskStatus(task) {
     let totalSubtasks = 0;

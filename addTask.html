@@ -12,8 +12,6 @@
 
 <body onload="addTaskInit();">
 
-
-
     <div id="content-container">
 
         <h1 class="addTask-headline">Add Task</h1>
@@ -34,24 +32,20 @@
                     </div>
 
                     <!-- Contacts -->
-
                     <div  class="addTask-input-element mb-12">
                         <label class="addTask-label" for="addTask-search-assign">Assigned To</label>
                         <div id="addTask-assigned" class="addTask-inputField addTask-assigned">
                             <input onblur="clearOutlineBlue('addTask-assigned')" onfocus="setOutlineBlue('addTask-assigned')"  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
-                                <img id="arrow-contacts"
-                                    onclick="toggleDropdown()"
+                                <img id="arrow-contacts"                                   
+                                    onclick="contactsDropdown.toggle()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container contacts d-none" id="contact-dropdown-container">
                                 <!-- Will be rendered -->
                             </div>
-
                         </div>
-
-
                     </div>
                     <div class="addTask-badges-container" id="contact-badges-container">
                         <!-- Will be rendered -->
@@ -64,6 +58,7 @@
                         <input class="addTask-inputField" type="date" id="addTask-input-date" placeholder="dd/mm/yy"
                             required>
                     </div>
+
                     <!-- Urgent, Medium, Low - Prio -->
                     <div class="addTask-input-element">
                         <div class="addTask-label">Prio</div>
@@ -106,8 +101,6 @@
                                 </svg>
                             </div>
                         </div>
-
-
                     </div>
 
                     <!-- Category -->
@@ -117,8 +110,8 @@
                             <input class="addTask-searchField" type="text" id="addTask-category"
                                 placeholder="Select task category" required>
                             <div class="addTask-round-btn-frame">
-                                <img id="arrow-category"
-                                    onclick="toggleCategoryDropdown()"
+                                <img id="arrow-category"                                  
+                                    onclick="categoryDropdown.toggle()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container d-none" id="category-dropdown-container">
@@ -130,10 +123,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- Subtasks -->
 
+                    <!-- Subtasks -->
                     <div class="addTask-input-element">
                         <label class="addTask-label" for="addTask-subtask-input">Subtask</label>
                         <div ondblclick="enableSubtaskInput()" class="addTask-inputField-subtask">

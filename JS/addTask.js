@@ -1,9 +1,33 @@
+class Dropdown{
+    constructor(buttonId, containerId){
+        this.buttonId = buttonId;
+        this.containerId = containerId
+    }
+    open(){
+        const element = document.getElementById(this.buttonId)
+        element.classList.add('arrow-up')
+    
+        const dropContainer = document.getElementById(this.containerId);
+        dropContainer.classList.remove('d-none')
+    }
+    close(){
+        const element = document.getElementById(this.buttonId)
+        element.classList.remove('arrow-up')
+    
+        const dropContainer = document.getElementById(this.containerId);
+        dropContainer.classList.add('d-none')
+    }
+    toggle(){
+        const element = document.getElementById(this.buttonId)
+        element.classList.toggle('arrow-up')
+    
+        const dropContainer = document.getElementById(this.containerId);
+        dropContainer.classList.toggle('d-none')
+    }
 
+}
 
 let contacts = []
-
-
-
 let arrayOfContacts = []
 let arrayOfFilterContact = []
 let tasks = [];
@@ -11,9 +35,15 @@ let isContactSelected = [];
 let priority = 'medium';
 let category = '';
 let subtasks = [];
+let assignContainer;
+let contactsDropdown = new Dropdown('arrow-contacts','contact-dropdown-container')
+let categoryDropdown = new Dropdown('arrow-category','category-dropdown-container')
+
+
 
 
 async function addTaskInit() {
+    assignContainer = document.getElementById("addTask-assigned");
     await getUserData()
     getContactsFromUser()
 
@@ -41,78 +71,56 @@ function initContactCopy() {
     });
 }
 
-function toggleDropdown() {
-    let element = document.getElementById('arrow-contacts')
-    element.classList.toggle('arrow-up')
-
-    let dropContainer = document.getElementById('contact-dropdown-container');
-    dropContainer.classList.toggle('d-none')
-}
-function openDropdown() {
-    let element = document.getElementById('arrow-contacts')
-    element.classList.add('arrow-up')
-
-    let dropContainer = document.getElementById('contact-dropdown-container');
-    dropContainer.classList.remove('d-none')
-}
-
-function closeDropdown() {
-    let element = document.getElementById('arrow-contacts')
-    element.classList.remove('arrow-up')
-
-    let dropContainer = document.getElementById('contact-dropdown-container');
-    dropContainer.classList.add('d-none')
-}
-
-function toggleCategoryDropdown() {
-    let element = document.getElementById('arrow-category')
-    element.classList.toggle('arrow-up')
-
-    let dropContainer = document.getElementById('category-dropdown-container');
-    dropContainer.classList.toggle('d-none')
-}
-
+/**
+ * by click at outside of the dropdown area the dropdown closes
+ */
 document.addEventListener("click", function (e) {
-    let container = document.getElementById('addTask-assigned');
-    var rect = container.getBoundingClientRect();
-    let bottom = rect.bottom + 250;
-    let mouseX = e.clientX;
-    let mouseY = e.clientY;
-    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
-        closeDropdown();
+    if (assignContainer != null) {
+        var rect = assignContainer.getBoundingClientRect();
+        let bottom = rect.bottom + 250;
+        let mouseX = e.clientX;
+        let mouseY = e.clientY;
+        if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
+           contactsDropdown.close();
+        }
     }
 })
 
+/**
+ * start with keydown to filter the contacts
+ */
 function setFilter() {
     let inputName = document.getElementById('addTask-search-assign').value;
-
     if (inputName.length > 0) {
-
         inputName = inputName.toLowerCase();
-        openDropdown()
+        contactsDropdown.open();
     }
-
     filterArray(inputName);
     renderContacts();
 }
 
-
+/**
+ * filter of contacts
+ * @param {String} input 
+ */
 function filterArray(input) {
     arrayOfFilterContact = [];
 
-    for (let index = 0; index < arrayOfContacts.length; index++) {
-
-        let name = arrayOfContacts[index]['name'];
+    for (let index = 0; index < contacts.length; index++) {
+        let name = contacts[index]['name'];
         name = name.toLowerCase()
         let length = input.length;
         let subString = name.substring(0, length);
         if (subString == input) {
-            arrayOfFilterContact.push(arrayOfContacts[index])
+            arrayOfFilterContact.push(contacts[index])
         }
     }
 }
 
-
+/**
+ * selects the priority buttons and change classes
+ * @param {String} prio 
+ */
 function selectPrio(prio) {
     let containerUrgent = document.getElementById('addTask-prio-urgent');
     let containerMedium = document.getElementById('addTask-prio-medium');
@@ -133,6 +141,10 @@ function selectPrio(prio) {
     }
 }
 
+/**
+ * select category text from dropdown, close dropdown
+ * @param {Event} event 
+ */
 function selectCategory(event) {
     let inputField = document.getElementById('addTask-category')
     let text;
@@ -144,10 +156,12 @@ function selectCategory(event) {
     }
     inputField.value = text;
     category = text;
-    toggleCategoryDropdown()
-
+    categoryDropdown.toggle();
 }
 
+/**
+ * prepare of render the (filtered) contacts to the dropdown field
+ */
 function renderContacts() {
     let container = document.getElementById('contact-dropdown-container');
     let svg, html = '';
@@ -163,6 +177,9 @@ function renderContacts() {
     container.innerHTML = html;
 };
 
+/**
+ * prepare of render of the selected badges
+ */
 function renderBadges() {
     let container = document.getElementById('contact-badges-container');
     let html;
@@ -176,13 +193,21 @@ function renderBadges() {
     container.innerHTML = html;
 }
 
+/**
+ * toggles selected contacts
+ * @param {Number} index 
+ */
 function toggleContactSelection(index) {
     arrayOfFilterContact[index]['selected'] = !arrayOfFilterContact[index]['selected'];
     renderContacts()
     renderBadges()
 }
 
-
+/**
+ * create task only on click of create button, set task object and push to array
+ * clear all formfields, reset priority
+ * @param {Event} event 
+ */
 function createTask(event) {
     event.preventDefault()
     let titleField = document.getElementById('addTask-input-title');
@@ -214,6 +239,9 @@ function createTask(event) {
     selectPrio('medium');
 }
 
+/**
+ * create subtask object, push to array, clear inputfield
+ */
 function createSubtask() {
     let subtaskText = document.getElementById('addTask-subtask-input');
     let subtask = [];
@@ -223,7 +251,6 @@ function createSubtask() {
             'title': subtaskText.value,
             'done': false
         }
-
         subtasks.push(subtask);
     }
     renderSubtasks();
@@ -231,6 +258,9 @@ function createSubtask() {
     disableSubtaskInput();
 }
 
+/**
+ * enable input field of subtask, only with doubleclick in html code
+ */
 function enableSubtaskInput() {
     let input = document.getElementById('addTask-subtask-input');
     input.readOnly = false;
@@ -240,6 +270,9 @@ function enableSubtaskInput() {
     document.getElementById('addTask-delete-accept-container').classList.remove('d-none');
 }
 
+/**
+ * disable input field of subtask, after loosing focus
+ */
 function disableSubtaskInput() {
 
     let input = document.getElementById('addTask-subtask-input');
@@ -320,7 +353,6 @@ function indirectCreateSubtask() {
     let activeElement = this.document.activeElement;
     let subtask = document.getElementById('addTask-subtask-input')
     if (activeElement == subtask) {
-
         createSubtask()
     }
 }
