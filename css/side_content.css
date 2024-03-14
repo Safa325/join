@@ -1,0 +1,49 @@
+@import url(general.css);
+
+.main-help-container {
+    width: calc(100vw - 232px);
+    height: calc(100vh - 96px);
+    overflow-y: scroll;
+padding-left: 96px;
+}
+
+/* Scrollbar */
+.main-help-container::-webkit-scrollbar {
+    scrollbar-width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: none;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.htu-list-container {
+    display: flex;
+    gap: 35px;
+    margin-bottom: 16px;
+}
+
+.main-content-container a {
+    color: var(--clr-light-blue)
+}
+
+mark {
+    color: var(--clr-light-blue);
+    background-color: transparent;
+}

@@ -183,14 +183,34 @@ body{
     align-items: center;
     font-size: 16px;
     font-weight: 400;
-    color: var(--clr-dark-gray);
-    gap: 8px;
+    gap: 11px;
     cursor: pointer;
     border: none;
+    color: var(--clr-dark-gray);
 }
 
 .edit-delete-btn:hover {
     color: var(--clr-light-blue);
+}
+
+#edit-btn img {
+    filter: invert(21%) sepia(15%) saturate(1620%) hue-rotate(176deg) brightness(95%) contrast(91%);
+    width: 18px;
+    height: 18px;
+}
+
+#delete-btn img {
+    filter: invert(21%) sepia(15%) saturate(1620%) hue-rotate(176deg) brightness(95%) contrast(91%);
+    width: 16px;
+    height: 18px;
+}
+
+#edit-btn:hover img {
+    filter: invert(59%) sepia(91%) saturate(1353%) hue-rotate(166deg) brightness(90%) contrast(95%);
+}
+
+#delete-btn:hover img {
+    filter: invert(59%) sepia(91%) saturate(1353%) hue-rotate(166deg) brightness(90%) contrast(95%);
 }
 
 .contact-information-header {
@@ -413,4 +433,21 @@ label {
 .btn-pos {
     padding: 16px;
     gap: 10px;
+}
+
+#confirmation-container {
+    width: 326px;
+    height: 74px;
+    background-color: var(--clr-dark-gray);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+#confirmation-container span {
+    font-size: 20px;
+    font-weight: 400;
+    color: white;
 }

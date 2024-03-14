@@ -63,3 +63,11 @@ function setNavActive(id) {
   nav.classList.add('sidebar-element-active')
 
 }
+
+async function openHelpHTML() {
+  document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
+  document.getElementById("main-content-container").innerHTML = /*HTML*/ `
+    <div w3-include-html="help.html"></div>
+    `;
+  await includeHTML();
+}
