@@ -27,6 +27,7 @@
     min-height: 500px;
     gap: 16px;
     margin-top: 32px;
+    position: relative;
 }
 
 .board-column-header {
@@ -77,6 +78,10 @@
     align-items: center;
     text-align: center;
     padding-inline: 8px;
+    position: absolute;
+    top: 50px;
+    z-index: 0;
+    pointer-events: none;
 }
 .card-container{
     display: flex;
@@ -93,6 +98,8 @@
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
     padding: 16px;
     cursor: pointer;
+    z-index: 5;
+    background-color: white;
     /* display: flex;
     flex-direction: column; */
 }
