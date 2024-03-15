@@ -23,7 +23,7 @@ let tasksRP = [
         'priority': 'low',
         'category': 'Technical Task',
         'dueDate': '2024-03-12',
-        'status': 'inProgress',
+        'status': 'done',
         'subtasks': [
             {
                 'title': 'Implement Recipe Recommondation',
@@ -75,7 +75,7 @@ let tasksRP = [
             }
         ]
     },
-    
+
     {
         'title': 'Kochwelt Page & Recipe Recommender',
         'description': 'Build start page with recipe recommendation...',
@@ -114,9 +114,11 @@ let tasksRP = [
     }
 ]
 
+let currentCardId = '';
+let targetColumnName = '';
+
 
 function initBoard() {
-
     renderAllColumns()
     renderAllCards()
 }
@@ -142,35 +144,40 @@ function renderAllCards() {
     // filteredTasks = tasks.filter((task) => task.status == 'done');
     // renderCards(filteredTasks, 'done_', 'done-card-container')
 
-    for (let index = 0; index < tasks.length; index++) {
-        let task = tasks[index];
+    for (let index = 0; index < tasksRP.length; index++) {
+        let task = tasksRP[index];
         switch (task['status']) {
             case 'todo':
-                renderCards(task,index, 'todo_', 'todo-card-container')
+                renderCards(task, index, 'todo_', 'todo-card-container')
                 break;
             case 'inProgress':
-                renderCards(task,index, 'inProgress_', 'inProgress-card-container')
+                renderCards(task, index, 'inProgress_', 'inProgress-card-container')
+                break;
+            case 'awaitFeedback':
+                renderCards(task, index, 'awaitFeedback_', 'awaitFeedback-card-container')
+                break;
+            case 'done':
+                renderCards(task, index, 'done_', 'done-card-container')
+                break;
             default:
                 break;
         }
     }
 }
 
-function renderCards(tasks,index, prefix, containerId) {
+function renderCards(tasks, index, prefix, containerId) {
     let container = document.getElementById(containerId);
     // container.innerHTML = ''
 
     // for (let index = 0; index < tasks.length; index++) {
     //     const task = tasks[index];
-        let prefixID = prefix + index;
-        // let prefixID = 1;
-        console.log(prefixID)
-        let assignHTML = renderCardContacts(tasks)
-        let color = getBadgeColor(tasks)
-        let { total, finished, progress } = getSubtaskStatus(tasks);
-        console.log(progress)
-        let prioHTML = priorityHTML(tasks['priority'])
-        container.innerHTML += cardHTML(tasks, prefixID, color, prioHTML, assignHTML, total, finished, progress)
+
+    let assignHTML = renderCardContacts(tasks)
+    let color = getBadgeColor(tasks)
+    let { total, finished, progress } = getSubtaskStatus(tasks);
+    console.log(progress)
+    let prioHTML = priorityHTML(tasks['priority'])
+    container.innerHTML += cardHTML(tasks, index, color, prioHTML, assignHTML, total, finished, progress)
     // }
 }
 
@@ -180,12 +187,30 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
+    currentCardId = ev.target.id
 }
 
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     ev.currentTarget.appendChild(document.getElementById(data));
+    let index = extractIndexFromId(currentCardId)
+    let name = extractNameFromId(ev.currentTarget.id)
+    changeStatusOfTask(index, name)
+}
+
+function extractIndexFromId(id) {
+    let currentIndex = id.split('_');
+    return currentIndex[1];
+}
+
+function extractNameFromId(id) {
+    let currentName = id.split('-');
+    return currentName[0]
+}
+
+function changeStatusOfTask(index, status) {
+    tasksRP[index]['status'] = status;
 }
 
 function getSubtaskStatus(task) {
@@ -284,9 +309,9 @@ function assignedToHTML(assignedTo) {
 }
 
 
-function cardHTML(task, prefixID, color, prioHTML, assignHTML, totalSubtasks, finishedSubtasks, progress) {
+function cardHTML(task, index, color, prioHTML, assignHTML, totalSubtasks, finishedSubtasks, progress) {
     return /*html*/`
-         <div draggable='true' ondragstart="drag(event)" id="${prefixID}" class="board-task-card">
+         <div draggable='true' ondragstart="drag(event)" id="card_${index}" class="board-task-card">
                         <p class="board-task-category" style="background-color: ${color}">${task['category']}</p>
                         <h6 class="board-task-title">${task['title']}</h6>
                         <p class="board-task-description">${task['description']}</p>
