@@ -1,9 +1,14 @@
 @import url(general.css);
 
+* {
+  box-sizing: border-box;
+}
+
 .summary-container {
   position: absolute;
   top: 0px;
   left: 0px;
+  right: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -19,8 +24,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 625px;
-  width: 100%;
+  width: 625px;
   height: 73px;
 }
 
@@ -144,12 +148,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  border-radius: 30px;
   max-width: 560px;
   width: 100%;
   height: 168px;
-  box-shadow: var(--card-box-shadow);
   margin-bottom: 28px;
 }
 
@@ -157,9 +158,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   height: 100%;
   width: 100%;
-  padding: 28px 48px;
+  border-radius: 30px;
+  box-shadow: var(--card-box-shadow);
 }
 
 .mid-card-left {
@@ -302,4 +305,198 @@
 .overview-mid-card:hover .card-right-date,
 .overview-bottom-card:hover .subtitel {
   color: white;
+}
+
+@media (max-width: 1385px) {
+  .summary-greet {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .summary-container {
+    width: 100%;
+    min-width: 396px;
+  }
+
+  .summary-header {
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 223px;
+    width: 100%;
+    height: 88px;
+  }
+
+  .summary-titel,
+  .summary-titel h1 {
+    height: 56px;
+    width: 203px;
+    font-size: 47px;
+  }
+
+  .summary-border-mid {
+    display: none;
+  }
+
+  .summary-header-text {
+    margin-top: 12px;
+    width: 223px;
+    height: 24px;
+    font-size: 20px;
+  }
+
+  .summary-border-bottom {
+    margin-top: 16px;
+    border-bottom: 3px solid var(--clr-light-blue);
+    width: 90px;
+    height: auto;
+  }
+
+  .summary-body {
+    height: 100%;
+    max-height: 384px;
+    width: 396px;
+    width: 100%;
+  }
+
+  .summary-overview {
+    width: 100%;
+    max-width: 396px;
+    height: 384px;
+  }
+
+  .overview-top {
+    max-width: 396px;
+    width: 100%;
+    height: 168px;
+    margin-bottom: 30px;
+  }
+
+  .overview-top-card {
+    border-radius: 20px;
+    max-width: 186px;
+    width: 100%;
+    height: 110px;
+    box-shadow: var(--card-box-shadow);
+  }
+
+  .top-icon {
+    height: 40px;
+    width: 40px;
+  }
+
+  .top-icon img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+
+  .top-content {
+    height: 73px;
+    width: 50px;
+  }
+
+  .task-number {
+    height: 56px;
+    width: 50px;
+    font-size: 47px;
+    font-weight: 600;
+  }
+
+  .subtitel {
+    width: 50px;
+    height: 17px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--clr-dark-gray);
+  }
+
+  .overview-mid {
+    max-width: 396px;
+    width: 100%;
+    height: 110px;
+    margin-bottom: 30px;
+  }
+
+  .overview-mid-card {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    padding: 19px 38px;
+    box-shadow: var(--card-box-shadow);
+  }
+
+  .mid-card-left {
+    width: 108px;
+    height: 73px;
+  }
+
+  .mid-icon {
+    height: 40px;
+    width: 40px;
+    margin: 0 18px 0 0;
+  }
+
+  .mid-icon img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+
+  .mid-card-left .top-content {
+    height: 73px;
+    width: 50px;
+  }
+
+  .mid-card-left .subtitel {
+    font-size: 14px;
+  }
+
+  .mid-card-mid {
+    height: 68px;
+    margin: 0 20px;
+  }
+
+  .mid-card-right {
+    width: 135px;
+    height: 44px;
+  }
+
+  .card-right-date {
+    height: 19px;
+    width: 135px;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .mid-card-right .subtitel {
+    width: 130px;
+    height: 17px;
+    font-size: 14px;
+  }
+
+  .overview-bottom {
+    max-width: 396px;
+    width: 100%;
+    height: 110px;
+  }
+
+  .overview-bottom-card {
+    border-radius: 20px;
+    width: 116px;
+    height: 116px;
+    padding: 25px 0px;
+  }
+
+  .overview-bottom-card .top-content {
+    height: 90px;
+    width: 54px;
+  }
+
+  .overview-bottom-card .subtitel {
+    height: 34px;
+    width: 54px;
+    text-align: center;
+    font-size: 14px;
+  }
 }
