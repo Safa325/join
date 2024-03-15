@@ -31,15 +31,17 @@
 
   --btn-hvr-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-  --linear-gradient-hvr-light-grey: linear-gradient(0deg, rgba(240,240,240,1) 0%, rgba(249,249,249,1) 100%);
+  --linear-gradient-hvr-light-grey: linear-gradient(
+    0deg,
+    rgba(240, 240, 240, 1) 0%,
+    rgba(249, 249, 249, 1) 100%
+  );
 
   --card-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.05);
-
 }
 
 * {
   box-sizing: border-box;
-
 }
 
 body {
@@ -169,5 +171,6 @@ h6 {
 
 .btn-white:hover img {
   filter: brightness(0) saturate(100%) invert(100%);
-  filter: invert(77%) sepia(32%) saturate(7234%) hue-rotate(165deg) brightness(92%) contrast(91%);
+  filter: invert(77%) sepia(32%) saturate(7234%) hue-rotate(165deg)
+    brightness(92%) contrast(91%);
 }

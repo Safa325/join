@@ -2,6 +2,7 @@ async function initSummary() {
   await greetingUser();
   date();
   showTasks();
+  showGreeting();
 }
 
 let day;
@@ -118,3 +119,33 @@ function showTasks() {
   feedback.innerHTML = "";
   feedback.innerHTML += taskFeedback;
 }
+
+function showGreeting() {
+  const greeting = document.getElementById("summaryGreet");
+  if (window.innerWidth <= 1385) {
+    greeting.classList.remove("none");
+
+    setTimeout(function () {
+      greeting.classList.add("none");
+    }, 2000);
+  }
+}
+
+function greetingResponsiv() {
+  const greeting = document.getElementById("summaryGreet");
+
+  if (window.innerWidth <= 1385) {
+    if (greeting.classList.contains("none")) {
+    } else {
+      greeting.classList.add("none");
+    }
+  } else {
+    if (greeting.classList.contains("none")) {
+      greeting.classList.remove("none");
+    }
+  }
+}
+
+window.onresize = function () {
+  greetingResponsiv();
+};
