@@ -116,33 +116,35 @@ let tasksRP = [
 
 let currentCardId = '';
 let targetColumnName = '';
-
+let columnsId = ['todo-card-container', 'inProgress-card-container', 'awaitFeedback-card-container', 'done-card-container']
+let labels = ['No task todo', 'no task in progress', 'no task await feedback', 'no task done']
 
 function initBoard() {
-    renderAllColumns()
-    renderAllCards()
+
+    renderAllCards();
+    renderGhostCards();
+   
 }
 
 
 
-function renderAllColumns(containerId) {
-    let container = document.getElementById('board-column');
-    container.innerHTML = ''
-    container.innerHTML = columnHTML('todo', 'todo', 'No Tasks To Do')
-    container.innerHTML += columnHTML('inProgress', 'In Progress', 'No Tasks In Progress')
-    container.innerHTML += columnHTML('awaitFeedback', 'Await Feedback', 'No Tasks Await Feedback')
-    container.innerHTML += columnHTML('done', 'Done', 'No Tasks Done')
-}
+// function renderAllColumns(containerId) {
+//     let container = document.getElementById('board-column');
+//     container.innerHTML = ''
+//     container.innerHTML = columnHTML('todo', 'todo', 'No Tasks To Do')
+//     container.innerHTML += columnHTML('inProgress', 'In Progress', 'No Tasks In Progress')
+//     container.innerHTML += columnHTML('awaitFeedback', 'Await Feedback', 'No Tasks Await Feedback')
+//     container.innerHTML += columnHTML('done', 'Done', 'No Tasks Done')
+// }
 
 function renderAllCards() {
-    // let filteredTasks = tasks.filter((task) => task.status == 'todo');
-    // renderCards(filteredTasks, 'todo_', 'todo-card-container')
-    // filteredTasks = tasks.filter((task) => task.status == 'inProgress');
-    // renderCards(filteredTasks, 'inProgress_', 'inProgress-card-container')
-    // filteredTasks = tasks.filter((task) => task.status == 'awaitFeedback');
-    // renderCards(filteredTasks, 'awaitFeedback_', 'awaitFeedback-card-container')
-    // filteredTasks = tasks.filter((task) => task.status == 'done');
-    // renderCards(filteredTasks, 'done_', 'done-card-container')
+
+    let columns = document.querySelectorAll('.card-container')
+    for (let i = 0; i < columns.length; i++) {
+        const element = columns[i];
+        element.innerHTML = ''
+        element.innerHTML += labelHTML(labels[i])
+    }
 
     for (let index = 0; index < tasksRP.length; index++) {
         let task = tasksRP[index];
@@ -163,22 +165,33 @@ function renderAllCards() {
                 break;
         }
     }
+   
+}
+
+
+
+
+function calculateGhostCardPosition() {
+    let container = document.getElementById('todo-card-container');
+    let elements = container.querySelectorAll('.board-task-card');
+    let lastElement = elements[1].getBoundingClientRect();
+}
+
+function renderGhostCards() {
+    for (let index = 0; index < columnsId.length; index++) {
+        const column = columnsId[index];
+        document.getElementById(column).innerHTML += ghostCardHTML()
+    }
+    adjustGhostCardMargin()
 }
 
 function renderCards(tasks, index, prefix, containerId) {
     let container = document.getElementById(containerId);
-    // container.innerHTML = ''
-
-    // for (let index = 0; index < tasks.length; index++) {
-    //     const task = tasks[index];
-
     let assignHTML = renderCardContacts(tasks)
     let color = getBadgeColor(tasks)
     let { total, finished, progress } = getSubtaskStatus(tasks);
-    console.log(progress)
     let prioHTML = priorityHTML(tasks['priority'])
     container.innerHTML += cardHTML(tasks, index, color, prioHTML, assignHTML, total, finished, progress)
-    // }
 }
 
 function allowDrop(ev) {
@@ -196,7 +209,9 @@ function drop(ev) {
     ev.currentTarget.appendChild(document.getElementById(data));
     let index = extractIndexFromId(currentCardId)
     let name = extractNameFromId(ev.currentTarget.id)
-    changeStatusOfTask(index, name)
+    changeStatusOfTask(index, name);
+    renderAllCards()
+    renderGhostCards()
 }
 
 function extractIndexFromId(id) {
@@ -241,6 +256,41 @@ function renderCardContacts(task) {
 
 function getBadgeColor(task) {
     return task['category'] == 'User Story' ? '#0038ff' : '#1fd7c1'
+}
+
+function showGhostcard(event) {
+
+    let ghostCard = document.querySelectorAll('.board-ghostCard')
+    ghostCard.forEach(element => {
+        element.classList.add('show-ghostCard')
+    });
+
+    // if(event.target.id != 'card-container'){
+    //      event.currentTarget.querySelector('.board-ghostCard').classList.remove('show-ghostCard')
+    // }
+
+}
+
+function adjustGhostCardMargin() {
+    for (let index = 0; index < columnsId.length; index++) {
+        const columnId = columnsId[index];
+        let column = document.getElementById(columnId)
+        let cards = column.querySelectorAll('.board-task-card')
+        let ghostCard = column.querySelector('.board-ghostCard')
+           if (cards.length == 0) {
+            ghostCard.classList.add('margin-55')
+        }
+    }
+}
+
+function avoidGhostCard(event){
+    console.log(event.currentTarget)
+    let card = event.currentTarget.querySelector('.board-ghostCard');
+    card.classList.add('remove-ghostCard')
+}
+
+function rotateCard(event){
+    event.currentTarget.classList.add('card-rotate')
 }
 
 function columnHTML(prefix, name, label) {
@@ -311,30 +361,36 @@ function assignedToHTML(assignedTo) {
 
 function cardHTML(task, index, color, prioHTML, assignHTML, totalSubtasks, finishedSubtasks, progress) {
     return /*html*/`
-         <div draggable='true' ondragstart="drag(event)" id="card_${index}" class="board-task-card">
-                        <p class="board-task-category" style="background-color: ${color}">${task['category']}</p>
-                        <h6 class="board-task-title">${task['title']}</h6>
-                        <p class="board-task-description">${task['description']}</p>
+         <div draggable='true' ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
+            <p class="board-task-category" style="background-color: ${color}">${task['category']}</p>
+            <h6 class="board-task-title">${task['title']}</h6>
+            <p class="board-task-description">${task['description']}</p>
 
-                        <div class="board-task-progress">
-                            <div class="board-task-progressbar">
-                                <div class="board-task-progress-inner" style="width: ${progress}%"></div>
-                            </div>
-                            <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
-                        </div>
-                        <div class="board-task-footer">
-                            <div class="board-task-profile-badge-container">
-                                ${assignHTML}
-                            </div>
-                        <div class="board-task-priority-container">
-                           
-                           ${prioHTML}
-    
-                        </div>
-                        </div>
-                       
-
+            <div class="board-task-progress">
+                <div class="board-task-progressbar">
+                    <div class="board-task-progress-inner" style="width: ${progress}%">
                     </div>
+                </div>
+                <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
+            </div>
+            <div class="board-task-footer">
+                <div class="board-task-profile-badge-container">
+                    ${assignHTML}
+                </div>
+                <div class="board-task-priority-container">               
+                ${prioHTML}
+                </div>
+            </div>
+        </div>
     `
+}
 
+function ghostCardHTML() {
+    return /*html*/`
+         <div class="board-ghostCard"></div>`
+}
+
+function labelHTML(label) {
+    return/*html*/`
+        <div class="board-column-noTask">${label}</div>`
 }
