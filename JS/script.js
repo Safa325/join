@@ -15,7 +15,7 @@ async function initSummaryHTML() {
     `;
   await includeHTML();
   clearAllNavActive();
-  setNavActive("sidebar-nav-summary");
+  setNavActive('sidebar-nav-summary');
   initSummary();
 }
 
@@ -27,7 +27,7 @@ async function initAddTaskHTML() {
   await includeHTML();
   addTaskInit();
   clearAllNavActive();
-  setNavActive("sidebar-nav-tasks");
+  setNavActive('sidebar-nav-tasks');
 }
 
 async function initBoardHTML() {

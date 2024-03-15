@@ -43,7 +43,7 @@ let categoryDropdown = new Dropdown('arrow-category','category-dropdown-containe
 
 
 async function addTaskInit() {
-    assignContainer = document.getElementById("addTask-assigned");
+   
     await getUserData()
     getContactsFromUser()
 
@@ -75,6 +75,7 @@ function initContactCopy() {
  * by click at outside of the dropdown area the dropdown closes
  */
 document.addEventListener("click", function (e) {
+    assignContainer = document.getElementById("addTask-assigned");
     if (assignContainer != null) {
         var rect = assignContainer.getBoundingClientRect();
         let bottom = rect.bottom + 250;
