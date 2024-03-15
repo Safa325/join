@@ -123,11 +123,13 @@ function showTasks() {
 function showGreeting() {
   const greeting = document.getElementById("summaryGreet");
   if (window.innerWidth <= 1385) {
-    greeting.classList.remove("none");
-
-    setTimeout(function () {
-      greeting.classList.add("none");
-    }, 2000);
+    if (!sessionStorage.getItem("animationGreetingPlayed")) {
+      greeting.classList.remove("none");
+      setTimeout(function () {
+        greeting.classList.add("none");
+      }, 1000);
+      sessionStorage.setItem("animationGreetingPlayed", true);
+    }
   }
 }
 
