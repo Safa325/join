@@ -449,6 +449,7 @@ main {
   .overview-mid-card {
     height: 100%;
     width: 100%;
+    justify-content: space-between;
     border-radius: 20px;
     padding: 19px 38px;
     box-shadow: var(--card-box-shadow);
@@ -527,6 +528,20 @@ main {
     text-align: center;
     font-size: 14px;
   }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 158px;
+  background-color: var(--clr-dark-gray);
+  border-radius: 20px 0px 20px 20px;
+}
+
+.menu-body {
 }
 
 .none {

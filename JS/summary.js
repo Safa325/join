@@ -3,6 +3,7 @@ async function initSummary() {
   date();
   showTasks();
   showGreeting();
+  greetingResponsiv();
 }
 
 let day;
@@ -20,7 +21,7 @@ async function greetingUser() {
 }
 
 function greetingHtml1(day) {
-  return /*html*/ `<p>Good ${day}</p>`;
+  return /*html*/ `<p>${day}</p>`;
 }
 
 function greetingHtml2(name, day) {
@@ -92,12 +93,12 @@ function includeDate(x) {
 
 function showTasks() {
   //   let tasks = userData[userIndex]["tasks"];
-  let taskDo = 2;
-  let taskDone = 3;
-  let taskUrgent = 2;
-  let taskBoard = 5;
-  let taskProgress = 1;
-  let taskFeedback = 2;
+  let taskDo = filterBoardStatus("todo");
+  let taskDone = filterBoardStatus("done");
+  let taskUrgent = filterBoardPrio("urgent");
+  let taskProgress = filterBoardStatus("inProgress");
+  let taskFeedback = filterBoardStatus("awaitFeedback");
+  let taskBoard = taskDo + taskDone + taskUrgent + taskProgress + taskFeedback;
 
   let toDo = document.getElementById("toDo");
   let done = document.getElementById("done1");
@@ -135,15 +136,16 @@ function showGreeting() {
 
 function greetingResponsiv() {
   const greeting = document.getElementById("summaryGreet");
-
-  if (window.innerWidth <= 1385) {
-    if (greeting.classList.contains("none")) {
+  if (greeting) {
+    if (window.innerWidth <= 1385) {
+      if (greeting.classList.contains("none")) {
+      } else {
+        greeting.classList.add("none");
+      }
     } else {
-      greeting.classList.add("none");
-    }
-  } else {
-    if (greeting.classList.contains("none")) {
-      greeting.classList.remove("none");
+      if (greeting.classList.contains("none")) {
+        greeting.classList.remove("none");
+      }
     }
   }
 }
@@ -151,3 +153,15 @@ function greetingResponsiv() {
 window.onresize = function () {
   greetingResponsiv();
 };
+
+function filterBoardStatus(x) {
+  let userTasks = userData[userIndex]["tasks"];
+  const result = userTasks.filter((task) => task.status === x).length;
+  return result;
+}
+
+function filterBoardPrio(x) {
+  let userTasks = userData[userIndex]["tasks"];
+  const result = userTasks.filter((task) => task.priority === x).length;
+  return result;
+}
