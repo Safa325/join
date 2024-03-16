@@ -189,6 +189,7 @@ function renderGhostCards() {
     document.getElementById(column).innerHTML += ghostCardHTML();
   }
   adjustGhostCardMargin();
+  setLabelVisibity();
 }
 
 function renderCards(tasks, index, prefix, containerId) {
@@ -295,6 +296,25 @@ function adjustGhostCardMargin() {
     }
   }
 }
+
+function setOutlineBlue(id) {
+    document.getElementById(id).classList.add('blue-outline')
+}
+function clearOutlineBlue(id) {
+    document.getElementById(id).classList.remove('blue-outline')
+}
+
+function setLabelVisibity() {
+    for (let index = 0; index < columnsId.length; index++) {
+      const columnId = columnsId[index];
+      let column = document.getElementById(columnId);
+      let cards = column.querySelectorAll(".board-task-card");
+      let label = column.querySelector(".board-column-noTask");
+      if (cards.length > 0) {
+        label.classList.add("d-none");
+      }
+    }
+  }
 
 function avoidGhostCard(event) {
   console.log(event.currentTarget);

@@ -1,7 +1,11 @@
 @import url(general.css);
 
 #content-container {
-    margin: 64px;
+    margin-left: 64px;
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
 }
 
 .board-headline {
@@ -11,6 +15,86 @@
 .board-headline-menu {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.board-controller {
+    display: flex;
+}
+
+.board-search {
+    width: 312px;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--clr-font-light-grey);
+    position: relative;
+    background-color: white;
+    padding-inline: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.board-search-btn-frame {
+    width: 48px;
+    height: 32px;
+    display: flex;
+    justify-content: flex-end;
+    border-left: 1px solid var(--clr-light-gray);
+}
+
+.blue-outline {
+    outline: 1px solid var(--clr-light-blue);
+}
+
+.board-round-btn-frame {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 75ms;
+    position: relative;
+}
+
+
+.board-round-btn-frame:hover {
+    background-color: var(--clr-light-gray);
+}
+
+.board-search input {
+    font-size: 20px;
+    width: 80%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.board-btn-addTask {
+    margin-left: 32px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: var(--clr-dark-gray);
+    color: white;
+    font-weight: 700;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    transition: all 75ms;
+}
+
+.board-btn-addTask:hover {
+    background-color: var(--clr-light-blue);
+}
+
+.board-btn-addTask svg {
+    margin-left: 10px;
 }
 
 .board-column-container {
@@ -208,7 +292,8 @@
 .show-ghostCard {
     opacity: 1;
 }
-.remove-ghostCard{
+
+.remove-ghostCard {
     opacity: 0 !important;
 }
 
@@ -216,7 +301,66 @@
     margin-top: 75px;
 }
 
-.card-rotate{
+.card-rotate {
     transform: rotate(5deg);
     transition: all 75ms ease-in-out;
+}
+
+.d-none {
+    display: none !important;
+}
+
+
+.board-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+ 
+    display: flex;
+    padding-top: 32px;
+    justify-content: center;
+}
+
+.details-card-container {
+    width: 525px;
+    height: 931px;
+    background-color: white;
+    border-radius: 30px;
+    transform: translateX(200%);
+}
+
+.card-slide-in-animation {
+    animation: card-slide-in 0.3s ease-in-out forwards;
+}
+
+.card-slide-out-animation {
+    animation: card-slide-out 0.3s ease-in-out forwards;
+}
+
+
+
+@keyframes card-slide-in {
+    0% {
+        transform: translateX(200%);
+    }
+
+    100% {
+        transform: translatex(0);
+    }
+}
+
+@keyframes card-slide-out {
+    0% {
+        transform: translate(0);
+    }
+
+    100% {
+        transform: translate(200%);
+    }
 }
