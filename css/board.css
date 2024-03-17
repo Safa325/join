@@ -323,7 +323,7 @@
 .details-card-container {
   width: 525px;
   height: fit-content;
- max-height: 931px;
+ /* max-height: 931px; */
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;

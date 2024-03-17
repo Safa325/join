@@ -379,5 +379,9 @@ function toggleSubtaskStatus(firstIndex, index) {
 }
 
 
-
+function switchEditTask(index){
+  let container = document.getElementById('details-card-container');
+  container.innerHTML = '';
+  container.innerHTML = addTaskHTML(index)
+}
 

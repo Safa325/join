@@ -5,7 +5,9 @@
 }
 
 #content-container {
-    margin: 64px;
+    margin-left: 64px;
+    margin-top: 64px;
+    margin-right: 64px;
     padding-bottom: 64px;
 }
 
@@ -21,13 +23,18 @@
 
 .addTask-column-wrapper {
     display: flex;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
 
 }
 
 .addTask-column {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    /* max-width: 500px; */
+    /* flex: 1; */
+    
+    flex: 0 1 auto;
 }
 
 .addTask-separator {
@@ -452,9 +459,20 @@
 
 }
 
+.popup{
+   grid-template-columns: 1fr;
+    width: 100%;
+}
+
+.auto-height{
+    min-height: auto;
+}
 
 @media (max-width: 1030px){
     .addTask-column-wrapper{
-        flex-direction: column;
+       grid-template-columns: 1fr;
+    }
+    .addTask-btn-container{
+        justify-content: flex-start;
     }
 }
