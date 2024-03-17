@@ -380,7 +380,7 @@
 .details-badge-container {
   display: flex;
   align-items: center;
-  margin-block: 7px;
+  margin-top: 7px;
 }
 .details-profile-badge {
   width: 40px;
@@ -417,6 +417,35 @@
   height: 19px;
   margin-right: 16px;
   cursor: pointer;
+}
+
+.detail-card-footer{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.detail-card-footer-btn{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.detail-card-footer-btn:hover,
+.detail-card-footer-btn:hover > svg path{
+  color: var(--clr-light-blue);
+  fill: var(--clr-light-blue);
+}
+
+
+.detail-card-footer-btn svg{
+  pointer-events: none;
+}
+.border-left{
+  padding-left: 8px;
+  border-left: 1px solid var(--clr-light-gray);
 }
 
 .card-slide-in-animation {
