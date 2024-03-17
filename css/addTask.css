@@ -67,6 +67,13 @@
     background-color: white;
     position: relative;
 }
+.addTask-inputField:focus-visible{
+    outline: 1px solid var(--clr-light-blue) !important;
+}
+
+.blue-outline{
+    outline: 1px solid var(--clr-light-blue);
+}
 
 .addTask-textarea {
     min-height: 120px;

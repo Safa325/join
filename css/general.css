@@ -15,6 +15,7 @@
   --clr-font-light: #cdcdcd;
   --clr-light-red: #ff8190;
   --clr-font-light-grey: #a8a8a8;
+  --clr-bg-light-grey: #e7e7e7;
   --clr-background-boton: #f3f3f3;
 
   --clr-prio-red: #ff3d00;
@@ -24,16 +25,19 @@
   --clr-task-technical: #1fd7c1;
   --clr-task-userstory: #0038ff;
 
-  --header-box-shadow: 0px 0px 4px 0px #0000001a;
+  --header-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
 
   --card-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.05);
 
-  /*need any svg in lightblue? set following filter
-    switch any color to black:
-    filter: brightness(0) saturate(100%) invert(100%);
-    switch black into lightblue: 
-    filter: invert(77%) sepia(32%) saturate(7234%) hue-rotate(165deg) brightness(92%) contrast(91%);
-    */
+  --btn-hvr-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  --linear-gradient-hvr-light-grey: linear-gradient(
+    0deg,
+    rgba(240, 240, 240, 1) 0%,
+    rgba(249, 249, 249, 1) 100%
+  );
+
+  --card-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -54,10 +58,44 @@ h1 {
   margin-bottom: 48px;
 }
 
+.no-margin {
+  margin: 0;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 47px;
+  margin: 0;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 27px;
+  margin: 0;
+}
+
+h4 {
+  font-weight: 700;
+  font-size: 21px;
+  margin: 0;
+}
+
+h5 {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
+}
+
+h6 {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+}
+
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 /* Track */
@@ -107,6 +145,7 @@ h1 {
 
 .btn-grey:hover {
   background-color: var(--clr-light-blue);
+  box-shadow: var(--btn-hvr-box-shadow);
 }
 
 .btn-white {
@@ -127,6 +166,7 @@ h1 {
 .btn-white:hover {
   border: 1px solid var(--clr-light-blue);
   color: var(--clr-light-blue);
+  box-shadow: var(--btn-hvr-box-shadow);
 }
 
 .btn-white:hover img {

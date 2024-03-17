@@ -161,15 +161,15 @@ signUpForm.addEventListener("submit", (e) => {
   if (matchingPw == "false") {
     alert("Please match your passwords");
   } else {
-    saveUserData(name, email, password);
-    animationSuccess();
+    chekEmailExists(name, email, password);
+    e.preventDefault();
   }
 });
 
 function signUpSuccess() {
   return /*html*/ `<div class="signUpSuccessCard">
   <div class="successBody" id=signUpSuccess>
-    You Sign Up was successful
+    You Sign Up was successfully
   </div>
 </div>`;
 }

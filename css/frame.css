@@ -1,4 +1,5 @@
 @import url(general.css);
+@import url(contacts.css);
 
 header {
     position: absolute;
@@ -10,6 +11,7 @@ header {
     padding-left: 348px;
     padding-right: 40px;
     justify-content: space-between;
+    background-color: white;
 }
 
 #headline{
@@ -109,4 +111,110 @@ header {
 .sidebar-link-element:hover {
     font-weight: bold;
     color: var(--clr-light-blue);
+}
+
+.main-content-container {
+    position: absolute;
+    left: 232px;
+    top: 96px;
+}
+
+.dark-background {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    opacity: 0.0;
+}
+
+#overlay-window {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.placeholder {
+    width: calc(100vw - 232px);
+    height: calc(100vh - 96px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#help-icon {
+    cursor: pointer;
+}
+
+#help-icon:hover {
+    width: 22px;
+    height: 22px;
+}
+
+@media(max-width: 1200px) {
+    #user-profile-initials{
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
+
+    #headline {
+        display: none;
+    }
+
+    header {
+        position: unset;
+    }
+
+    #help-icon {
+        display: none;
+    }
+
+    .main-content-container {
+        position: unset;
+        height: 100%;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: calc(100vh - 80px);
+        width: 100vw;
+        height: 80px;
+        align-items: center;
+        padding: 0;
+    }
+
+    #sidebar-logo {
+        display: none;
+    }
+
+    #sidebar-nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+    }
+
+    .sidebar-nav-element {
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    .sidebar-links {
+        display: none;
+    }
+
+    #page-container {
+        display: flex;
+        flex-direction: column;
+    }
 }

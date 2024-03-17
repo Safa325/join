@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/addTask.css">
-    <title>Document</title>
+    <script src="./JS/main-storage.js"></script>
+    <script src="./JS/addTask.js"></script>
+    <title>Add Task</title>
 </head>
 
-<body onload="addTaskInit()">
-
-
+<body onload="addTaskInit();">
 
     <div id="content-container">
 
@@ -32,24 +32,20 @@
                     </div>
 
                     <!-- Contacts -->
-
                     <div  class="addTask-input-element mb-12">
                         <label class="addTask-label" for="addTask-search-assign">Assigned To</label>
                         <div id="addTask-assigned" class="addTask-inputField addTask-assigned">
-                            <input  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
+                            <input onblur="clearOutlineBlue('addTask-assigned')" onfocus="setOutlineBlue('addTask-assigned')"  onkeyup="setFilter()" class="addTask-searchField" type="text" id="addTask-search-assign"
                                 placeholder="Select contacts to assign">
                             <div class="addTask-round-btn-frame">
-                                <img id="arrow-contacts"
-                                    onclick="toggleDropdown('arrow-contacts', 'contact-dropdown-container')"
+                                <img id="arrow-contacts"                                   
+                                    onclick="contactsDropdown.toggle()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container contacts d-none" id="contact-dropdown-container">
                                 <!-- Will be rendered -->
                             </div>
-
                         </div>
-
-
                     </div>
                     <div class="addTask-badges-container" id="contact-badges-container">
                         <!-- Will be rendered -->
@@ -62,6 +58,7 @@
                         <input class="addTask-inputField" type="date" id="addTask-input-date" placeholder="dd/mm/yy"
                             required>
                     </div>
+
                     <!-- Urgent, Medium, Low - Prio -->
                     <div class="addTask-input-element">
                         <div class="addTask-label">Prio</div>
@@ -104,8 +101,6 @@
                                 </svg>
                             </div>
                         </div>
-
-
                     </div>
 
                     <!-- Category -->
@@ -115,8 +110,8 @@
                             <input class="addTask-searchField" type="text" id="addTask-category"
                                 placeholder="Select task category" required>
                             <div class="addTask-round-btn-frame">
-                                <img id="arrow-category"
-                                    onclick="toggleDropdown('arrow-category', 'category-dropdown-container')"
+                                <img id="arrow-category"                                  
+                                    onclick="categoryDropdown.toggle()"
                                     class="addTask-arrow-btn" src="./img/icons/arrow-down-small.svg" alt="">
                             </div>
                             <div class="addTask-dropdown-container d-none" id="category-dropdown-container">
@@ -128,10 +123,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- Subtasks -->
 
+                    <!-- Subtasks -->
                     <div class="addTask-input-element">
                         <label class="addTask-label" for="addTask-subtask-input">Subtask</label>
                         <div ondblclick="enableSubtaskInput()" class="addTask-inputField-subtask">
@@ -193,7 +187,7 @@
     </div>
 
 
-    <script src="./JS/addTask.js"></script>
+   
 </body>
 
 </html>

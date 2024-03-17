@@ -1,112 +1,33 @@
-let profileBadgeColors = [
-    '#FF7A00',
-    '#FF5EB3',
-    '#6E52FF',
-    '#9327FF',
-    '#00BEE8',
-    '#1FD7C1',
-    '#FF745E',
-    '#FFA35E',
-    '#FC71FF',
-    '#FFC701',
-    '#0038FF',
-    '#C3FF2B',
-    '#FFE62B',
-    '#FF4646',
-    '#FFBB2B',
-]
-let contacts = [
-    {
-        'A': [
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "AN",
-                'name': "Alfred Neumann",
-                'email': "alfred@neumann.com",
-                'phone': "0176/1234567"
-            },
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "AF",
-                'name': "Anna Fröhlich",
-                'email': "fröhlich@anna.com",
-                'phone': "0176/1234567"
-            },
-
-        ],
-
-        'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [],
-        'I': [], 'J': [],
-
-        'K': [
-            {
-                'badgecolor': "#6E52FF",
-                'initials': "KH",
-                'name': "Klara Himmel",
-                'email': "bitte@sommer.com"
-            },
-            {
-                'badgecolor': "#6E52FF",
-                'initials': "KE",
-                'name': "Karl Ender",
-                'email': "Karl@ender.com"
-            },
-        ],
-
-        'L': [], 'M': [], 'N': [], 'O': [],
-
-        'P': [
-            {
-                'badgecolor': "#FF7A00",
-                'initials': "PN",
-                'name': "Pia Nist",
-                'email': "PiaNist@mitherz.com"
-            },
-        ],
-
-        'Q': [],
-
-        'R': [
-            {
-                'badgecolor': "#FF5EB3",
-                'initials': "RS",
-                'name': "Rainer Sonnenschein",
-                'email': "gutes@wetter.de"
-            },
-        ],
-
-        'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [],
-        'Y': [], 'Z': [],
+class Dropdown{
+    constructor(buttonId, containerId){
+        this.buttonId = buttonId;
+        this.containerId = containerId
     }
-];
+    open(){
+        const element = document.getElementById(this.buttonId)
+        element.classList.add('arrow-up')
+    
+        const dropContainer = document.getElementById(this.containerId);
+        dropContainer.classList.remove('d-none')
+    }
+    close(){
+        const element = document.getElementById(this.buttonId)
+        element.classList.remove('arrow-up')
+    
+        const dropContainer = document.getElementById(this.containerId);
+        dropContainer.classList.add('d-none')
+    }
+    toggle(){
+        const element = document.getElementById(this.buttonId)
+        element.classList.toggle('arrow-up')
+    
+        const dropContainer = document.getElementById(this.containerId);
+        dropContainer.classList.toggle('d-none')
+    }
 
-// let tempContacts = [
-//     {
-//         'badgecolor': "#FF7A00",
-//         'initials': "PN",
-//         'name': "Pia Nist",
-//         'email': "PiaNist@mitherz.com"
-//     },
-//     {
-//         'badgecolor': "#FF5EB3",
-//         'initials': "RS",
-//         'name': "Rainer Sonnenschein",
-//         'email': "gutes@wetter.de"
-//     },
-//     {
-//         'badgecolor': "#6E52FF",
-//         'initials': "KH",
-//         'name': "Klara Himmel",
-//         'email': "bitte@sommer.com"
-//     },
-//     {
-//         'badgecolor': "#6E52FF",
-//         'initials': "KE",
-//         'name': "Karl Ender",
-//         'email': "Karl@ender.com"
-//     },
-// ]
+}
 
+let contacts = []
 let arrayOfContacts = []
 let arrayOfFilterContact = []
 let tasks = [];
@@ -114,10 +35,18 @@ let isContactSelected = [];
 let priority = 'medium';
 let category = '';
 let subtasks = [];
+let assignContainer;
+let contactsDropdown = new Dropdown('arrow-contacts','contact-dropdown-container')
+let categoryDropdown = new Dropdown('arrow-category','category-dropdown-container')
 
 
-function addTaskInit() {
-    generateContactArray()
+
+
+async function addTaskInit() {
+   
+    await getUserData()
+    getContactsFromUser()
+
     initContactCopy()
     selectPrio(priority)
     renderContacts(arrayOfContacts)
@@ -125,100 +54,74 @@ function addTaskInit() {
     renderSubtasks()
 }
 
-function generateContactArray() {
-    let entries = []
-    for (let i = 65; i <= 90; i++) {
-        let firstLetter = String.fromCharCode(i);
-        for (let index = 0; index < contacts.length; index++) {
-            const element = contacts[index];
-            let contactEntry = element[firstLetter]
-            if (contactEntry.length > 0) {
-                entries.push(contactEntry)
-            }
-        }
-    }
-    entries.forEach(elements => {
-        elements.forEach(element => {
-            arrayOfContacts.push(element)
-        });
-    });
+/**
+ * gets contacts of logged in user
+ */
+function getContactsFromUser() {
+    let user = userData[userIndex];
+    contacts = [...user.contacts];
 }
-
-function preventEnter() {
-    return false
-}
-
+/**
+ * prepare an array for selection
+ */
 function initContactCopy() {
-    arrayOfFilterContact = [...arrayOfContacts];
+    arrayOfFilterContact = [...contacts];
     arrayOfFilterContact.forEach(element => {
         element.selected = false;
     });
 }
 
-function toggleDropdown(id, dropdown) {
-    let element = document.getElementById(id)
-    element.classList.toggle('arrow-up')
-
-    let dropContainer = document.getElementById(dropdown);
-    dropContainer.classList.toggle('d-none')
-}
-function openDropdown(id, dropdown) {
-    let element = document.getElementById(id)
-    element.classList.add('arrow-up')
-
-    let dropContainer = document.getElementById(dropdown);
-    dropContainer.classList.remove('d-none')
-}
-
-function closeDropdown(id, dropdown) {
-    let element = document.getElementById(id)
-    element.classList.remove('arrow-up')
-
-    let dropContainer = document.getElementById(dropdown);
-    dropContainer.classList.add('d-none')
-}
-
+/**
+ * by click at outside of the dropdown area the dropdown closes
+ */
 document.addEventListener("click", function (e) {
-    let container = document.getElementById('addTask-assigned');
-    var rect = container.getBoundingClientRect();
-    let bottom = rect.bottom + 250;
-    let mouseX = e.clientX;
-    let mouseY = e.clientY;
-    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
-       closeDropdown('arrow-contacts', 'contact-dropdown-container');
-    } 
+    assignContainer = document.getElementById("addTask-assigned");
+    if (assignContainer != null) {
+        var rect = assignContainer.getBoundingClientRect();
+        let bottom = rect.bottom + 250;
+        let mouseX = e.clientX;
+        let mouseY = e.clientY;
+        if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
+           contactsDropdown.close();
+        }
+    }
 })
 
+/**
+ * start with keydown to filter the contacts
+ */
 function setFilter() {
     let inputName = document.getElementById('addTask-search-assign').value;
-
     if (inputName.length > 0) {
-
         inputName = inputName.toLowerCase();
-        openDropdown('arrow-contacts', 'contact-dropdown-container')
+        contactsDropdown.open();
     }
-
     filterArray(inputName);
     renderContacts();
 }
 
-
+/**
+ * filter of contacts
+ * @param {String} input 
+ */
 function filterArray(input) {
     arrayOfFilterContact = [];
 
-    for (let index = 0; index < arrayOfContacts.length; index++) {
-
-        let name = arrayOfContacts[index]['name'];
+    for (let index = 0; index < contacts.length; index++) {
+        let name = contacts[index]['name'];
         name = name.toLowerCase()
         let length = input.length;
         let subString = name.substring(0, length);
         if (subString == input) {
-            arrayOfFilterContact.push(arrayOfContacts[index])
+            arrayOfFilterContact.push(contacts[index])
         }
     }
 }
 
-
+/**
+ * selects the priority buttons and change classes
+ * @param {String} prio 
+ */
 function selectPrio(prio) {
     let containerUrgent = document.getElementById('addTask-prio-urgent');
     let containerMedium = document.getElementById('addTask-prio-medium');
@@ -239,6 +142,10 @@ function selectPrio(prio) {
     }
 }
 
+/**
+ * select category text from dropdown, close dropdown
+ * @param {Event} event 
+ */
 function selectCategory(event) {
     let inputField = document.getElementById('addTask-category')
     let text;
@@ -250,10 +157,12 @@ function selectCategory(event) {
     }
     inputField.value = text;
     category = text;
-    toggleDropdown('arrow-category', 'category-dropdown-container')
-
+    categoryDropdown.toggle();
 }
 
+/**
+ * prepare of render the (filtered) contacts to the dropdown field
+ */
 function renderContacts() {
     let container = document.getElementById('contact-dropdown-container');
     let svg, html = '';
@@ -269,6 +178,9 @@ function renderContacts() {
     container.innerHTML = html;
 };
 
+/**
+ * prepare of render of the selected badges
+ */
 function renderBadges() {
     let container = document.getElementById('contact-badges-container');
     let html;
@@ -282,13 +194,21 @@ function renderBadges() {
     container.innerHTML = html;
 }
 
+/**
+ * toggles selected contacts
+ * @param {Number} index 
+ */
 function toggleContactSelection(index) {
     arrayOfFilterContact[index]['selected'] = !arrayOfFilterContact[index]['selected'];
     renderContacts()
     renderBadges()
 }
 
-
+/**
+ * create task only on click of create button, set task object and push to array
+ * clear all formfields, reset priority
+ * @param {Event} event 
+ */
 function createTask(event) {
     event.preventDefault()
     let titleField = document.getElementById('addTask-input-title');
@@ -313,31 +233,35 @@ function createTask(event) {
         'status': 'todo',
         'subtasks': subtasks
     }
-    tasks.push(task)
+    userData[userIndex]['tasks'].push(task);
     titleField.value = descriptionField.value = dateField.value = '';
     subtasks = [];
     renderSubtasks();
-    selectPrio(priority);
+    selectPrio('medium');
 }
 
-function getAssignedContacts() {
-
-    console.log(myarray)
-    return myarray
-}
-
+/**
+ * create subtask object, push to array, clear inputfield
+ */
 function createSubtask() {
-    let subtask = document.getElementById('addTask-subtask-input');
-    console.log(subtask)
-    if (subtask.value) {
-        subtasks.push(subtask.value);
-    }
+    let subtaskText = document.getElementById('addTask-subtask-input');
+    let subtask = [];
+    if (subtaskText.value) {
 
+        subtask = {
+            'title': subtaskText.value,
+            'done': false
+        }
+        subtasks.push(subtask);
+    }
     renderSubtasks();
-    subtask.value = '';
-    // disableSubtaskInput();
+    subtaskText.value = '';
+    disableSubtaskInput();
 }
 
+/**
+ * enable input field of subtask, only with doubleclick in html code
+ */
 function enableSubtaskInput() {
     let input = document.getElementById('addTask-subtask-input');
     input.readOnly = false;
@@ -347,6 +271,9 @@ function enableSubtaskInput() {
     document.getElementById('addTask-delete-accept-container').classList.remove('d-none');
 }
 
+/**
+ * disable input field of subtask, after loosing focus
+ */
 function disableSubtaskInput() {
 
     let input = document.getElementById('addTask-subtask-input');
@@ -364,7 +291,8 @@ function disableSubtaskInputDelayed() {
 }
 
 
-function enableEditSubtask(index) {
+function enableEditSubtask(event, index) {
+    event.preventDefault()
     removePseudo(index)
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     input.readOnly = false;
@@ -400,8 +328,6 @@ window.addEventListener('keyup', (event) => {
 
 
 function indirectDisableEditSubtask() {
-    let activeElement = this.document.activeElement;
-
     let elements = document.querySelectorAll('.addTask-subtask-listElement')
     elements.forEach((element, index) => {
         disableEditSubtask(index)
@@ -416,15 +342,22 @@ function createTaskEnter(event) {
     }
 }
 
+function editSubtaskPreventEnter(event) {
+
+    if (event.key === 'Enter') {
+
+        event.preventDefault()
+    }
+}
+
 function indirectCreateSubtask() {
     let activeElement = this.document.activeElement;
     let subtask = document.getElementById('addTask-subtask-input')
     if (activeElement == subtask) {
-        // disableSubtaskInputDelayed()
-        // console.log('indirectCreateSubtask')
         createSubtask()
     }
 }
+
 
 
 
@@ -457,16 +390,20 @@ function addPseudo(index) {
 
     let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
     input.readOnly = true;
-
 }
 
-
+function setOutlineBlue(id) {
+    document.getElementById(id).classList.add('blue-outline')
+}
+function clearOutlineBlue(id) {
+    document.getElementById(id).classList.remove('blue-outline')
+}
 
 function subTaskHTML(subtask, index) {
     return /*html*/`
         <div class="addTask-subtask-element dot-before" id="addTask-subtask-element_${index}">
-        <input readonly="true" onkeyup="editSubtask(event, ${index})"  ondblclick="enableEditSubtask(${index})" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask}">
-            <div onclick="enableEditSubtask(${index})" class="subtask-icon subtask-edit" id="subtask-edit_${index}">
+        <input readonly="true" onkeyup="editSubtask(event, ${index})" onkeydown="editSubtaskPreventEnter(event)" ondblclick="enableEditSubtask(event, ${index})" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask}">
+            <div onclick="enableEditSubtask(event, ${index})" class="subtask-icon subtask-edit" id="subtask-edit_${index}">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
