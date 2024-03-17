@@ -255,6 +255,7 @@ function createTask(event) {
  */
 function createSubtask() {
   let subtaskText = document.getElementById("addTask-subtask-input");
+  console.log(subtaskText.value)
   let subtask = [];
   if (subtaskText.value) {
     subtask = {
@@ -380,6 +381,7 @@ function renderSubtasks() {
   container.innerHTML = "";
   for (let index = 0; index < subtasks.length; index++) {
     const subtask = subtasks[index];
+    console.log(subtask)
     container.innerHTML += subTaskHTML(subtask, index);
   }
 }

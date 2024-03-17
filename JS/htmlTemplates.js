@@ -2,7 +2,7 @@
 function subTaskHTML(subtask, index) {
   return /*html*/ `
         <div class="addTask-subtask-element dot-before" id="addTask-subtask-element_${index}">
-        <input readonly="true" onkeyup="editSubtask(event, ${index})" onkeydown="editSubtaskPreventEnter(event)" ondblclick="enableEditSubtask(event, ${index})" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask}">
+        <input readonly="true" onkeyup="editSubtask(event, ${index})" onkeydown="editSubtaskPreventEnter(event)" ondblclick="enableEditSubtask(event, ${index})" id="addTask-subtask-listElement-input_${index}" class="addTask-subtask-listElement" type="text" value="${subtask.title}">
             <div onclick="enableEditSubtask(event, ${index})" class="subtask-icon subtask-edit" id="subtask-edit_${index}">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
