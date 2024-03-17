@@ -24,7 +24,7 @@ async function getArrayOfRegisterLetters() {
     registerLetters.sort();
 }
 
-function renderRegisterboxes() {
+async function renderRegisterboxes() {
     document.getElementById('contacts-list').innerHTML = '';
 
     for (let i = 0; i < registerLetters.length; i++) {
@@ -41,7 +41,19 @@ function generateRegisterboxHTML(registerLetter) {
         `;
 }
 
-function renderListOfContacts() {
+async function fetchData() {
+    let resp = await fetch(
+        'dummy.json'
+      );
+      dummyUser = await resp.json();
+      return dummyUser
+
+   /*  return fetch(url)
+    .then((res) => res.json())
+    .then((res) => res.data.value); */
+}
+
+async function renderListOfContacts() {
     let userContacts = userData[userIndex]['contacts'];
 
     for (let i = 0; i < userContacts.length; i++) {
@@ -50,7 +62,7 @@ function renderListOfContacts() {
     };
 }
 
-function generateContact(objContact, i) {
+async function generateContact(objContact, i) {
     let badgecolor = objContact['badgecolor'];
     let initials = objContact['initials'];
     let register = objContact['register'];
@@ -70,7 +82,7 @@ function generateContact(objContact, i) {
     `;
 }
 
-function createContact() {
+async function createContact() {
     let inputName = document.getElementById('contact-input-name').value;
     let inputEmail = document.getElementById('contact-input-email').value;
     let inputPhone = document.getElementById('contact-input-phone').value;
@@ -105,7 +117,7 @@ function createContact() {
     setNewContact(newContact);
     let i = userData[userIndex]['contacts'].length -1;
     clearAddContactForm();
-    initContacts();
+    await initContacts();
     setSlideOutEffects();
     renderContactDetails(i);
     confirmNewContact();

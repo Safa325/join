@@ -154,3 +154,67 @@ header {
     width: 22px;
     height: 22px;
 }
+
+@media(max-width: 1200px) {
+    #user-profile-initials{
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
+
+    #headline {
+        display: none;
+    }
+
+    header {
+        position: unset;
+    }
+
+    #help-icon {
+        display: none;
+    }
+
+    .main-content-container {
+        position: unset;
+        height: 100%;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: calc(100vh - 80px);
+        width: 100vw;
+        height: 80px;
+        align-items: center;
+        padding: 0;
+    }
+
+    #sidebar-logo {
+        display: none;
+    }
+
+    #sidebar-nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+    }
+
+    .sidebar-nav-element {
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    .sidebar-links {
+        display: none;
+    }
+
+    #page-container {
+        display: flex;
+        flex-direction: column;
+    }
+}
