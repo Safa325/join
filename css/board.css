@@ -322,8 +322,8 @@
 
 .details-card-container {
   width: 525px;
-  /* height: 931px; */
- max-height: 90vh;
+  height: fit-content;
+ max-height: 931px;
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
@@ -331,8 +331,22 @@
   flex-direction: column;
   gap: 24px;
   /* transform: translateX(200%); */
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  flex-grow: 0;
  
+}
+
+.board-task-detail-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.board-task-detail-close{
+  cursor: pointer;
+}
+
+.board-task-detail-close path{
+  pointer-events: none;
 }
 
 .detail-card-category {
@@ -385,6 +399,24 @@
 .detail-card-subtask-container{
     display: flex;
     flex-direction: column;
+}
+
+.detail-card-subtask{
+  display: flex;
+  align-items: center;
+  padding-block: 6px;
+  margin: 0;
+  padding-left: 16px;
+}
+.detail-card-subtask p{
+  margin: 0;
+}
+
+.addTask-checkbox {
+  width: 18px;
+  height: 19px;
+  margin-right: 16px;
+  cursor: pointer;
 }
 
 .card-slide-in-animation {

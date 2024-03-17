@@ -34,7 +34,7 @@ let tasksRP = [
         done: false,
       },
       {
-        title: "Start Page Layout",
+        title: "Push to Git",
         done: false,
       },
     ],
@@ -207,8 +207,23 @@ function renderDetailCard(index) {
   let assignHTML = renderDetailsCardContacts(tasksRP[index]);
   let color = getBadgeColor(tasksRP[index]);
   let prioHTML = priorityHTML(tasksRP[index]["priority"]);
+  let subtasksHTML = "";
+  let firstIndex = index;
+
+  tasksRP[index]["subtasks"].forEach((subtask, index) => {
+    subtasksHTML += subtaskStatusHTML(subtask, firstIndex, index);
+  });
+  console.log(tasksRP[index]["subtasks"]);
+  // console.log(subtasks);
+
   container.innerHTML = "";
-  container.innerHTML = detailCardHTML(tasksRP[0], color, assignHTML, prioHTML);
+  container.innerHTML = detailCardHTML(
+    tasksRP[0],
+    color,
+    assignHTML,
+    prioHTML,
+    subtasksHTML
+  );
 }
 
 // Drag & Drop
@@ -325,7 +340,10 @@ function setLabelVisibity() {
 function avoidGhostCard(event) {
   console.log(event.currentTarget);
   let card = event.currentTarget.querySelector(".board-ghostCard");
-  card.classList.add("remove-ghostCard");
+  if(card){
+    card.classList.add("remove-ghostCard");
+  }
+ 
 }
 
 function rotateCard(event) {
@@ -378,13 +396,12 @@ function assignedToHTML(assignedTo) {
 
 function assignedToDetailsHTML(assignedTo) {
   return /*html*/ `
-        <div class="details-badge-container">
-            <div class="details-profile-badge" style="background-color: ${assignedTo["badgecolor"]}">
-                ${assignedTo["initials"]}
-            </div>
-          ${assignedTo["name"]}
+    <div class="details-badge-container">
+        <div class="details-profile-badge" style="background-color: ${assignedTo["badgecolor"]}">
+            ${assignedTo["initials"]}
         </div>
-       
+      ${assignedTo["name"]}
+    </div>   
     `;
 }
 
@@ -399,7 +416,7 @@ function cardHTML(
   progress
 ) {
   return /*html*/ `
-         <div draggable='true' ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
+         <div draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
             <p class="board-task-category" style="background-color: ${color}">${task["category"]}</p>
             <h6 class="board-task-title">${task["title"]}</h6>
             <p class="board-task-description">${task["description"]}</p>
@@ -423,38 +440,86 @@ function cardHTML(
     `;
 }
 
-function detailCardHTML(task, color, assignHTML, prioHTML) {
+function openDetailCard(index) {
+  let container = document.getElementById("board-overlay");
+  container.classList.remove("d-none");
+  renderDetailCard(index);
+}
+function closeDetailCard(event) {
+  event.stopPropagation();
+  let container = document.getElementById("board-overlay");
+  if (container.id == event.target.id || event.target.id == 'close-detail-card') {
+    container.classList.add("d-none");
+  }
+}
+
+function detailCardHTML(task, color, assignHTML, prioHTML, subtasks) {
   return /*html*/ `
-    
-            <p class="board-task-category detail-card-category" style="background-color: ${color}">${task["category"]}</p>
-            <h6 class="board-task-title detail-card-title">${task["title"]}</h6>
-            <p class="board-task-description detail-card-description">${task["description"]}</p>
-            <div class="detail-card-line">
-                <div class="detail-card-line-label">Due date:</div>
-                <div class="detail-card-line-info">${task["dueDate"]}</div>
-            </div>
-            <div class="detail-card-line">
-                <div class="detail-card-line-label">Priority:</div>
-                <div class="detail-card-line-info">${task["priority"]}
-                    ${prioHTML}
-                </div>
-            </div>
-            
-            <div class="detail-card-badge-container">
-              Assigned To:
-                ${assignHTML}
-            </div>
-            <div class="detail-card-subtask-container">
-              Subtasks:
-              <div class="deatil-card-subtask">
-                ${task["subtasks"][0]["title"]}
-              </div>
-               
-              <div class="deatil-card-subtask">
-                ${task["subtasks"][1]["title"]}
-              </div>
-            </div>
+      <div class="board-task-detail-header">
+          <p class="board-task-category detail-card-category" style="background-color: ${color}">${task["category"]}</p>
+          <svg id="close-detail-card" onclick="closeDetailCard(event)" class="board-task-detail-close" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+          d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
+          stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+      </div>
+         
+      <h6 class="board-task-title detail-card-title">${task["title"]}</h6>
+      <p class="board-task-description detail-card-description">${task["description"]}</p>
+      <div class="detail-card-line">
+          <div class="detail-card-line-label">Due date:</div>
+          <div class="detail-card-line-info">${task["dueDate"]}</div>
+      </div>
+      <div class="detail-card-line">
+          <div class="detail-card-line-label">Priority:</div>
+          <div class="detail-card-line-info">${task["priority"]}
+              ${prioHTML}
+          </div>
+      </div>
+      
+      <div class="detail-card-badge-container">
+        Assigned To:
+          ${assignHTML}
+      </div>
+      <div class="detail-card-subtask-container">
+        Subtasks:
+        ${subtasks}
+      </div>
   `;
+}
+
+function toggleSubtaskStatus(firstIndex, index) {
+  tasksRP[firstIndex]["subtasks"][index]["done"] =
+    !tasksRP[firstIndex]["subtasks"][index]["done"];
+  renderDetailCard(firstIndex);
+  renderAllCards();
+}
+
+function subtaskStatusHTML(subtask, firstIndex, index) {
+  let html = "";
+  if (subtask["done"]) {
+    html = /*html*/ `
+      <div class="detail-card-subtask">
+        <svg onclick="toggleSubtaskStatus(${firstIndex}, ${index})" class="addTask-checkbox" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+              d="M17 8.96582V14.9658C17 16.6227 15.6569 17.9658 14 17.9658H4C2.34315 17.9658 1 16.6227 1 14.9658V4.96582C1 3.30897 2.34315 1.96582 4 1.96582H12"
+              stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M5 9.96582L9 13.9658L17 2.46582" stroke="#2A3647" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p>${subtask["title"]}</p>
+      </div>    
+             `;
+  } else {
+    html = /*html*/ `
+       <div class="detail-card-subtask">
+            <svg onclick="toggleSubtaskStatus(${firstIndex}, ${index})" class="addTask-checkbox" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1.96582" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"/>
+            </svg>
+            <p>${subtask["title"]}</p>
+      </div> `;
+  }
+  return html;
 }
 
 function ghostCardHTML() {
