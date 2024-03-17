@@ -3,7 +3,6 @@ async function initSummary() {
   date();
   showTasks();
   showGreeting();
-  greetingResponsiv();
 }
 
 let day;
@@ -92,44 +91,37 @@ function includeDate(x) {
 }
 
 function showTasks() {
-  //   let tasks = userData[userIndex]["tasks"];
   let taskDo = filterBoardStatus("todo");
   let taskDone = filterBoardStatus("done");
   let taskUrgent = filterBoardPrio("urgent");
   let taskProgress = filterBoardStatus("inProgress");
   let taskFeedback = filterBoardStatus("awaitFeedback");
   let taskBoard = taskDo + taskDone + taskUrgent + taskProgress + taskFeedback;
-
   let toDo = document.getElementById("toDo");
   let done = document.getElementById("done1");
   let urgent = document.getElementById("urgent");
   let inBoard = document.getElementById("inBoard");
   let inProgress = document.getElementById("inProgress");
   let feedback = document.getElementById("feedback");
-
-  toDo.innerHTML = "";
-  toDo.innerHTML += taskDo;
-  done.innerHTML = "";
-  done.innerHTML += taskDone;
-  urgent.innerHTML = "";
-  urgent.innerHTML += taskUrgent;
-  inBoard.innerHTML = "";
-  inBoard.innerHTML += taskBoard;
-  inProgress.innerHTML = "";
-  inProgress.innerHTML += taskProgress;
-  feedback.innerHTML = "";
-  feedback.innerHTML += taskFeedback;
+  toDo.innerHTML = taskDo;
+  done.innerHTML = taskDone;
+  urgent.innerHTML = taskUrgent;
+  inBoard.innerHTML = taskBoard;
+  inProgress.innerHTML = taskProgress;
+  feedback.innerHTML = taskFeedback;
 }
 
 function showGreeting() {
   const greeting = document.getElementById("summaryGreet");
-  if (window.innerWidth <= 1385) {
-    if (!sessionStorage.getItem("animationGreetingPlayed")) {
-      greeting.classList.remove("none");
+  if (sessionStorage.getItem("animationGreetingPlayed") !== "true") {
+    if (window.innerWidth <= 1200) {
+      if (greeting.classList.contains("none")) {
+        greeting.classList.remove("none");
+      }
       setTimeout(function () {
         greeting.classList.add("none");
       }, 1000);
-      sessionStorage.setItem("animationGreetingPlayed", true);
+      sessionStorage.setItem("animationGreetingPlayed", "true");
     }
   }
 }
@@ -164,4 +156,8 @@ function filterBoardPrio(x) {
   let userTasks = userData[userIndex]["tasks"];
   const result = userTasks.filter((task) => task.priority === x).length;
   return result;
+}
+
+function loadBoard() {
+  window.location.href = "board.html";
 }
