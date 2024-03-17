@@ -132,16 +132,8 @@ let labels = [
 function initBoard() {
   renderAllCards();
   renderGhostCards();
+  renderDetailCard(0);
 }
-
-// function renderAllColumns(containerId) {
-//     let container = document.getElementById('board-column');
-//     container.innerHTML = ''
-//     container.innerHTML = columnHTML('todo', 'todo', 'No Tasks To Do')
-//     container.innerHTML += columnHTML('inProgress', 'In Progress', 'No Tasks In Progress')
-//     container.innerHTML += columnHTML('awaitFeedback', 'Await Feedback', 'No Tasks Await Feedback')
-//     container.innerHTML += columnHTML('done', 'Done', 'No Tasks Done')
-// }
 
 function renderAllCards() {
   let columns = document.querySelectorAll(".card-container");
@@ -210,6 +202,16 @@ function renderCards(tasks, index, prefix, containerId) {
   );
 }
 
+function renderDetailCard(index) {
+  let container = document.getElementById("details-card-container");
+  let assignHTML = renderDetailsCardContacts(tasksRP[index]);
+  let color = getBadgeColor(tasksRP[index]);
+  let prioHTML = priorityHTML(tasksRP[index]["priority"]);
+  container.innerHTML = "";
+  container.innerHTML = detailCardHTML(tasksRP[0], color, assignHTML, prioHTML);
+}
+
+// Drag & Drop
 function allowDrop(ev) {
   ev.preventDefault();
 }
@@ -245,11 +247,10 @@ function changeStatusOfTask(index, status) {
 }
 
 function getSubtaskStatus(task) {
-  let totalSubtasks = 0;
+  let totalSubtasks = task["subtasks"].length;
   let finishedSubtasks = 0;
   for (let index = 0; index < task["subtasks"].length; index++) {
     const subtask = task["subtasks"][index];
-    totalSubtasks += 1;
     if (subtask["done"]) {
       finishedSubtasks += 1;
     }
@@ -270,6 +271,15 @@ function renderCardContacts(task) {
   return assignHTML;
 }
 
+function renderDetailsCardContacts(task) {
+  let assignHTML = "";
+  for (let i = 0; i < task["assignedTo"].length; i++) {
+    const assignetTo = task["assignedTo"][i];
+    assignHTML += assignedToDetailsHTML(assignetTo);
+  }
+  return assignHTML;
+}
+
 function getBadgeColor(task) {
   return task["category"] == "User Story" ? "#0038ff" : "#1fd7c1";
 }
@@ -279,10 +289,6 @@ function showGhostcard(event) {
   ghostCard.forEach((element) => {
     element.classList.add("show-ghostCard");
   });
-
-  // if(event.target.id != 'card-container'){
-  //      event.currentTarget.querySelector('.board-ghostCard').classList.remove('show-ghostCard')
-  // }
 }
 
 function adjustGhostCardMargin() {
@@ -298,23 +304,23 @@ function adjustGhostCardMargin() {
 }
 
 function setOutlineBlue(id) {
-    document.getElementById(id).classList.add('blue-outline')
+  document.getElementById(id).classList.add("blue-outline");
 }
 function clearOutlineBlue(id) {
-    document.getElementById(id).classList.remove('blue-outline')
+  document.getElementById(id).classList.remove("blue-outline");
 }
 
 function setLabelVisibity() {
-    for (let index = 0; index < columnsId.length; index++) {
-      const columnId = columnsId[index];
-      let column = document.getElementById(columnId);
-      let cards = column.querySelectorAll(".board-task-card");
-      let label = column.querySelector(".board-column-noTask");
-      if (cards.length > 0) {
-        label.classList.add("d-none");
-      }
+  for (let index = 0; index < columnsId.length; index++) {
+    const columnId = columnsId[index];
+    let column = document.getElementById(columnId);
+    let cards = column.querySelectorAll(".board-task-card");
+    let label = column.querySelector(".board-column-noTask");
+    if (cards.length > 0) {
+      label.classList.add("d-none");
     }
   }
+}
 
 function avoidGhostCard(event) {
   console.log(event.currentTarget);
@@ -324,28 +330,6 @@ function avoidGhostCard(event) {
 
 function rotateCard(event) {
   event.currentTarget.classList.add("card-rotate");
-}
-
-function columnHTML(prefix, name, label) {
-  return /*html*/ `
-        <div id="column-${prefix}"  class="board-column">
-                <div class="board-column-header">
-                    <p class="board-colum-headline">${name}</p>
-                    <div class="board-addTask-control">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8.66602 11.3327H0.666016V8.66602H8.66602V0.666016H11.3327V8.66602H19.3327V11.3327H11.3327V19.3327H8.66602V11.3327Z"
-                                fill="#2A3647" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="board-column-noTask">
-                    ${label}
-                </div>
-                <div id="${prefix}-card-container" class="card-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-                </div>
-            </div>
-    `;
 }
 
 function priorityHTML(priority) {
@@ -392,6 +376,18 @@ function assignedToHTML(assignedTo) {
     `;
 }
 
+function assignedToDetailsHTML(assignedTo) {
+  return /*html*/ `
+        <div class="details-badge-container">
+            <div class="details-profile-badge" style="background-color: ${assignedTo["badgecolor"]}">
+                ${assignedTo["initials"]}
+            </div>
+          ${assignedTo["name"]}
+        </div>
+       
+    `;
+}
+
 function cardHTML(
   task,
   index,
@@ -425,6 +421,40 @@ function cardHTML(
             </div>
         </div>
     `;
+}
+
+function detailCardHTML(task, color, assignHTML, prioHTML) {
+  return /*html*/ `
+    
+            <p class="board-task-category detail-card-category" style="background-color: ${color}">${task["category"]}</p>
+            <h6 class="board-task-title detail-card-title">${task["title"]}</h6>
+            <p class="board-task-description detail-card-description">${task["description"]}</p>
+            <div class="detail-card-line">
+                <div class="detail-card-line-label">Due date:</div>
+                <div class="detail-card-line-info">${task["dueDate"]}</div>
+            </div>
+            <div class="detail-card-line">
+                <div class="detail-card-line-label">Priority:</div>
+                <div class="detail-card-line-info">${task["priority"]}
+                    ${prioHTML}
+                </div>
+            </div>
+            
+            <div class="detail-card-badge-container">
+              Assigned To:
+                ${assignHTML}
+            </div>
+            <div class="detail-card-subtask-container">
+              Subtasks:
+              <div class="deatil-card-subtask">
+                ${task["subtasks"][0]["title"]}
+              </div>
+               
+              <div class="deatil-card-subtask">
+                ${task["subtasks"][1]["title"]}
+              </div>
+            </div>
+  `;
 }
 
 function ghostCardHTML() {
