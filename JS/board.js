@@ -375,3 +375,45 @@ async function editTaskSubmit(index) {
   renderAllCards();
   renderGhostCards();
 }
+
+function findTask() {
+  let input = document.getElementById("board-search").value;
+  if (input.length > 0) {
+    lowAllCardOpcatiy();
+    input = input[0].toLowerCase() + input.slice(1);
+    for (let index = 0; index < tasks.length; index++) {
+      let title = tasks[index]["title"];
+      title = title[0].toLowerCase() + title.slice(1);
+      let subString = title.substring(0, input.length);
+      if (subString == input) {
+        setCardOpacity(index);
+      }
+    }
+  } else {
+    resetAllCardOpacity();
+  }
+}
+
+function setCardOpacity(index) {
+  let cards = document.querySelectorAll("[data-id]");
+  cards.forEach((card) => {
+    let attr = card.getAttribute("data-id");
+    if (attr == index) {
+      card.style = "opacity: 1";
+    }
+  });
+}
+function resetAllCardOpacity() {
+  let cards = document.querySelectorAll("[data-id]");
+  cards.forEach((card) => {
+    card.style = "opacity: 1";
+  });
+}
+
+function lowAllCardOpcatiy(){
+  let cards = document.querySelectorAll("[data-id]");
+  cards.forEach((card) => {
+    card.style = "opacity: 0.3";
+  });
+
+}

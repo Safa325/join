@@ -74,7 +74,7 @@ function cardHTML(
   progressHTML
 ) {
   return /*html*/ `
-           <div draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
+           <div data-id="${index}" draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
               <p class="board-task-category" style="background-color: ${color}">${task["category"]}</p>
               <h6 class="board-task-title">${task["title"]}</h6>
               <p class="board-task-description">${task["description"]}</p>

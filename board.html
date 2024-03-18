@@ -17,8 +17,8 @@
         <div class="board-headline-menu">
             <h1 class="board-headline">Board</h1>
             <div class="board-controller">
-                <div id="board-search" class="board-search">
-                    <input onblur="clearOutlineBlue('board-search')" onfocus="setOutlineBlue('board-search')"
+                <div  class="board-search">
+                    <input id="board-search" onkeyup="findTask()" onblur="clearOutlineBlue('board-search')" onfocus="setOutlineBlue('board-search')"
                         type="text" placeholder="Find Task">
                     <div class="board-search-btn-frame">
                         <div class="board-round-btn-frame">
