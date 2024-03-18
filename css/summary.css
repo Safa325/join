@@ -321,14 +321,15 @@ main {
   .summary-greet {
     position: absolute;
     background-color: var(--clr-bg);
-    top: -145px;
-    left: none;
+    top: -40px;
+    left: 0;
     right: 0;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
     height: 100vh;
+    z-index: 1;
   }
 
   .greet-body {
@@ -336,9 +337,11 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    top: -15%;
     width: 274px;
     height: 102px;
   }
+
   .summary-container {
     justify-content: center;
     align-items: center;
@@ -553,6 +556,16 @@ main {
   .overview-mid-card:hover,
   .overview-bottom-card:hover {
     border-radius: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .greet-body p {
+    font-size: 36px;
+  }
+
+  .greet-body h2 {
+    font-size: 47px;
   }
 }
 

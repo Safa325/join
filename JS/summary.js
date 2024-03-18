@@ -1,19 +1,25 @@
-async function initSummary() {
-  await greetingUser();
+function initSummary() {
+  greetingUser();
   date();
   showTasks();
+  greetingResponsiv();
   showGreeting();
 }
 
 let day;
 
-async function greetingUser() {
-  let userName = await userData[userIndex]["name"];
+function greetingUser() {
+  let userName = userData[userIndex]["name"];
   let greeting = document.getElementById("greeting");
   greeting.innerHTML = "";
   greetingDay();
   if (userIndex == 0) {
-    greeting.innerHTML += greetingHtml1(day);
+    if (window.innerWidth < 1200) {
+      day = day + "!";
+      greeting.innerHTML += greetingHtml1(day);
+    } else {
+      greeting.innerHTML += greetingHtml1(day);
+    }
   } else {
     greeting.innerHTML += greetingHtml2(userName, day);
   }
@@ -96,7 +102,7 @@ function showTasks() {
   let taskUrgent = filterBoardPrio("urgent");
   let taskProgress = filterBoardStatus("inProgress");
   let taskFeedback = filterBoardStatus("awaitFeedback");
-  let taskBoard = taskDo + taskDone + taskUrgent + taskProgress + taskFeedback;
+  let taskBoard = taskDo + taskDone + taskProgress + taskFeedback;
   let toDo = document.getElementById("toDo");
   let done = document.getElementById("done1");
   let urgent = document.getElementById("urgent");
@@ -113,15 +119,13 @@ function showTasks() {
 
 function showGreeting() {
   const greeting = document.getElementById("summaryGreet");
-  if (sessionStorage.getItem("animationGreetingPlayed") !== "true") {
+  if (!sessionStorage.getItem("animationGreetingPlayed")) {
     if (window.innerWidth <= 1200) {
-      if (greeting.classList.contains("none")) {
-        greeting.classList.remove("none");
-      }
+      greeting.classList.remove("none");
+      sessionStorage.setItem("animationGreetingPlayed", true);
       setTimeout(function () {
         greeting.classList.add("none");
       }, 1000);
-      sessionStorage.setItem("animationGreetingPlayed", "true");
     }
   }
 }
