@@ -623,19 +623,11 @@ main {
   }
 }
 
-/* .menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 158px;
-  background-color: var(--clr-dark-gray);
-  border-radius: 20px 0px 20px 20px;
+@media (max-width: 340px) {
+  .mid-icon {
+    margin-right: 0;
+  }
 }
-
-.menu-body {
-} */
 
 .none {
   display: none;
