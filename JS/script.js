@@ -99,3 +99,39 @@ function getInitials() {
   userInitials.innerHTML = "";
   userInitials.innerHTML += initials.toUpperCase();
 }
+
+function clearSessionStorage() {
+  sessionStorage.clear();
+}
+
+function openMenu() {
+  let menu = document.querySelector("header");
+  menu.innerHTML += menuLayout();
+  sessionStorage.setItem("menu", true);
+}
+
+function menuLayout() {
+  return /*html*/ `<div class="menu">
+  <a href="#" onclick="openLegalNoticeHTML(),removeMenu()">Legal Notice</a>
+  <a href="#" onclick="openPrivacyPolicyHTML(),removeMenu()">Privacy Policy</a>
+  <a href="login.html" onclick="clearSessionStorage(),removeMenu()">Log out</a>
+</div>`;
+}
+
+document.addEventListener("click", function (event) {
+  const menu = document.querySelector(".menu");
+  if (menu) {
+    let isClickInsideMenu = menu.contains(event.target);
+    if (!sessionStorage.getItem("menu")) {
+      if (!isClickInsideMenu) {
+        removeMenu();
+        sessionStorage.removeItem("menu");
+      }
+    }
+  }
+});
+
+function removeMenu() {
+  const menu = document.querySelector(".menu");
+  menu.remove();
+}
