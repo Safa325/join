@@ -3,6 +3,7 @@ async function init() {
   // await includeHTML();
   await getUserData();
   await initSummaryHTML();
+  getInitials();
 
   console.log("userData", userData);
   console.log("userIndex", userIndex);
@@ -15,7 +16,7 @@ async function initSummaryHTML() {
     `;
   await includeHTML();
   clearAllNavActive();
-  setNavActive('sidebar-nav-summary');
+  setNavActive("sidebar-nav-summary");
   initSummary();
 }
 
@@ -27,7 +28,7 @@ async function initAddTaskHTML() {
   await includeHTML();
   addTaskInit();
   clearAllNavActive();
-  setNavActive('sidebar-nav-tasks');
+  setNavActive("sidebar-nav-tasks");
 }
 
 async function initBoardHTML() {
@@ -86,4 +87,15 @@ async function openPrivacyPolicyHTML() {
     <div w3-include-html="privacypolicy.html"></div>
     `;
   await includeHTML();
+}
+
+function getInitials() {
+  let names = userData[userIndex]["name"].split(" ");
+  let initials = "";
+  let userInitials = document.getElementById("user-profile-initials");
+  for (let i = 0; i < names.length; i++) {
+    initials += names[i].charAt(0);
+  }
+  userInitials.innerHTML = "";
+  userInitials.innerHTML += initials.toUpperCase();
 }
