@@ -1,118 +1,4 @@
-let tasksRP = [
-  {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    assignedTo: [
-      {
-        badgecolor: "#FF7A00",
-        initials: "CG",
-        register: "C",
-        name: "Claire Grube",
-        email: "cgrube@mail.de",
-        phone: "+49 40 276 5436",
-      },
-      {
-        badgecolor: "#FF5EB3",
-        initials: "VP",
-        register: "V",
-        name: "Volker Putt",
-        email: "volkerputt@yahoo.com",
-        phone: "+49 30 2589963",
-      },
-    ],
-    priority: "low",
-    category: "Technical Task",
-    dueDate: "2024-03-12",
-    status: "done",
-    subtasks: [
-      {
-        title: "Implement Recipe Recommondation",
-        done: true,
-      },
-      {
-        title: "Start Page Layout",
-        done: false,
-      },
-      {
-        title: "Push to Git",
-        done: false,
-      },
-    ],
-  },
-  {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    assignedTo: [
-      {
-        badgecolor: "#FC71FF",
-        initials: "CG",
-        register: "C",
-        name: "Claire Grube",
-        email: "cgrube@mail.de",
-        phone: "+49 40 276 5436",
-      },
-      {
-        badgecolor: "#FF5EB3",
-        initials: "VP",
-        register: "V",
-        name: "Volker Putt",
-        email: "volkerputt@yahoo.com",
-        phone: "+49 30 2589963",
-      },
-    ],
-    priority: "medium",
-    category: "User Story",
-    dueDate: "2024-03-12",
-    status: "todo",
-    subtasks: [
-      {
-        title: "Implement Recipe Recommondation",
-        done: true,
-      },
-      {
-        title: "Start Page Layout",
-        done: false,
-      },
-    ],
-  },
 
-  {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    assignedTo: [
-      {
-        badgecolor: "#FC71FF",
-        initials: "CG",
-        register: "C",
-        name: "Claire Grube",
-        email: "cgrube@mail.de",
-        phone: "+49 40 276 5436",
-      },
-      {
-        badgecolor: "#FF5EB3",
-        initials: "VP",
-        register: "V",
-        name: "Volker Putt",
-        email: "volkerputt@yahoo.com",
-        phone: "+49 30 2589963",
-      },
-    ],
-    priority: "medium",
-    category: "User Story",
-    dueDate: "2024-03-12",
-    status: "todo",
-    subtasks: [
-      {
-        title: "Implement Recipe Recommondation",
-        done: true,
-      },
-      {
-        title: "Start Page Layout",
-        done: false,
-      },
-    ],
-  },
-];
 
 let currentCardId = "";
 let targetColumnName = "";
@@ -130,6 +16,7 @@ let labels = [
 ];
 
 function initBoard() {
+  tasks = userData[userIndex]["tasks"];
   renderAllCards();
   renderGhostCards();
   renderDetailCard(0);
@@ -143,8 +30,8 @@ function renderAllCards() {
     element.innerHTML += labelHTML(labels[i]);
   }
 
-  for (let index = 0; index < tasksRP.length; index++) {
-    let task = tasksRP[index];
+  for (let index = 0; index < tasks.length; index++) {
+    let task = tasks[index];
     switch (task["status"]) {
       case "todo":
         renderCards(task, index, "todo_", "todo-card-container");
@@ -204,19 +91,20 @@ function renderCards(tasks, index, prefix, containerId) {
 
 function renderDetailCard(index) {
   let container = document.getElementById("details-card-container");
-  let assignHTML = renderDetailsCardContacts(tasksRP[index]);
-  let color = getBadgeColor(tasksRP[index]);
-  let prioHTML = priorityHTML(tasksRP[index]["priority"]);
+  console.log(tasks);
+  let assignHTML = renderDetailsCardContacts(tasks[index]);
+  let color = getBadgeColor(tasks[index]);
+  let prioHTML = priorityHTML(tasks[index]["priority"]);
   let subtasksHTML = "";
   let firstIndex = index;
 
-  tasksRP[index]["subtasks"].forEach((subtask, index) => {
+  tasks[index]["subtasks"].forEach((subtask, index) => {
     subtasksHTML += subtaskStatusHTML(subtask, firstIndex, index);
   });
 
   container.innerHTML = "";
   container.innerHTML = detailCardHTML(
-    tasksRP[index],
+    tasks[index],
     index,
     color,
     assignHTML,
@@ -235,13 +123,13 @@ function drag(ev) {
   currentCardId = ev.target.id;
 }
 
-function drop(ev) {
+async function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.currentTarget.appendChild(document.getElementById(data));
   let index = extractIndexFromId(currentCardId);
   let name = extractNameFromId(ev.currentTarget.id);
-  changeStatusOfTask(index, name);
+  await changeStatusOfTask(index, name);
   renderAllCards();
   renderGhostCards();
 }
@@ -256,8 +144,13 @@ function extractNameFromId(id) {
   return currentName[0];
 }
 
-function changeStatusOfTask(index, status) {
-  tasksRP[index]["status"] = status;
+async function changeStatusOfTask(index, status) {
+  tasks[index]["status"] = status;
+  await saveTask();
+}
+
+async function saveTask() {
+  await setItem("userData", JSON.stringify(userData));
 }
 
 function getSubtaskStatus(task) {
@@ -365,23 +258,38 @@ function closeDetailCard() {
   container.classList.add("d-none");
 }
 
-function deleteTask(index) {
-  tasksRP.splice(index, 1);
+async function deleteTask(index) {
+  tasks.splice(index, 1);
+  await saveTask();
   closeDetailCard();
   renderAllCards();
 }
 
-function toggleSubtaskStatus(firstIndex, index) {
-  tasksRP[firstIndex]["subtasks"][index]["done"] =
-    !tasksRP[firstIndex]["subtasks"][index]["done"];
+async function toggleSubtaskStatus(firstIndex, index) {
+  tasks[firstIndex]["subtasks"][index]["done"] =
+    !tasks[firstIndex]["subtasks"][index]["done"];
+  await saveTask();
   renderDetailCard(firstIndex);
   renderAllCards();
 }
 
-
-function switchEditTask(index){
-  let container = document.getElementById('details-card-container');
-  container.innerHTML = '';
-  container.innerHTML = addTaskHTML(index)
+function switchEditTask(index) {
+  let container = document.getElementById("details-card-container");
+  container.innerHTML = "";
+  let task = tasks[index];
+  container.innerHTML = addTaskHTML(task, index);
+  selectPrio(task["priority"]);
+  getContactsFromUser();
+  initContactCopy();
+  setSelectedContacts(task);
 }
 
+function setSelectedContacts(task) {
+  task["assignedTo"].forEach((contact) => {
+    arrayOfFilterContact.forEach((filteredContact) => {
+      if (contact["name"] == filteredContact["name"]) {
+        filteredContact.selected = true;
+      }
+    });
+  });
+}

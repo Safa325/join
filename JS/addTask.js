@@ -219,7 +219,7 @@ function toggleContactSelection(index) {
  * clear all formfields, reset priority
  * @param {Event} event
  */
-function createTask(event) {
+async function createTask(event) {
   event.preventDefault();
   let titleField = document.getElementById("addTask-input-title");
   let descriptionField = document.getElementById("addTask-input-description");
@@ -244,10 +244,12 @@ function createTask(event) {
     subtasks: subtasks,
   };
   userData[userIndex]["tasks"].push(task);
+  await setItem('userData', JSON.stringify(userData));
   titleField.value = descriptionField.value = dateField.value = "";
   subtasks = [];
   renderSubtasks();
   selectPrio("medium");
+  await initBoardHTML();
 }
 
 /**

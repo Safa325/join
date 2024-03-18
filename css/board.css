@@ -323,15 +323,12 @@
 .details-card-container {
   width: 525px;
   height: fit-content;
- /* max-height: 931px; */
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  /* transform: translateX(200%); */
-  /* overflow-y: scroll; */
   flex-grow: 0;
  
 }
