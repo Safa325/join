@@ -1,5 +1,3 @@
-
-
 let currentCardId = "";
 let targetColumnName = "";
 let columnsId = [
@@ -19,9 +17,11 @@ function initBoard() {
   tasks = userData[userIndex]["tasks"];
   renderAllCards();
   renderGhostCards();
-  renderDetailCard(0);
 }
 
+/**
+ * render Cards and sort by columns based on status
+ */
 function renderAllCards() {
   let columns = document.querySelectorAll(".card-container");
   for (let i = 0; i < columns.length; i++) {
@@ -34,32 +34,21 @@ function renderAllCards() {
     let task = tasks[index];
     switch (task["status"]) {
       case "todo":
-        renderCards(task, index, "todo_", "todo-card-container");
+        renderCards(task, index, "todo-card-container");
         break;
       case "inProgress":
-        renderCards(task, index, "inProgress_", "inProgress-card-container");
+        renderCards(task, index, "inProgress-card-container");
         break;
       case "awaitFeedback":
-        renderCards(
-          task,
-          index,
-          "awaitFeedback_",
-          "awaitFeedback-card-container"
-        );
+        renderCards(task, index, "awaitFeedback-card-container");
         break;
       case "done":
-        renderCards(task, index, "done_", "done-card-container");
+        renderCards(task, index, "done-card-container");
         break;
       default:
         break;
     }
   }
-}
-
-function calculateGhostCardPosition() {
-  let container = document.getElementById("todo-card-container");
-  let elements = container.querySelectorAll(".board-task-card");
-  let lastElement = elements[1].getBoundingClientRect();
 }
 
 function renderGhostCards() {
@@ -71,11 +60,12 @@ function renderGhostCards() {
   setLabelVisibity();
 }
 
-function renderCards(tasks, index, prefix, containerId) {
+function renderCards(tasks, index, containerId) {
   let container = document.getElementById(containerId);
   let assignHTML = renderCardContacts(tasks);
   let color = getBadgeColor(tasks);
   let { total, finished, progress } = getSubtaskStatus(tasks);
+  let progressHTML = progressbarHTML(total, finished, progress);
   let prioHTML = priorityHTML(tasks["priority"]);
   container.innerHTML += cardHTML(
     tasks,
@@ -83,15 +73,12 @@ function renderCards(tasks, index, prefix, containerId) {
     color,
     prioHTML,
     assignHTML,
-    total,
-    finished,
-    progress
+    progressHTML
   );
 }
 
 function renderDetailCard(index) {
   let container = document.getElementById("details-card-container");
-  console.log(tasks);
   let assignHTML = renderDetailsCardContacts(tasks[index]);
   let color = getBadgeColor(tasks[index]);
   let prioHTML = priorityHTML(tasks[index]["priority"]);
@@ -129,9 +116,10 @@ async function drop(ev) {
   ev.currentTarget.appendChild(document.getElementById(data));
   let index = extractIndexFromId(currentCardId);
   let name = extractNameFromId(ev.currentTarget.id);
-  await changeStatusOfTask(index, name);
+  changeStatusOfTask(index, name);
   renderAllCards();
   renderGhostCards();
+  await saveTask();
 }
 
 function extractIndexFromId(id) {
@@ -144,9 +132,8 @@ function extractNameFromId(id) {
   return currentName[0];
 }
 
-async function changeStatusOfTask(index, status) {
+function changeStatusOfTask(index, status) {
   tasks[index]["status"] = status;
-  await saveTask();
 }
 
 async function saveTask() {
@@ -156,16 +143,21 @@ async function saveTask() {
 function getSubtaskStatus(task) {
   let totalSubtasks = task["subtasks"].length;
   let finishedSubtasks = 0;
+  let progress = 0;
   for (let index = 0; index < task["subtasks"].length; index++) {
     const subtask = task["subtasks"][index];
     if (subtask["done"]) {
       finishedSubtasks += 1;
     }
   }
+  if (totalSubtasks > 0) {
+    progress = (finishedSubtasks / totalSubtasks) * 100;
+  }
+
   return {
     total: totalSubtasks,
     finished: finishedSubtasks,
-    progress: (finishedSubtasks / totalSubtasks) * 100,
+    progress: progress,
   };
 }
 
@@ -191,7 +183,7 @@ function getBadgeColor(task) {
   return task["category"] == "User Story" ? "#0038ff" : "#1fd7c1";
 }
 
-function showGhostcard(event) {
+function showGhostcard() {
   let ghostCard = document.querySelectorAll(".board-ghostCard");
   ghostCard.forEach((element) => {
     element.classList.add("show-ghostCard");
@@ -244,18 +236,33 @@ function rotateCard(event) {
 function openDetailCard(index) {
   let container = document.getElementById("board-overlay");
   container.classList.remove("d-none");
+  let card = document.getElementById("details-card-container");
+  card.classList.remove("card-slide-out-animation");
+  card.classList.add("card-slide-in-animation");
   renderDetailCard(index);
 }
+
 function closeDetailCardFromBg(event) {
   let container = document.getElementById("board-overlay");
+  let card = document.getElementById("details-card-container");
   if (container.id == event.target.id) {
-    container.classList.add("d-none");
+    card.classList.remove("card-slide-in-animation");
+    card.classList.add("card-slide-out-animation");
+
+    setTimeout(() => {
+      container.classList.add("d-none");
+    }, 300);
   }
 }
 
 function closeDetailCard() {
   let container = document.getElementById("board-overlay");
-  container.classList.add("d-none");
+  let card = document.getElementById("details-card-container");
+  card.classList.remove("card-slide-in-animation");
+  card.classList.add("card-slide-out-animation");
+  setTimeout(() => {
+    container.classList.add("d-none");
+  }, 300);
 }
 
 async function deleteTask(index) {
@@ -282,6 +289,17 @@ function switchEditTask(index) {
   getContactsFromUser();
   initContactCopy();
   setSelectedContacts(task);
+  renderContacts();
+  renderBadges();
+  subtasks = [...task["subtasks"]];
+  renderSubtasks();
+  adjustFormWhenEdit(index);
+}
+
+function adjustFormWhenEdit(index) {
+  changeSubmitButtonText();
+  disableCancelButton();
+  changeFormSubmitBehaviour(index);
 }
 
 function setSelectedContacts(task) {
@@ -292,4 +310,68 @@ function setSelectedContacts(task) {
       }
     });
   });
+}
+
+function changeSubmitButtonText() {
+  let button = document.getElementById("addTask-submit-btn");
+  button.innerHTML = /*html*/ `
+        Ok
+        <svg
+          class="create-svg"
+          width="38"
+          height="30"
+          viewBox="0 0 38 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408"
+            stroke="white"
+            stroke-width="7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+  `;
+}
+
+function disableCancelButton() {
+  let button = document.getElementById("addTask-cancel-btn");
+  button.style = "display: none;";
+}
+
+function changeFormSubmitBehaviour(index) {
+  let form = document.getElementById("addTask-form");
+  form.setAttribute("onsubmit", `editTaskSubmit(${index}); return false;`);
+}
+
+async function editTaskSubmit(index) {
+  let status = tasks[index]["status"];
+  let titleField = document.getElementById("addTask-input-title");
+  let descriptionField = document.getElementById("addTask-input-description");
+  let tempcategory = document.getElementById("addTask-category").value;
+  let dateField = document.getElementById("addTask-input-date");
+  let assignedContacts = [];
+  for (let index = 0; index < arrayOfFilterContact.length; index++) {
+    let selection = arrayOfFilterContact[index]["selected"];
+    if (selection) {
+      assignedContacts.push(arrayOfFilterContact[index]);
+    }
+  }
+
+  let task = {
+    title: titleField.value,
+    description: descriptionField.value,
+    assignedTo: assignedContacts,
+    priority: priority,
+    category: tempcategory,
+    dueDate: dateField.value,
+    status: status,
+    subtasks: subtasks,
+  };
+  userData[userIndex]["tasks"][index] = task;
+  await saveTask();
+  closeDetailCard();
+  renderAllCards();
+  renderGhostCards();
 }

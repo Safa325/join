@@ -71,23 +71,15 @@ function cardHTML(
   color,
   prioHTML,
   assignHTML,
-  totalSubtasks,
-  finishedSubtasks,
-  progress
+  progressHTML
 ) {
   return /*html*/ `
            <div draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
               <p class="board-task-category" style="background-color: ${color}">${task["category"]}</p>
               <h6 class="board-task-title">${task["title"]}</h6>
               <p class="board-task-description">${task["description"]}</p>
-  
-              <div class="board-task-progress">
-                  <div class="board-task-progressbar">
-                      <div class="board-task-progress-inner" style="width: ${progress}%">
-                      </div>
-                  </div>
-                  <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
-              </div>
+                      ${progressHTML}
+             
               <div class="board-task-footer">
                   <div class="board-task-profile-badge-container">
                       ${assignHTML}
@@ -98,6 +90,22 @@ function cardHTML(
               </div>
           </div>
       `;
+}
+
+function progressbarHTML(totalSubtasks, finishedSubtasks, progress) {
+  if (totalSubtasks > 0) {
+    return /*html*/ `
+        <div class="board-task-progress">
+            <div class="board-task-progressbar">
+                <div class="board-task-progress-inner" style="width: ${progress}%">
+                </div>
+            </div>
+            <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
+        </div>
+      `;
+  } else {
+    return ``;
+  }
 }
 
 function detailCardHTML(task, index, color, assignHTML, prioHTML, subtasks) {
@@ -261,7 +269,7 @@ function addTaskHTML(task, index) {
                 id="addTask-input-title"
                 placeholder="Enter a title"
                 required
-                value="${task["title"]}
+                value="${task["title"]}"
               />
             </div>
             <div class="addTask-input-element">
@@ -273,7 +281,7 @@ function addTaskHTML(task, index) {
                 type="text"
                 id="addTask-input-description"
                 placeholder="Enter a description"
-              >${task['description']}</textarea>
+              >${task["description"]}</textarea>
             </div>
 
           
@@ -510,7 +518,7 @@ function addTaskHTML(task, index) {
         <div class="addTask-controls">
           <p class="addTask-hint">This field is required</p>
           <div class="addTask-control-btn-container">
-            <button type="reset" class="addTask-control-btn cancel-btn">
+            <button id="addTask-cancel-btn" type="reset" class="addTask-control-btn cancel-btn">
               Cancel
               <svg
                 class="cancel-svg"
@@ -529,7 +537,7 @@ function addTaskHTML(task, index) {
                 />
               </svg>
             </button>
-            <button type="submit" class="addTask-control-btn create-btn">
+            <button id="addTask-submit-btn" type="submit" class="addTask-control-btn create-btn">
               Create Task
               <svg
                 class="create-svg"

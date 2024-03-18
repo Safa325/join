@@ -200,7 +200,8 @@
 .addTask-badges-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 0
+    gap: 0;
+    margin-bottom: 12px;
 }
 
 .addTask-btn-container {
