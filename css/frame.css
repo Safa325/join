@@ -156,7 +156,7 @@ header {
     height: 22px;
 }
 
-@media(max-width: 1200px) {
+@media(max-width: 1400px) {
     #user-profile-initials{
         position: absolute;
         top: 16px;

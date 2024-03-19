@@ -318,8 +318,6 @@
   right: 0;
   bottom: 0;
   z-index: 5;
-  /* min-width: 100vw; */
-  /* min-height: 100vh; */
   background-color: rgba(0, 0, 0, 0.5);
 
   display: flex;
@@ -327,7 +325,7 @@
   justify-content: center;
 }
 
-.details-card-container {
+.details-card-container{
   width: 525px;
   height: fit-content;
   background-color: white;
@@ -339,6 +337,19 @@
   flex-grow: 0;
   transform: translateX(200%);
 
+}
+
+.addTask-card-container{
+  width: fit-content;
+  height: fit-content;
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-grow: 0;
+  /* transform: translateX(200%); */
 }
 
 .board-task-detail-header{
@@ -479,5 +490,25 @@
 
   100% {
     transform: translateX(200%);
+  }
+}
+
+
+@media(max-width: 1150px){
+  .board-column{
+    min-height: unset;
+  }
+  .board-column-container{
+    flex-direction: column;
+  }
+  .card-container{
+    flex-direction: row;
+    min-height: unset;
+    padding-bottom: 0;
+  }
+  .board-task-card{
+    /* width: 200px; */
+    flex-shrink: 0;
+    align-self: stretch;
   }
 }
