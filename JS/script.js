@@ -107,31 +107,27 @@ function clearSessionStorage() {
 function openMenu() {
   let menu = document.querySelector("header");
   menu.innerHTML += menuLayout();
-  sessionStorage.setItem("menu", true);
 }
 
 function menuLayout() {
-  return /*html*/ `<div class="menu">
+  return /*html*/ `<div class="menu" id='popUpMenu'>
   <a href="#" onclick="openLegalNoticeHTML(),removeMenu()">Legal Notice</a>
   <a href="#" onclick="openPrivacyPolicyHTML(),removeMenu()">Privacy Policy</a>
   <a href="login.html" onclick="clearSessionStorage(),removeMenu()">Log out</a>
 </div>`;
 }
 
-document.addEventListener("click", function (event) {
-  const menu = document.querySelector(".menu");
-  if (menu) {
-    let isClickInsideMenu = menu.contains(event.target);
-    if (!sessionStorage.getItem("menu")) {
-      if (!isClickInsideMenu) {
-        removeMenu();
-        sessionStorage.removeItem("menu");
-      }
-    }
+document.addEventListener("click", function (e) {
+  const menu = document.getElementById("popUpMenu");
+  const targetId = e.target.id;
+  if (targetId == "user-profile-initials") {
+    openMenu();
+  } else if (menu) {
+    menu.remove();
   }
 });
 
 function removeMenu() {
-  const menu = document.querySelector(".menu");
+  const menu = document.getElementById("popUpMenu");
   menu.remove();
 }
