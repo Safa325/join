@@ -14,7 +14,18 @@
   <body onload="initBoard()">
     <div id="content-container">
       <div class="board-headline-menu">
-        <h1 class="board-headline">Board</h1>
+        <div class="board-headline">
+          <h1>Board</h1>
+          <div onclick="openAddTaskPopup('todo')" class="board-addTask-control control-mobile">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8.66602 11.3327H0.666016V8.66602H8.66602V0.666016H11.3327V8.66602H19.3327V11.3327H11.3327V19.3327H8.66602V11.3327Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </div>
+
         <div class="board-controller">
           <div class="board-search">
             <input
@@ -71,7 +82,7 @@
         <!-- inProgress -->
         <div id="column-inProgress" class="board-column">
           <div class="board-column-header">
-            <p class="board-colum-headline">In Progress</p>
+            <p class="board-colum-headline">in progress</p>
             <div onclick="openAddTaskPopup('inProgress')" class="board-addTask-control">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -95,7 +106,7 @@
         <!-- await Feedback -->
         <div id="column-awaitFeedback" class="board-column">
           <div class="board-column-header">
-            <p class="board-colum-headline">await Feedback</p>
+            <p class="board-colum-headline">Await feedback</p>
             <div onclick="openAddTaskPopup('awaitFeedback')" class="board-addTask-control">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -119,7 +130,7 @@
         <!-- done -->
         <div id="column-done" class="board-column">
           <div class="board-column-header">
-            <p class="board-colum-headline">done</p>
+            <p class="board-colum-headline">Done</p>
           </div>
 
           <div

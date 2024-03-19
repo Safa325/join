@@ -5,18 +5,22 @@
   margin-top: 64px;
   display: flex;
   flex-direction: column;
-  width: fit-content;
+ 
 }
 
 .board-headline {
   margin-block: 0;
+  display: flex;
+  align-items: center;
+ 
+  justify-content: space-between;
 }
 
 .board-headline-menu {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .board-controller {
@@ -24,7 +28,7 @@
 }
 
 .board-search {
-  width: 312px;
+  /* width: 312px; */
   height: 48px;
   border-radius: 10px;
   border: 1px solid var(--clr-font-light-grey);
@@ -145,8 +149,20 @@
   height: 8px;
 }
 
-.board-addTask-control:hover,
-.board-addTask-control:hover path {
+.control-mobile {
+  width: 40px;
+  height: 40px;
+  background-color: var(--clr-dark-gray);
+  display: none;
+  cursor: pointer;
+}
+.control-mobile svg {
+  width: 20px;
+  height: 20px;
+}
+
+.board-addTask-control:hover:not(.control-mobile),
+.board-addTask-control:hover path:not(.control-mobile path) {
   border-color: var(--clr-light-blue);
   fill: var(--clr-light-blue);
 }
@@ -212,7 +228,7 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
-          line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -325,7 +341,7 @@
   justify-content: center;
 }
 
-.details-card-container{
+.details-card-container {
   width: 525px;
   height: fit-content;
   background-color: white;
@@ -336,10 +352,9 @@
   gap: 24px;
   flex-grow: 0;
   transform: translateX(200%);
-
 }
 
-.addTask-card-container{
+.addTask-card-container {
   width: fit-content;
   height: fit-content;
   background-color: white;
@@ -352,16 +367,16 @@
   /* transform: translateX(200%); */
 }
 
-.board-task-detail-header{
+.board-task-detail-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.board-task-detail-close{
+.board-task-detail-close {
   cursor: pointer;
 }
 
-.board-task-detail-close path{
+.board-task-detail-close path {
   pointer-events: none;
 }
 
@@ -412,20 +427,20 @@
   font-size: 12px;
   margin: 7px 16px;
 }
-.detail-card-subtask-container{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.detail-card-subtask-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.detail-card-subtask{
+.detail-card-subtask {
   display: flex;
   align-items: center;
   padding-block: 6px;
   margin: 0;
   padding-left: 16px;
 }
-.detail-card-subtask p{
+.detail-card-subtask p {
   margin: 0;
 }
 
@@ -436,14 +451,14 @@
   cursor: pointer;
 }
 
-.detail-card-footer{
+.detail-card-footer {
   display: flex;
   width: 100%;
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
 }
-.detail-card-footer-btn{
+.detail-card-footer-btn {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -451,16 +466,15 @@
   cursor: pointer;
 }
 .detail-card-footer-btn:hover,
-.detail-card-footer-btn:hover > svg path{
+.detail-card-footer-btn:hover > svg path {
   color: var(--clr-light-blue);
   fill: var(--clr-light-blue);
 }
 
-
-.detail-card-footer-btn svg{
+.detail-card-footer-btn svg {
   pointer-events: none;
 }
-.border-left{
+.border-left {
   padding-left: 8px;
   border-left: 1px solid var(--clr-light-gray);
 }
@@ -493,22 +507,75 @@
   }
 }
 
-
-@media(max-width: 1150px){
-  .board-column{
+@media (max-width: 1150px) {
+  .board-column {
     min-height: unset;
+    width: 100vw;
+    overflow-x: scroll;
   }
-  .board-column-container{
+  .board-column-container {
     flex-direction: column;
+    width: 100vw; 
+   
   }
-  .card-container{
+  .card-container {
     flex-direction: row;
-    min-height: unset;
+    min-height: 80px;
     padding-bottom: 0;
+    /* -webkit-overflow-scrolling: touch; */
+    /* overflow-x: scroll; */
   }
-  .board-task-card{
-    /* width: 200px; */
+
+
+
+  .board-task-card {
     flex-shrink: 0;
     align-self: stretch;
+    width: 252px;
+    min-height: 252px;
   }
+
+  .board-column-noTask {
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 252px;
+  }
+
+
+  .board-ghostCard{
+    display: none;
+  }
+
+  #content-container {
+    margin-inline: 24px !important;
+   max-width: 320px;
+  }
+  .board-headline-menu{
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+ 
+  }
+  .board-headline{
+    width: 100%;
+  }
+.board-headline h1{
+  font-size: 47px;
+}
+
+  .control-mobile{
+    display: flex;
+    cursor: pointer;
+  }
+  .board-btn-addTask{
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  #content-container {
+    margin-inline: 12px !important;
+   max-width: 320px;
+  }
+ 
 }
