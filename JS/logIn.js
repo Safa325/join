@@ -146,7 +146,7 @@ function checkWidth() {
     img.src = "./img/join_logo.svg";
     setTimeout(function () {
       img.src = "./img/icons/Capa 1.svg";
-    }, 1000);
+    }, 500);
   } else {
     img.src = "./img/icons/Capa 1.svg";
   }

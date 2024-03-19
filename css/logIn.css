@@ -310,12 +310,10 @@ footer {
 
 @keyframes slide-topLeft {
   0% {
-    top: 35%;
-    left: 35%;
-    transform: translateY(0);
-    transform: translateX(0);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     visibility: visible;
-    animation-delay: 1s;
   }
   50% {
     visibility: visible;
@@ -338,7 +336,6 @@ footer {
   align-items: center;
   height: 334.07px;
   width: 274px;
-  /* animation: slide-topLeft 2.2s ease forwards; */
 }
 
 .animation-body img {
@@ -413,10 +410,9 @@ footer {
 
   @keyframes slide-topLeft {
     0% {
-      top: 25%;
-      left: 20%;
-      transform: translateY(0);
-      transform: translateX(0);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       visibility: hidden;
     }
     50% {
