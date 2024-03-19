@@ -175,10 +175,43 @@ h6 {
     brightness(92%) contrast(91%);
 }
 
+.menu {
+  position: absolute;
+  top: 96px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 158px;
+  width: 150px;
+  background-color: var(--clr-dark-gray);
+  padding: 10px;
+  border-radius: 20px 0 20px 20px;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  color: var(--clr-font-light);
+  width: 130px;
+  height: 46px;
+  padding: 8px 0px 8px 16px;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.menu a:hover {
+  cursor: pointer;
+  background-color: var(--clr-sidebar-hover);
+}
+
 @media (max-width: 1200px) {
-    /* Scrollbar */
-  /* width */
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  /* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  display: none;
+}
 }

@@ -3,6 +3,7 @@ async function init() {
   // await includeHTML();
   await getUserData();
   await initSummaryHTML();
+  getInitials();
 
   console.log("userData", userData);
   console.log("userIndex", userIndex);
@@ -15,7 +16,7 @@ async function initSummaryHTML() {
     `;
   await includeHTML();
   clearAllNavActive();
-  setNavActive('sidebar-nav-summary');
+  setNavActive("sidebar-nav-summary");
   initSummary();
 }
 
@@ -27,7 +28,7 @@ async function initAddTaskHTML() {
   await includeHTML();
   addTaskInit();
   clearAllNavActive();
-  setNavActive('sidebar-nav-tasks');
+  setNavActive("sidebar-nav-tasks");
 }
 
 async function initBoardHTML() {
@@ -86,4 +87,51 @@ async function openPrivacyPolicyHTML() {
     <div w3-include-html="privacypolicy.html"></div>
     `;
   await includeHTML();
+}
+
+function getInitials() {
+  let names = userData[userIndex]["name"].split(" ");
+  let initials = "";
+  let userInitials = document.getElementById("user-profile-initials");
+  for (let i = 0; i < names.length; i++) {
+    initials += names[i].charAt(0);
+  }
+  userInitials.innerHTML = "";
+  userInitials.innerHTML += initials.toUpperCase();
+}
+
+function clearSessionStorage() {
+  sessionStorage.clear();
+}
+
+function openMenu() {
+  let menu = document.querySelector("header");
+  menu.innerHTML += menuLayout();
+  sessionStorage.setItem("menu", true);
+}
+
+function menuLayout() {
+  return /*html*/ `<div class="menu">
+  <a href="#" onclick="openLegalNoticeHTML(),removeMenu()">Legal Notice</a>
+  <a href="#" onclick="openPrivacyPolicyHTML(),removeMenu()">Privacy Policy</a>
+  <a href="login.html" onclick="clearSessionStorage(),removeMenu()">Log out</a>
+</div>`;
+}
+
+document.addEventListener("click", function (event) {
+  const menu = document.querySelector(".menu");
+  if (menu) {
+    let isClickInsideMenu = menu.contains(event.target);
+    if (!sessionStorage.getItem("menu")) {
+      if (!isClickInsideMenu) {
+        removeMenu();
+        sessionStorage.removeItem("menu");
+      }
+    }
+  }
+});
+
+function removeMenu() {
+  const menu = document.querySelector(".menu");
+  menu.remove();
 }

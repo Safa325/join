@@ -1,119 +1,3 @@
-let tasksRP = [
-  {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    assignedTo: [
-      {
-        badgecolor: "#FF7A00",
-        initials: "CG",
-        register: "C",
-        name: "Claire Grube",
-        email: "cgrube@mail.de",
-        phone: "+49 40 276 5436",
-      },
-      {
-        badgecolor: "#FF5EB3",
-        initials: "VP",
-        register: "V",
-        name: "Volker Putt",
-        email: "volkerputt@yahoo.com",
-        phone: "+49 30 2589963",
-      },
-    ],
-    priority: "low",
-    category: "Technical Task",
-    dueDate: "2024-03-12",
-    status: "done",
-    subtasks: [
-      {
-        title: "Implement Recipe Recommondation",
-        done: true,
-      },
-      {
-        title: "Start Page Layout",
-        done: false,
-      },
-      {
-        title: "Push to Git",
-        done: false,
-      },
-    ],
-  },
-  {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    assignedTo: [
-      {
-        badgecolor: "#FC71FF",
-        initials: "CG",
-        register: "C",
-        name: "Claire Grube",
-        email: "cgrube@mail.de",
-        phone: "+49 40 276 5436",
-      },
-      {
-        badgecolor: "#FF5EB3",
-        initials: "VP",
-        register: "V",
-        name: "Volker Putt",
-        email: "volkerputt@yahoo.com",
-        phone: "+49 30 2589963",
-      },
-    ],
-    priority: "medium",
-    category: "User Story",
-    dueDate: "2024-03-12",
-    status: "todo",
-    subtasks: [
-      {
-        title: "Implement Recipe Recommondation",
-        done: true,
-      },
-      {
-        title: "Start Page Layout",
-        done: false,
-      },
-    ],
-  },
-
-  {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    assignedTo: [
-      {
-        badgecolor: "#FC71FF",
-        initials: "CG",
-        register: "C",
-        name: "Claire Grube",
-        email: "cgrube@mail.de",
-        phone: "+49 40 276 5436",
-      },
-      {
-        badgecolor: "#FF5EB3",
-        initials: "VP",
-        register: "V",
-        name: "Volker Putt",
-        email: "volkerputt@yahoo.com",
-        phone: "+49 30 2589963",
-      },
-    ],
-    priority: "medium",
-    category: "User Story",
-    dueDate: "2024-03-12",
-    status: "todo",
-    subtasks: [
-      {
-        title: "Implement Recipe Recommondation",
-        done: true,
-      },
-      {
-        title: "Start Page Layout",
-        done: false,
-      },
-    ],
-  },
-];
-
 let currentCardId = "";
 let targetColumnName = "";
 let columnsId = [
@@ -130,11 +14,14 @@ let labels = [
 ];
 
 function initBoard() {
+  tasks = userData[userIndex]["tasks"];
   renderAllCards();
   renderGhostCards();
-  renderDetailCard(0);
 }
 
+/**
+ * render Cards and sort by columns based on status
+ */
 function renderAllCards() {
   let columns = document.querySelectorAll(".card-container");
   for (let i = 0; i < columns.length; i++) {
@@ -143,36 +30,25 @@ function renderAllCards() {
     element.innerHTML += labelHTML(labels[i]);
   }
 
-  for (let index = 0; index < tasksRP.length; index++) {
-    let task = tasksRP[index];
+  for (let index = 0; index < tasks.length; index++) {
+    let task = tasks[index];
     switch (task["status"]) {
       case "todo":
-        renderCards(task, index, "todo_", "todo-card-container");
+        renderCards(task, index, "todo-card-container");
         break;
       case "inProgress":
-        renderCards(task, index, "inProgress_", "inProgress-card-container");
+        renderCards(task, index, "inProgress-card-container");
         break;
       case "awaitFeedback":
-        renderCards(
-          task,
-          index,
-          "awaitFeedback_",
-          "awaitFeedback-card-container"
-        );
+        renderCards(task, index, "awaitFeedback-card-container");
         break;
       case "done":
-        renderCards(task, index, "done_", "done-card-container");
+        renderCards(task, index, "done-card-container");
         break;
       default:
         break;
     }
   }
-}
-
-function calculateGhostCardPosition() {
-  let container = document.getElementById("todo-card-container");
-  let elements = container.querySelectorAll(".board-task-card");
-  let lastElement = elements[1].getBoundingClientRect();
 }
 
 function renderGhostCards() {
@@ -184,11 +60,12 @@ function renderGhostCards() {
   setLabelVisibity();
 }
 
-function renderCards(tasks, index, prefix, containerId) {
+function renderCards(tasks, index, containerId) {
   let container = document.getElementById(containerId);
   let assignHTML = renderCardContacts(tasks);
   let color = getBadgeColor(tasks);
   let { total, finished, progress } = getSubtaskStatus(tasks);
+  let progressHTML = progressbarHTML(total, finished, progress);
   let prioHTML = priorityHTML(tasks["priority"]);
   container.innerHTML += cardHTML(
     tasks,
@@ -196,27 +73,25 @@ function renderCards(tasks, index, prefix, containerId) {
     color,
     prioHTML,
     assignHTML,
-    total,
-    finished,
-    progress
+    progressHTML
   );
 }
 
 function renderDetailCard(index) {
   let container = document.getElementById("details-card-container");
-  let assignHTML = renderDetailsCardContacts(tasksRP[index]);
-  let color = getBadgeColor(tasksRP[index]);
-  let prioHTML = priorityHTML(tasksRP[index]["priority"]);
+  let assignHTML = renderDetailsCardContacts(tasks[index]);
+  let color = getBadgeColor(tasks[index]);
+  let prioHTML = priorityHTML(tasks[index]["priority"]);
   let subtasksHTML = "";
   let firstIndex = index;
 
-  tasksRP[index]["subtasks"].forEach((subtask, index) => {
+  tasks[index]["subtasks"].forEach((subtask, index) => {
     subtasksHTML += subtaskStatusHTML(subtask, firstIndex, index);
   });
 
   container.innerHTML = "";
   container.innerHTML = detailCardHTML(
-    tasksRP[index],
+    tasks[index],
     index,
     color,
     assignHTML,
@@ -235,7 +110,7 @@ function drag(ev) {
   currentCardId = ev.target.id;
 }
 
-function drop(ev) {
+async function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.currentTarget.appendChild(document.getElementById(data));
@@ -244,6 +119,7 @@ function drop(ev) {
   changeStatusOfTask(index, name);
   renderAllCards();
   renderGhostCards();
+  await saveTask();
 }
 
 function extractIndexFromId(id) {
@@ -257,22 +133,31 @@ function extractNameFromId(id) {
 }
 
 function changeStatusOfTask(index, status) {
-  tasksRP[index]["status"] = status;
+  tasks[index]["status"] = status;
+}
+
+async function saveTask() {
+  await setItem("userData", JSON.stringify(userData));
 }
 
 function getSubtaskStatus(task) {
   let totalSubtasks = task["subtasks"].length;
   let finishedSubtasks = 0;
+  let progress = 0;
   for (let index = 0; index < task["subtasks"].length; index++) {
     const subtask = task["subtasks"][index];
     if (subtask["done"]) {
       finishedSubtasks += 1;
     }
   }
+  if (totalSubtasks > 0) {
+    progress = (finishedSubtasks / totalSubtasks) * 100;
+  }
+
   return {
     total: totalSubtasks,
     finished: finishedSubtasks,
-    progress: (finishedSubtasks / totalSubtasks) * 100,
+    progress: progress,
   };
 }
 
@@ -298,7 +183,7 @@ function getBadgeColor(task) {
   return task["category"] == "User Story" ? "#0038ff" : "#1fd7c1";
 }
 
-function showGhostcard(event) {
+function showGhostcard() {
   let ghostCard = document.querySelectorAll(".board-ghostCard");
   ghostCard.forEach((element) => {
     element.classList.add("show-ghostCard");
@@ -351,37 +236,184 @@ function rotateCard(event) {
 function openDetailCard(index) {
   let container = document.getElementById("board-overlay");
   container.classList.remove("d-none");
+  let card = document.getElementById("details-card-container");
+  card.classList.remove("card-slide-out-animation");
+  card.classList.add("card-slide-in-animation");
   renderDetailCard(index);
 }
+
 function closeDetailCardFromBg(event) {
   let container = document.getElementById("board-overlay");
+  let card = document.getElementById("details-card-container");
   if (container.id == event.target.id) {
-    container.classList.add("d-none");
+    card.classList.remove("card-slide-in-animation");
+    card.classList.add("card-slide-out-animation");
+
+    setTimeout(() => {
+      container.classList.add("d-none");
+    }, 300);
   }
 }
 
 function closeDetailCard() {
   let container = document.getElementById("board-overlay");
-  container.classList.add("d-none");
+  let card = document.getElementById("details-card-container");
+  card.classList.remove("card-slide-in-animation");
+  card.classList.add("card-slide-out-animation");
+  setTimeout(() => {
+    container.classList.add("d-none");
+  }, 300);
 }
 
-function deleteTask(index) {
-  tasksRP.splice(index, 1);
+async function deleteTask(index) {
+  tasks.splice(index, 1);
+  await saveTask();
   closeDetailCard();
   renderAllCards();
 }
 
-function toggleSubtaskStatus(firstIndex, index) {
-  tasksRP[firstIndex]["subtasks"][index]["done"] =
-    !tasksRP[firstIndex]["subtasks"][index]["done"];
+async function toggleSubtaskStatus(firstIndex, index) {
+  tasks[firstIndex]["subtasks"][index]["done"] =
+    !tasks[firstIndex]["subtasks"][index]["done"];
+  await saveTask();
   renderDetailCard(firstIndex);
   renderAllCards();
 }
 
-
-function switchEditTask(index){
-  let container = document.getElementById('details-card-container');
-  container.innerHTML = '';
-  container.innerHTML = addTaskHTML(index)
+function switchEditTask(index) {
+  let container = document.getElementById("details-card-container");
+  container.innerHTML = "";
+  let task = tasks[index];
+  container.innerHTML = addTaskHTML(task, index);
+  selectPrio(task["priority"]);
+  getContactsFromUser();
+  initContactCopy();
+  setSelectedContacts(task);
+  renderContacts();
+  renderBadges();
+  subtasks = [...task["subtasks"]];
+  renderSubtasks();
+  adjustFormWhenEdit(index);
 }
 
+function adjustFormWhenEdit(index) {
+  changeSubmitButtonText();
+  disableCancelButton();
+  changeFormSubmitBehaviour(index);
+}
+
+function setSelectedContacts(task) {
+  task["assignedTo"].forEach((contact) => {
+    arrayOfFilterContact.forEach((filteredContact) => {
+      if (contact["name"] == filteredContact["name"]) {
+        filteredContact.selected = true;
+      }
+    });
+  });
+}
+
+function changeSubmitButtonText() {
+  let button = document.getElementById("addTask-submit-btn");
+  button.innerHTML = /*html*/ `
+        Ok
+        <svg
+          class="create-svg"
+          width="38"
+          height="30"
+          viewBox="0 0 38 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408"
+            stroke="white"
+            stroke-width="7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+  `;
+}
+
+function disableCancelButton() {
+  let button = document.getElementById("addTask-cancel-btn");
+  button.style = "display: none;";
+}
+
+function changeFormSubmitBehaviour(index) {
+  let form = document.getElementById("addTask-form");
+  form.setAttribute("onsubmit", `editTaskSubmit(${index}); return false;`);
+}
+
+async function editTaskSubmit(index) {
+  let status = tasks[index]["status"];
+  let titleField = document.getElementById("addTask-input-title");
+  let descriptionField = document.getElementById("addTask-input-description");
+  let tempcategory = document.getElementById("addTask-category").value;
+  let dateField = document.getElementById("addTask-input-date");
+  let assignedContacts = [];
+  for (let index = 0; index < arrayOfFilterContact.length; index++) {
+    let selection = arrayOfFilterContact[index]["selected"];
+    if (selection) {
+      assignedContacts.push(arrayOfFilterContact[index]);
+    }
+  }
+
+  let task = {
+    title: titleField.value,
+    description: descriptionField.value,
+    assignedTo: assignedContacts,
+    priority: priority,
+    category: tempcategory,
+    dueDate: dateField.value,
+    status: status,
+    subtasks: subtasks,
+  };
+  userData[userIndex]["tasks"][index] = task;
+  await saveTask();
+  closeDetailCard();
+  renderAllCards();
+  renderGhostCards();
+}
+
+function findTask() {
+  let input = document.getElementById("board-search").value;
+  if (input.length > 0) {
+    lowAllCardOpcatiy();
+    input = input[0].toLowerCase() + input.slice(1);
+    for (let index = 0; index < tasks.length; index++) {
+      let title = tasks[index]["title"];
+      title = title[0].toLowerCase() + title.slice(1);
+      let subString = title.substring(0, input.length);
+      if (subString == input) {
+        setCardOpacity(index);
+      }
+    }
+  } else {
+    resetAllCardOpacity();
+  }
+}
+
+function setCardOpacity(index) {
+  let cards = document.querySelectorAll("[data-id]");
+  cards.forEach((card) => {
+    let attr = card.getAttribute("data-id");
+    if (attr == index) {
+      card.style = "opacity: 1";
+    }
+  });
+}
+function resetAllCardOpacity() {
+  let cards = document.querySelectorAll("[data-id]");
+  cards.forEach((card) => {
+    card.style = "opacity: 1";
+  });
+}
+
+function lowAllCardOpcatiy(){
+  let cards = document.querySelectorAll("[data-id]");
+  cards.forEach((card) => {
+    card.style = "opacity: 0.3";
+  });
+
+}

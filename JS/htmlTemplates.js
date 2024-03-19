@@ -71,23 +71,15 @@ function cardHTML(
   color,
   prioHTML,
   assignHTML,
-  totalSubtasks,
-  finishedSubtasks,
-  progress
+  progressHTML
 ) {
   return /*html*/ `
-           <div draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
+           <div data-id="${index}" draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
               <p class="board-task-category" style="background-color: ${color}">${task["category"]}</p>
               <h6 class="board-task-title">${task["title"]}</h6>
               <p class="board-task-description">${task["description"]}</p>
-  
-              <div class="board-task-progress">
-                  <div class="board-task-progressbar">
-                      <div class="board-task-progress-inner" style="width: ${progress}%">
-                      </div>
-                  </div>
-                  <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
-              </div>
+                      ${progressHTML}
+             
               <div class="board-task-footer">
                   <div class="board-task-profile-badge-container">
                       ${assignHTML}
@@ -98,6 +90,22 @@ function cardHTML(
               </div>
           </div>
       `;
+}
+
+function progressbarHTML(totalSubtasks, finishedSubtasks, progress) {
+  if (totalSubtasks > 0) {
+    return /*html*/ `
+        <div class="board-task-progress">
+            <div class="board-task-progressbar">
+                <div class="board-task-progress-inner" style="width: ${progress}%">
+                </div>
+            </div>
+            <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
+        </div>
+      `;
+  } else {
+    return ``;
+  }
 }
 
 function detailCardHTML(task, index, color, assignHTML, prioHTML, subtasks) {
@@ -245,8 +253,8 @@ function priorityHTML(priority) {
   }
 }
 
-function addTaskHTML(index){
-  return /*html*/`
+function addTaskHTML(task, index) {
+  return /*html*/ `
       <form id="addTask-form" onsubmit="createTask(event); return false;">
         <div class="addTask-column-wrapper popup">
           <div class="addTask-column left-column">
@@ -261,22 +269,22 @@ function addTaskHTML(index){
                 id="addTask-input-title"
                 placeholder="Enter a title"
                 required
+                value="${task["title"]}"
               />
             </div>
             <div class="addTask-input-element">
               <label class="addTask-label" for="addTask-input-description"
-                >Description</label
-              >
+                >Description</label>
               <textarea
                 name="description"
                 class="addTask-inputField addTask-textarea"
                 type="text"
                 id="addTask-input-description"
                 placeholder="Enter a description"
-              ></textarea>
+              >${task["description"]}</textarea>
             </div>
 
-            <!-- Contacts -->
+          
             <div class="addTask-input-element mb-12">
               <label class="addTask-label" for="addTask-search-assign"
                 >Assigned To</label
@@ -307,12 +315,12 @@ function addTaskHTML(index){
                   class="addTask-dropdown-container contacts d-none"
                   id="contact-dropdown-container"
                 >
-                  <!-- Will be rendered -->
+                 
                 </div>
               </div>
             </div>
             <div class="addTask-badges-container" id="contact-badges-container">
-              <!-- Will be rendered -->
+            
             </div>
           </div>
           <div class="addTask-separator"></div>
@@ -327,10 +335,11 @@ function addTaskHTML(index){
                 id="addTask-input-date"
                 placeholder="dd/mm/yy"
                 required
+                value="${task["dueDate"]}"
               />
             </div>
 
-            <!-- Urgent, Medium, Low - Prio -->
+           
             <div class="addTask-input-element">
               <div class="addTask-label">Prio</div>
               <div class="addTask-btn-container" id="addTask-input-prio">
@@ -406,7 +415,7 @@ function addTaskHTML(index){
               </div>
             </div>
 
-            <!-- Category -->
+           
             <div class="addTask-input-element">
               <label class="addTask-label required" for="addTask-category"
                 >Category</label
@@ -418,6 +427,7 @@ function addTaskHTML(index){
                   id="addTask-category"
                   placeholder="Select task category"
                   required
+                  value="${task["category"]}"
                 />
                 <div class="addTask-round-btn-frame">
                   <img
@@ -442,7 +452,7 @@ function addTaskHTML(index){
               </div>
             </div>
 
-            <!-- Subtasks -->
+            
             <div class="addTask-input-element">
               <label class="addTask-label" for="addTask-subtask-input"
                 >Subtask</label
@@ -508,7 +518,7 @@ function addTaskHTML(index){
         <div class="addTask-controls">
           <p class="addTask-hint">This field is required</p>
           <div class="addTask-control-btn-container">
-            <button type="reset" class="addTask-control-btn cancel-btn">
+            <button id="addTask-cancel-btn" type="reset" class="addTask-control-btn cancel-btn">
               Cancel
               <svg
                 class="cancel-svg"
@@ -527,7 +537,7 @@ function addTaskHTML(index){
                 />
               </svg>
             </button>
-            <button type="submit" class="addTask-control-btn create-btn">
+            <button id="addTask-submit-btn" type="submit" class="addTask-control-btn create-btn">
               Create Task
               <svg
                 class="create-svg"
@@ -549,5 +559,5 @@ function addTaskHTML(index){
           </div>
         </div>
       </form>
-  `
+  `;
 }

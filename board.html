@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/board.css">
     <link rel="stylesheet" href="./css/addTask.css">
     <script src="./JS/htmlTemplates.js"></script>
+    <script src="./JS/addTask.js"></script>
     <script src="./JS/board.js"></script>
     <title>Board</title>
 </head>
@@ -16,8 +17,8 @@
         <div class="board-headline-menu">
             <h1 class="board-headline">Board</h1>
             <div class="board-controller">
-                <div id="board-search" class="board-search">
-                    <input onblur="clearOutlineBlue('board-search')" onfocus="setOutlineBlue('board-search')"
+                <div  class="board-search">
+                    <input id="board-search" onkeyup="findTask()" onblur="clearOutlineBlue('board-search')" onfocus="setOutlineBlue('board-search')"
                         type="text" placeholder="Find Task">
                     <div class="board-search-btn-frame">
                         <div class="board-round-btn-frame">
@@ -53,7 +54,7 @@
                 </div>
 
                 <div id="todo-card-container" class="card-container" ondragstart="avoidGhostCard(event)"
-                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard(event);">
+                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard();">
                     <div class="board-column-noTask">
                         No Tasks To Do
                     </div>
@@ -74,7 +75,7 @@
                 </div>
 
                 <div id="inProgress-card-container" class="card-container" ondragstart="avoidGhostCard(event)"
-                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard(event)">
+                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard()">
                     <div class="board-column-noTask">
                         No Tasks in Progress
                     </div>
@@ -95,7 +96,7 @@
                 </div>
 
                 <div id="awaitFeedback-card-container" class="card-container" ondragstart="avoidGhostCard(event)"
-                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard(event);">
+                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard();">
                     <div class="board-column-noTask">
                         No Tasks await Feedback
                     </div>
@@ -116,7 +117,7 @@
                 </div>
 
                 <div id="done-card-container" class="card-container" ondragstart="avoidGhostCard(event)"
-                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard(event);">
+                    ondrop="drop(event)" ondragover="allowDrop(event), showGhostcard();">
                     <div class="board-column-noTask">
                         No Tasks done
                     </div>
