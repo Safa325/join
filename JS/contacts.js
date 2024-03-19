@@ -216,7 +216,7 @@ function openNewContactSlider() {
     document.getElementById('window-claim').innerHTML = `Tasks are better with a team!`;
 
     document.getElementById('buttons-container').innerHTML = `
-    <button class="btn-white btn-pos" onclick="setSlideOutEffects()">
+    <button id="cancelBtn" class="btn-white btn-pos" onclick="setSlideOutEffects()">
     Cancel<img src="./img/icons/cancel.svg"></button>
     <button id="createContactBtn" class="btn-grey img-white btn-pos" onclick="createContact()">
     Create contact<img src="./img/icons/checked.svg"></button>
