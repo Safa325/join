@@ -207,3 +207,11 @@ h6 {
   cursor: pointer;
   background-color: var(--clr-sidebar-hover);
 }
+
+@media (max-width: 1200px) {
+  /* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  display: none;
+}
+}

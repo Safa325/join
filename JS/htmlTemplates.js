@@ -32,20 +32,20 @@ function subTaskHTML(subtask, index) {
 function contactHTML(contact, contactElementClass, index, svg) {
   return /*html*/ `
         <div onclick="toggleContactSelection(${index})" id="contact-element_${index}" class="contact-element ${contactElementClass}">
-            <div class="addTask-profile-badge" style="background-color: ${contact["badgecolor"]}">${contact["initials"]}</div>
-            <p class="addTask-dropdown-text">${contact["name"]}</p>
+            <div class="addTask-profile-badge" style="background-color: ${contact['badgecolor']}">${contact['initials']}</div>
+            <p class="addTask-dropdown-text">${contact['name']}</p>
             ${svg}
         </div>`;
 }
 
 function badgesHTML(contact) {
   return /*html*/ `
-        <div class="addTask-profile-badge" style="background-color: ${contact["badgecolor"]}">${contact["initials"]}</div>
+        <div class="addTask-profile-badge" style="background-color: ${contact['badgecolor']}">${contact['initials']}</div>
     `;
 }
 
 function contactCheckboxSvgHTML(value) {
-  let html = "";
+  let html = '';
   if (value) {
     html = /*html*/ `    
                 <svg class="addTask-checkbox" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,29 +65,14 @@ function contactCheckboxSvgHTML(value) {
 }
 
 // board.html templates
-function cardHTML(
-  task,
-  index,
-  color,
-  prioHTML,
-  assignHTML,
-  totalSubtasks,
-  finishedSubtasks,
-  progress
-) {
+function cardHTML(task, index, color, prioHTML, assignHTML, progressHTML) {
   return /*html*/ `
-           <div draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
-              <p class="board-task-category" style="background-color: ${color}">${task["category"]}</p>
-              <h6 class="board-task-title">${task["title"]}</h6>
-              <p class="board-task-description">${task["description"]}</p>
-  
-              <div class="board-task-progress">
-                  <div class="board-task-progressbar">
-                      <div class="board-task-progress-inner" style="width: ${progress}%">
-                      </div>
-                  </div>
-                  <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
-              </div>
+           <div data-id="${index}" draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
+              <p class="board-task-category" style="background-color: ${color}">${task['category']}</p>
+              <h6 class="board-task-title">${task['title']}</h6>
+              <p class="board-task-description">${task['description']}</p>
+                      ${progressHTML}
+             
               <div class="board-task-footer">
                   <div class="board-task-profile-badge-container">
                       ${assignHTML}
@@ -100,10 +85,26 @@ function cardHTML(
       `;
 }
 
+function progressbarHTML(totalSubtasks, finishedSubtasks, progress) {
+  if (totalSubtasks > 0) {
+    return /*html*/ `
+        <div class="board-task-progress">
+            <div class="board-task-progressbar">
+                <div class="board-task-progress-inner" style="width: ${progress}%">
+                </div>
+            </div>
+            <p>${finishedSubtasks}/${totalSubtasks} Subtasks</p>
+        </div>
+      `;
+  } else {
+    return ``;
+  }
+}
+
 function detailCardHTML(task, index, color, assignHTML, prioHTML, subtasks) {
   return /*html*/ `
         <div class="board-task-detail-header">
-            <p class="board-task-category detail-card-category" style="background-color: ${color}">${task["category"]}</p>
+            <p class="board-task-category detail-card-category" style="background-color: ${color}">${task['category']}</p>
             <svg id="close-detail-card" onclick="closeDetailCard()" class="board-task-detail-close" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
             d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
@@ -111,15 +112,15 @@ function detailCardHTML(task, index, color, assignHTML, prioHTML, subtasks) {
             </svg>
         </div>
            
-        <h6 class="board-task-title detail-card-title">${task["title"]}</h6>
-        <p class="board-task-description detail-card-description">${task["description"]}</p>
+        <h6 class="board-task-title detail-card-title">${task['title']}</h6>
+        <p class="board-task-description detail-card-description">${task['description']}</p>
         <div class="detail-card-line">
             <div class="detail-card-line-label">Due date:</div>
-            <div class="detail-card-line-info">${task["dueDate"]}</div>
+            <div class="detail-card-line-info">${task['dueDate']}</div>
         </div>
         <div class="detail-card-line">
             <div class="detail-card-line-label">Priority:</div>
-            <div class="detail-card-line-info">${task["priority"]}
+            <div class="detail-card-line-info">${task['priority']}
                 ${prioHTML}
             </div>
         </div>
@@ -154,8 +155,8 @@ function detailCardHTML(task, index, color, assignHTML, prioHTML, subtasks) {
 }
 
 function subtaskStatusHTML(subtask, firstIndex, index) {
-  let html = "";
-  if (subtask["done"]) {
+  let html = '';
+  if (subtask['done']) {
     html = /*html*/ `
         <div class="detail-card-subtask">
           <svg onclick="toggleSubtaskStatus(${firstIndex}, ${index})" class="addTask-checkbox" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,7 +166,7 @@ function subtaskStatusHTML(subtask, firstIndex, index) {
                 <path d="M5 9.96582L9 13.9658L17 2.46582" stroke="#2A3647" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <p>${subtask["title"]}</p>
+          <p>${subtask['title']}</p>
         </div>    
                `;
   } else {
@@ -174,7 +175,7 @@ function subtaskStatusHTML(subtask, firstIndex, index) {
               <svg onclick="toggleSubtaskStatus(${firstIndex}, ${index})" class="addTask-checkbox" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="1" y="1.96582" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"/>
               </svg>
-              <p>${subtask["title"]}</p>
+              <p>${subtask['title']}</p>
         </div> `;
   }
   return html;
@@ -193,22 +194,22 @@ function labelHTML(label) {
 function assignedToDetailsHTML(assignedTo) {
   return /*html*/ `
       <div class="details-badge-container">
-          <div class="details-profile-badge" style="background-color: ${assignedTo["badgecolor"]}">
-              ${assignedTo["initials"]}
+          <div class="details-profile-badge" style="background-color: ${assignedTo['badgecolor']}">
+              ${assignedTo['initials']}
           </div>
-        ${assignedTo["name"]}
+        ${assignedTo['name']}
       </div>   
       `;
 }
 
 function assignedToHTML(assignedTo) {
   return /*html*/ `
-           <div class="board-task-profile-badge" style="background-color: ${assignedTo["badgecolor"]}">${assignedTo["initials"]}</div>
+           <div class="board-task-profile-badge" style="background-color: ${assignedTo['badgecolor']}">${assignedTo['initials']}</div>
       `;
 }
 
 function priorityHTML(priority) {
-  if (priority == "urgent") {
+  if (priority == 'urgent') {
     return /*html*/ `
                <svg class="board-task-priority " width="17" height="17" viewBox="0 0 35 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -220,7 +221,7 @@ function priorityHTML(priority) {
               </svg>
           `;
   }
-  if (priority == "medium") {
+  if (priority == 'medium') {
     return /*html*/ `
                <svg class="board-task-priority" width="17" height="8" viewBox="0 0 21 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -245,10 +246,10 @@ function priorityHTML(priority) {
   }
 }
 
-function addTaskHTML(task, index) {
+function addTaskHTML() {
   return /*html*/ `
       <form id="addTask-form" onsubmit="createTask(event); return false;">
-        <div class="addTask-column-wrapper popup">
+        <div id="addTask-column-wrapper" class="addTask-column-wrapper">
           <div class="addTask-column left-column">
             <div class="addTask-input-element">
               <label class="addTask-label required" for="addTask-input-title"
@@ -261,7 +262,6 @@ function addTaskHTML(task, index) {
                 id="addTask-input-title"
                 placeholder="Enter a title"
                 required
-                value="${task["title"]}
               />
             </div>
             <div class="addTask-input-element">
@@ -273,7 +273,7 @@ function addTaskHTML(task, index) {
                 type="text"
                 id="addTask-input-description"
                 placeholder="Enter a description"
-              >${task['description']}</textarea>
+              ></textarea>
             </div>
 
           
@@ -327,7 +327,6 @@ function addTaskHTML(task, index) {
                 id="addTask-input-date"
                 placeholder="dd/mm/yy"
                 required
-                value="${task["dueDate"]}"
               />
             </div>
 
@@ -419,7 +418,6 @@ function addTaskHTML(task, index) {
                   id="addTask-category"
                   placeholder="Select task category"
                   required
-                  value="${task["category"]}"
                 />
                 <div class="addTask-round-btn-frame">
                   <img
@@ -474,9 +472,7 @@ function addTaskHTML(task, index) {
                       alt=""
                     />
                   </div>
-                  <div
-                    onclick="createSubtask()"
-                    class="addTask-round-btn-frame"
+                  <div onclick="createSubtask()" class="addTask-round-btn-frame"
                   >
                     <img
                       class="addTask-add-btn"
@@ -510,7 +506,7 @@ function addTaskHTML(task, index) {
         <div class="addTask-controls">
           <p class="addTask-hint">This field is required</p>
           <div class="addTask-control-btn-container">
-            <button type="reset" class="addTask-control-btn cancel-btn">
+            <button id="addTask-cancel-btn" type="reset" class="addTask-control-btn cancel-btn">
               Cancel
               <svg
                 class="cancel-svg"
@@ -529,7 +525,7 @@ function addTaskHTML(task, index) {
                 />
               </svg>
             </button>
-            <button type="submit" class="addTask-control-btn create-btn">
+            <button id="addTask-submit-btn" type="submit" class="addTask-control-btn create-btn">
               Create Task
               <svg
                 class="create-svg"
