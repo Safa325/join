@@ -101,7 +101,9 @@ function getInitials() {
 }
 
 function clearSessionStorage() {
-  sessionStorage.clear();
+  sessionStorage.removeItem("animationPlayed");
+  sessionStorage.removeItem("animationGreetingPlayed");
+  sessionStorage.removeItem("userIndex");
 }
 
 function openMenu() {
@@ -130,4 +132,11 @@ document.addEventListener("click", function (e) {
 function removeMenu() {
   const menu = document.getElementById("popUpMenu");
   menu.remove();
+}
+
+function firstLoad() {
+  if (!sessionStorage.getItem("firstLoad")) {
+    window.location.href = "login.html";
+    sessionStorage.setItem("firstLoad", true);
+  }
 }
