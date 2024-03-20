@@ -128,7 +128,6 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  display: none;
   opacity: 0;
 }
 
@@ -138,7 +137,7 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  display: none;
+  
 }
 
 .placeholder {
@@ -156,6 +155,10 @@ header {
 #help-icon:hover {
   width: 22px;
   height: 22px;
+}
+
+.d-none {
+  display: none !important;
 }
 
 @media (max-width: 1200px) {

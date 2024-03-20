@@ -119,7 +119,7 @@ async function createContact() {
     clearAddContactForm();
     await initContacts();
     setSlideOutEffects();
-    renderContactDetails(i);
+    showContactDetails(i);
     confirmNewContact();
     setTimeout(hideConfirmNewContact, 800);
     setHighlight(i);
@@ -146,6 +146,14 @@ function removeHighlight() {
     let containers = document.querySelectorAll('.person-container');
     containers.forEach(element => {
     element.classList.remove('element-active')})
+}
+
+function showContactDetails(i) {
+    if(window.innerWidth < 1200){
+        openContactSlider(i);
+    } else {
+        renderContactDetails(i);
+    };
 }
 
 function renderContactDetails(i) {
@@ -290,22 +298,28 @@ function generateContactSliderContentHTML() {
 }
 
 function setSlideInEffects() {
+    document.getElementById('overlay-window').classList.remove('d-none');
     if(document.getElementById('contact-slider').classList.contains('slide-out-animation')){
         document.getElementById('contact-slider').classList.remove('slide-out-animation')
     };
-    document.getElementById('contact-slider').classList.add('slide-in-animation');   
+    document.getElementById('contact-slider').classList.add('slide-in-animation') 
+    document.getElementById('dark-background').classList.remove('d-none');
     setTimeout(setDarkBackground, 300);
 }
 
 function setSlideOutEffects() {
-    document.getElementById('contact-slider').classList.remove('slide-in-animation');
+    if(document.getElementById('contact-slider').classList.contains('slide-in-animation')){
+        document.getElementById('contact-slider').classList.add('slide-in-animation')
+    }; 
     document.getElementById('contact-slider').classList.add('slide-out-animation');   
+    
     setTimeout(clearDarkBackground, 300);
     setTimeout(removeZindex, 1000);
 }
 
 function setDarkBackground() { 
     document.getElementById('dark-background').style = ('z-index: 1;');
+    
     if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
         document.getElementById('dark-background').classList.remove('fade-out-animation');
     };
@@ -313,11 +327,17 @@ function setDarkBackground() {
 }
 
 function clearDarkBackground() {
+    if(document.getElementById('dark-background').classList.contains('fade-in-animation')){
+        document.getElementById('dark-background').classList.remove('fade-in-animation');
+    };
     document.getElementById('dark-background').classList.add('fade-out-animation'); 
+    document.getElementById('overlay-window').classList.add('d-none');
+    
 }
 
 function removeZindex() {
     document.getElementById('dark-background').style = ('z-index: 0;');
+    document.getElementById('dark-background').classList.add('d-none');
 }
 
 async function deleteContact(i) {
@@ -343,6 +363,6 @@ async function saveEditContact(i) {
     await setItem('userData', JSON.stringify(userData));
     setSlideOutEffects();
     initContacts();
-    renderContactDetails(i);
+    showContactDetails(i);
     setHighlight(i);
 }
