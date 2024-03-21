@@ -61,30 +61,9 @@ const cpwIcon = document.getElementById("cpwIcon");
  */
 let signUpForm = document.getElementById("signUpForm");
 
-/**
- * Ändert das Bild des Kontrollkästchens beim Überfahren mit der Maus, wenn das Kontrollkästchen akzeptiert ist.
- * Changes the image of the checkbox on mouseover if the checkbox is accepted.
- */
-inputCheckbox.addEventListener("mouseover", function () {
-  if (checkboxAccept == "true") {
-    checkbox.src = "./img/icons/checkbox-checked.svg";
-  }
-});
-
-/**
- * Setzt das Bild des Kontrollkästchens zurück, wenn die Maus das Kontrollkästchen verlässt.
- * Resets the image of the checkbox when the mouse leaves the checkbox.
- */
-inputCheckbox.addEventListener("mouseout", function () {
-  checkbox.src = "./img/icons/checkbox-unchecked.svg";
-});
-
-/**
- * Ändert den Status des Kontrollkästchens und aktualisiert das Bild entsprechend.
- * Toggles the state of the checkbox and updates the image accordingly.
- */
 function acceptCheckbox() {
   if (checkboxAccept == "true") {
+    checkbox.src = "./img/icons/checkbox-unchecked.svg";
     checkboxAccept = "false";
   } else {
     checkbox.src = "./img/icons/checkbox-checked.svg";

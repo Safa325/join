@@ -65,11 +65,11 @@ function greetingDay() {
   const currentTime = new Date(); // Holt sich die aktuelle Zeit
   const currentHour = currentTime.getHours(); // Holt sich die aktuelle Stunde
   if (currentHour < 12) {
-    day = "Guten Morgen"; // Begrüßung für den Morgen
+    day = "Good morning"; // Begrüßung für den Morgen
   } else if (currentHour < 18) {
-    day = "Guten Tag"; // Begrüßung für den Tag
+    day = "Good day"; // Begrüßung für den Tag
   } else {
-    day = "Guten Abend"; // Begrüßung für den Abend
+    day = "Good evening"; // Begrüßung für den Abend
   }
 }
 
@@ -159,18 +159,12 @@ function showTasks() {
   let taskProgress = filterBoardStatus("inProgress"); // Anzahl der Aufgaben im Status "In Progress"
   let taskFeedback = filterBoardStatus("awaitFeedback"); // Anzahl der Aufgaben im Status "Awaiting Feedback"
   let taskBoard = taskDo + taskDone + taskProgress + taskFeedback; // Gesamtanzahl der Aufgaben im Board
-  let toDo = document.getElementById("toDo");
-  let done = document.getElementById("done1");
-  let urgent = document.getElementById("urgent");
-  let inBoard = document.getElementById("inBoard");
-  let inProgress = document.getElementById("inProgress");
-  let feedback = document.getElementById("feedback");
-  toDo.innerHTML = taskDo;
-  done.innerHTML = taskDone;
-  urgent.innerHTML = taskUrgent;
-  inBoard.innerHTML = taskBoard;
-  inProgress.innerHTML = taskProgress;
-  feedback.innerHTML = taskFeedback;
+  document.getElementById("toDo").innerHTML = taskDo;
+  document.getElementById("done1").innerHTML = taskDone;
+  document.getElementById("urgent").innerHTML = taskUrgent;
+  document.getElementById("inBoard").innerHTML = taskBoard;
+  document.getElementById("inProgress").innerHTML = taskProgress;
+  document.getElementById("feedback").innerHTML = taskFeedback;
 }
 
 /**
