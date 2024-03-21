@@ -140,3 +140,18 @@ function firstLoad() {
     sessionStorage.setItem("firstLoad", true);
   }
 }
+
+function loadText() {
+  let storage = localStorage.getItem("Privacy");
+  if (storage == "true") {
+    openPrivacyPolicyHTML();
+  } else {
+    openLegalNoticeHTML();
+  }
+}
+
+function backToLogin2() {
+  if (localStorage.getItem("Privacy")) {
+    window.location.href = "login.html";
+  }
+}

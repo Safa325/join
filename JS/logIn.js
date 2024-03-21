@@ -161,6 +161,7 @@ logInForm.addEventListener("submit", function (e) {
   hideErrorMessageLogin();
   if (loginExists == "true") {
     saveInputs();
+    localStorage.removeItem("Privacy");
     window.location.href = "index.html";
   } else {
     errorMessageLogin();
@@ -282,3 +283,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("logInLogo").style.display = "flex"; // Zeigt das Logo an, wenn die Animation bereits abgespielt wurde
   }
 });
+
+function newTab(x) {
+  if (x == "1") {
+    window.open("newTab.html", "_blank");
+    localStorage.setItem("Privacy", "true");
+  } else {
+    window.open("newTab.html", "_blank");
+    localStorage.setItem("Privacy", "false");
+  }
+}
