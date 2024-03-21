@@ -95,7 +95,8 @@ h6 {
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
+  /* width: 8px; */
+  width: 0px;
   height: 8px;
 }
 
@@ -109,13 +110,13 @@ h6 {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2a3647;
+  background: #d1d1d1;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3647;
+  background: #d1d1d1;
 }
 
 

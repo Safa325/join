@@ -68,7 +68,14 @@ function contactCheckboxSvgHTML(value) {
 function cardHTML(task, index, color, prioHTML, assignHTML, progressHTML) {
   return /*html*/ `
            <div data-id="${index}" draggable='true' onclick="openDetailCard(${index})" ondragstart="drag(event); rotateCard(event)" id="card_${index}" class="board-task-card">
+           <div class="board-card-header">
               <p class="board-task-category" style="background-color: ${color}">${task['category']}</p>
+              <svg onclick="openCardMoveMenu(event,${index})" class="board-card-move-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+              d="M278.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-64 64c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8h32v96H128V192c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V288h96v96H192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l64 64c12.5 12.5 32.8 12.5 45.3 0l64-64c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8H288V288h96v32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6v32H288V128h32c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-64-64z" fill="#091931" />
+              </svg>
+           </div>  
+          
               <h6 class="board-task-title">${task['title']}</h6>
               <p class="board-task-description">${task['description']}</p>
                       ${progressHTML}
@@ -105,7 +112,7 @@ function detailCardHTML(task, index, color, assignHTML, prioHTML, subtasks) {
   return /*html*/ `
         <div class="board-task-detail-header">
             <p class="board-task-category detail-card-category" style="background-color: ${color}">${task['category']}</p>
-            <svg id="close-detail-card" onclick="closeDetailCard()" class="board-task-detail-close" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg id="close-detail-card" onclick="sliedeOutPopupCard()" class="board-task-detail-close" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
             d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
             stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -547,5 +554,29 @@ function addTaskHTML() {
           </div>
         </div>
       </form>
+  `;
+}
+
+function moveCardHTML(index) {
+  return /*html*/ `
+   
+    <form id="form-moveTo" onsubmit="moveCardTo(${index}); return false;">
+      <p>Move task to:</p>
+      <input type="radio" id="radio-todo" name="fav_language" value="todo">
+      <label for="radio-todo">todo</label><br>
+
+      <input type="radio" id="radio-inProgress" name="fav_language" value="inProgress">
+      <label for="radio-inProgress">in progress</label><br>
+
+      <input type="radio" id="radio-awaitFeedback" name="fav_language" value="awaitFeedback">
+      <label for="radio-awaitFeedback">await Feedback</label><br>
+
+        <input type="radio" id="radio-done" name="fav_language" value="done">
+      <label for="radio-done">done</label><br>
+        
+      <input class="move-submit-btn" type="submit" value="Move Task">
+    </form>
+
+
   `;
 }

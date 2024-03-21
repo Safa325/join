@@ -7,6 +7,8 @@ function initBoard() {
   tasks = userData[userIndex]['tasks'];
   renderAllCards();
   renderGhostCards();
+  document.body.classList.remove('stop-scrolling');
+  selectCardIsDraggable();
 }
 
 /**
@@ -61,7 +63,7 @@ function renderCards(tasks, index, containerId) {
 }
 
 function renderDetailCard(index) {
-  let container = document.getElementById('details-card-container');
+  let container = document.getElementById('popup-card-container');
   let assignHTML = renderDetailsCardContacts(tasks[index]);
   let color = getBadgeColor(tasks[index]);
   let prioHTML = priorityHTML(tasks[index]['priority']);
@@ -210,41 +212,15 @@ function rotateCard(event) {
 }
 
 function openDetailCard(index) {
-  let container = document.getElementById('board-overlay-details');
-  container.classList.remove('d-none');
-  let card = document.getElementById('details-card-container');
-  card.classList.remove('card-slide-out-animation');
-  card.classList.add('card-slide-in-animation');
+  renderPopupCard();
+  slideInPopupCard();
   renderDetailCard(index);
-}
-
-function closeDetailCardFromBg(event) {
-  let container = document.getElementById('board-overlay-details');
-  let card = document.getElementById('details-card-container');
-  if (container.id == event.target.id) {
-    card.classList.remove('card-slide-in-animation');
-    card.classList.add('card-slide-out-animation');
-
-    setTimeout(() => {
-      container.classList.add('d-none');
-    }, 300);
-  }
-}
-
-function closeDetailCard() {
-  let container = document.getElementById('board-overlay-details');
-  let card = document.getElementById('details-card-container');
-  card.classList.remove('card-slide-in-animation');
-  card.classList.add('card-slide-out-animation');
-  setTimeout(() => {
-    container.classList.add('d-none');
-  }, 300);
 }
 
 async function deleteTask(index) {
   tasks.splice(index, 1);
   await saveTask();
-  closeDetailCard();
+  sliedeOutPopupCard();
   renderAllCards();
 }
 
@@ -256,7 +232,7 @@ async function toggleSubtaskStatus(firstIndex, index) {
 }
 
 function switchEditTask(index) {
-  let container = document.getElementById('details-card-container');
+  let container = document.getElementById('popup-card-container');
   container.innerHTML = '';
   let task = tasks[index];
   container.innerHTML = addTaskHTML(task);
@@ -356,7 +332,7 @@ async function editTaskSubmit(index) {
   };
   userData[userIndex]['tasks'][index] = task;
   await saveTask();
-  closeDetailCard();
+  sliedeOutPopupCard();
   renderAllCards();
   renderGhostCards();
 }
@@ -365,12 +341,11 @@ function findTask() {
   let input = document.getElementById('board-search').value;
   if (input.length > 0) {
     lowAllCardOpcatiy();
-    input = input[0].toLowerCase() + input.slice(1);
+    input = input.toLowerCase();
     for (let index = 0; index < tasks.length; index++) {
-      let title = tasks[index]['title'];
-      title = title[0].toLowerCase() + title.slice(1);
-      let subString = title.substring(0, input.length);
-      if (subString == input) {
+      let title = tasks[index]['title'].toLowerCase();
+      let description = tasks[index]['description'].toLowerCase();
+      if (title.includes(input) || description.includes(input)) {
         setCardOpacity(index);
       }
     }
@@ -403,43 +378,99 @@ function lowAllCardOpcatiy() {
 }
 
 async function openAddTaskPopup(initStatus) {
-  openAddTaskCard();
-  let container = document.getElementById('addTask-card-container');
+  renderPopupCard();
+  // openAddTaskCard();
+  slideInPopupCard();
+  let container = document.getElementById('popup-card-container');
   container.innerHTML = '';
   container.innerHTML = addTaskHTML();
   await addTaskInit();
   initialStatus = initStatus;
 }
 
-function openAddTaskCard() {
-  let container = document.getElementById('board-overlay-addTask');
+function renderPopupCard() {
+  let container = document.getElementById('board-overlay-details');
+  container.innerHTML = /*html*/ `
+     <div id="popup-card-container" class="popup-card-container"></div>
+  `;
+}
+
+function slideInPopupCard() {
+  let container = document.getElementById('board-overlay-details');
   container.classList.remove('d-none');
-  let card = document.getElementById('addTask-card-container');
+  let card = document.getElementById('popup-card-container');
   card.classList.remove('card-slide-out-animation');
+
   card.classList.add('card-slide-in-animation');
+  document.body.classList.add('stop-scrolling');
 }
 
-function closeAddTaskFromBg(event) {
-  let container = document.getElementById('board-overlay-addTask');
-  let card = document.getElementById('addTask-card-container');
-  if (container.id == event.target.id) {
-    card.classList.remove('card-slide-in-animation');
-    card.classList.add('card-slide-out-animation');
-
-    setTimeout(() => {
-      container.classList.add('d-none');
-    }, 300);
-  }
-}
-
-function closeAddTaskCard() {
-  let container = document.getElementById('board-overlay-addTask');
-  let card = document.getElementById('addTask-card-container');
+function sliedeOutPopupCard() {
+  let container = document.getElementById('board-overlay-details');
+  let card = document.getElementById('popup-card-container');
   if (container != null && card != null) {
     card.classList.remove('card-slide-in-animation');
     card.classList.add('card-slide-out-animation');
+    subtasks = [];
     setTimeout(() => {
       container.classList.add('d-none');
+      card.classList.add('d-none');
+      document.body.classList.remove('stop-scrolling');
     }, 300);
   }
+}
+
+function slideOutPopupFromBg(event) {
+  let container = document.getElementById('board-overlay-details');
+  let card = document.getElementById('popup-card-container');
+  if (container.id == event.target.id) {
+    card.classList.remove('card-slide-in-animation');
+    card.classList.add('card-slide-out-animation');
+    subtasks = [];
+    setTimeout(() => {
+      container.classList.add('d-none');
+      document.body.classList.remove('stop-scrolling');
+    }, 300);
+  }
+}
+
+window.addEventListener('resize', function () {
+  console.log('rezice');
+  selectCardIsDraggable();
+});
+
+function selectCardIsDraggable() {
+  let card = document.querySelectorAll('.board-task-card');
+  if (card.length > 0) {
+    if (window.innerWidth < 1150) {
+      card.forEach((element) => {
+        element.setAttribute('draggable', 'false');
+      });
+    } else {
+      card.forEach((element) => {
+        element.setAttribute('draggable', 'true');
+      });
+    }
+  }
+}
+
+function openCardMoveMenu(event, index) {
+  event.stopPropagation();
+
+  renderPopupCard();
+  slideInPopupCard();
+  let container = document.getElementById('popup-card-container');
+  container.innerHTML = '';
+  container.innerHTML = moveCardHTML(index);
+}
+
+function moveCardTo(index, value) {
+  var form = document.getElementById('form-moveTo');
+
+  var radVal = form.fav_language.value;
+
+  changeStatusOfTask(index, radVal);
+  sliedeOutPopupCard();
+  renderAllCards();
+  console.log(radVal);
 }
