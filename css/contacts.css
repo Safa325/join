@@ -418,6 +418,21 @@ label {
     font-weight: 500;
 }
 
+.person-details-badge {
+    width: 120px;
+    height: 120px;
+    padding: 30px;
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 72px;
+    color: white;
+    font-size: 47px;
+    font-weight: 500;
+}
+
 .cancel-x {
     position: absolute;
     top: 62px;
@@ -611,6 +626,121 @@ label {
         margin-bottom: 48px;
     }
 
+    .person-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        margin-right: auto;
+        color: white;
+        font-size: 47px;
+        font-weight: 500;
+    }
+    /*Contact Details*/
+    .person-details-badge {
+        font-size: 27px;
+        font-weight: 400;
+        width: 80px;
+        height: 80px;
+        margin-right: 20px;
+    }
+        
+    .contacts-details-headline {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-left: 16px;
+        margin-top: 48px;
+    }
+
+    .separator-upright-lightblue {
+        display: none;
+    }
+    
+    .contacts-details-headline::after {
+        content: "";
+        height: 3px;
+        width: 90px;
+        background-color: var(--clr-light-blue);
+        border-radius: 10px;
+    }
+
+    .contacts-claim {
+        font-weight: 400;
+        font-size: 27px;
+        color: var(--clr-dark-gray)
+    }
+
+    .details-container {
+        margin-left: 16px;
+        margin-top: 48px;
+    }
+
+    .contacts-details-headline h1 {
+        font-size: 47px;
+        font-weight: 700;
+        
+    }
+
+    .contacts-details-headline span {
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .name-right {
+        height: 88px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .name-right h2 {
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    .function-container{
+        display: none;
+    }
+
+    .contact-information-header {
+        margin-top: 21px;
+        margin-bottom: 21px;
+    }
+
+    #arrow-back-lightblue {
+        display: block;
+        position: absolute;
+        top: 128px;
+        right: 16px;
+        cursor: pointer;
+    }
+
+    .btn-details-container {
+        width: 56px;
+        padding: 0;
+        position: absolute;
+        top: calc(100vh - 168px);
+        left: calc(100vw - 72px);
+    }
+
+    .btn-details-menu {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+    }
+        
+    .btn-details-menu::before {
+        content: "";
+    }
+    
+    .btn-details-menu::after {
+        content: url("/img/icons/more_vert.svg");
+        transform: translateX(-120%);
+    }
     
 .contact-inputField {
     width: 100%;
@@ -634,18 +764,7 @@ label {
     color: var(--clr-light-gray);;
 }
 
-.person-badge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    margin-right: auto;
-    color: white;
-    font-size: 47px;
-    font-weight: 500;
-}
+
 
 #cancelBtn {
     display: none;
@@ -670,51 +789,6 @@ label {
     gap: 10px;
 }
 
-/*Contact Details*/
-.contacts-details-headline {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-left: 55px;
-    margin-top: 110px;
-}
-
-
-.separator-upright-lightblue {
-    height: 3px;
-    width: 90px;
-    background-color: var(--clr-light-blue);
-    border-radius: 10px;
-}
-
-.contacts-claim {
-    font-weight: 400;
-    font-size: 27px;
-    color: var(--clr-dark-gray)
-}
-
-.details-container {
-    margin-left: 16px;
-    margin-top: 48px;
-}
-
-.detail-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.name-right {
-    height: 88px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.function-container{
-    display: flex;
-    gap: 10px;
-}
 
     
     @keyframes slide-in {

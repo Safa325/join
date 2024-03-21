@@ -12,7 +12,7 @@
 
     
     <div class="main-contacts-container">
-      <div class="contacts-left-column">
+      <div id="contacts-left-column" class="contacts-left-column">
         <div class="btn-container">
           <button
             class="btn-grey btn-add-contact"
@@ -26,6 +26,15 @@
       </div>
 
       <div id="contacts-right-column">
+        <div id="btn-details-container" class="btn-details-container d-none">
+          <button
+            class="btn-grey btn-details-menu"
+            onclick="openDetailsMenu()"
+          >
+        <!--     Add new contact<img src="./img/icons/person_add.svg" alt="" /> -->
+          </button>
+        </div>
+        <div id="arrow-back-lightblue" class="d-none" onclick="initContactsHTML()"><img src="/img/icons/arrow-back-lightblue.svg" alt=""></div>
         <div class="contacts-details-headline">
           <h1 class="no-margin">Contacts</h1>
           <div class="separator-upright-lightblue"></div>

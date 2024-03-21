@@ -70,7 +70,7 @@ async function generateContact(objContact, i) {
     let email = objContact['email'];
 
     document.getElementById(`registerbox-${register}`).innerHTML += /*HTML*/ `
-    <div name="test" id="person-container-${i}" class="person-container" onclick="renderContactDetails(${i}); setHighlight(${i})">
+    <div name="test" id="person-container-${i}" class="person-container" onclick="showContactDetails(${i}); setHighlight(${i})">
         <div class="initials-circle" style="background-color: ${badgecolor};">${initials}</div>
         <div class="d-column-flex-start">
             <div class="person-name">
@@ -150,10 +150,16 @@ function removeHighlight() {
 
 function showContactDetails(i) {
     if(window.innerWidth < 1200){
-        openContactSlider(i);
+        renderContactDetails(i);
+        hideContactList();
+        showBackAndMenuBtn();
     } else {
         renderContactDetails(i);
     };
+}
+
+function hideContactList() {
+    document.getElementById('contacts-left-column').classList.add('d-none');
 }
 
 function renderContactDetails(i) {
@@ -176,7 +182,7 @@ function generateContactDetailsHTML(badgecolor, initials, name, email, phone, i)
     return /*HTML*/`
     <div id="details-container" class="details-container d-column-flex-start">
         <div id="detail-header" class="detail-header">
-            <div class="person-badge" style="background-color: ${badgecolor};">${initials}</div>
+            <div id="person-details-badge" class="person-details-badge" style="background-color: ${badgecolor};">${initials}</div>
             <div class="name-right">
                 <h2>${name}</h2>
                 <div class="function-container">
@@ -210,6 +216,11 @@ function confirmNewContact() {
 
 function hideConfirmNewContact() {
     document.getElementById('confirmed').innerHTML = ``;
+}
+
+function showBackAndMenuBtn() {
+    document.getElementById('arrow-back-lightblue').classList.remove('d-none');
+    document.getElementById('btn-details-container').classList.remove('d-none');
 }
 
 function openNewContactSlider() {
@@ -260,6 +271,7 @@ function openContactSlider(i) {
     Save<img src="./img/icons/checked.svg"></button>
 
     `;
+   
     setSlideInEffects();
     
 }
