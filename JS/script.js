@@ -5,8 +5,8 @@ async function init() {
   await initSummaryHTML();
   getInitials();
 
-  console.log("userData", userData);
-  console.log("userIndex", userIndex);
+  // console.log("userData", userData);
+  // console.log("userIndex", userIndex);
 }
 
 async function initSummaryHTML() {

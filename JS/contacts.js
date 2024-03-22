@@ -6,8 +6,8 @@ async function initContacts() {
     await renderRegisterboxes();
     await renderListOfContacts();
 
-    console.log('userData vom Server. Onload initialisiert ', userData);
-    console.log('userIndex', userIndex);    
+    // console.log('userData vom Server. Onload initialisiert ', userData);
+    // console.log('userIndex', userIndex);    
 }
 
 async function getArrayOfRegisterLetters() {
@@ -188,11 +188,11 @@ function generateContactDetailsHTML(badgecolor, initials, name, email, phone, i)
                 <h2>${name}</h2>
                 <div id="function-container" class="function-container">
                     <button id="edit-btn" class="edit-delete-btn" onclick="openContactSlider(${i})">
-                        <img src="/img/icons/pencil-black.svg" alt="">    
+                        <img src="./img/icons/pencil-black.svg" alt="">    
                         <span>Edit</span>
                     </button>
                     <button id="delete-btn" class="edit-delete-btn" onclick="deleteContact(${i})">
-                        <img src="/img/icons/trashcan-black.svg" alt="">   
+                        <img src="./img/icons/trashcan-black.svg" alt="">   
                         <span>Delete</span>
                     </button>
                 </div>

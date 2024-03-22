@@ -1,8 +1,8 @@
 @import url(general.css);
 
 #content-container {
-  margin-left: 64px;
-  margin-top: 64px;
+  margin-left: 96px;
+  margin-top: 110px;
   display: flex;
   flex-direction: column;
  
@@ -10,10 +10,15 @@
 
 .board-headline {
   margin-block: 0;
+  /* margin-bottom: 48px; */
   display: flex;
   align-items: center;
- 
   justify-content: space-between;
+}
+
+.board-headline h1{
+  margin: 0;
+ 
 }
 
 .board-headline-menu {
@@ -21,6 +26,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .board-controller {
@@ -580,10 +586,11 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
- 
+    
   }
   .board-headline{
     width: 100%;
+    margin-bottom: 24px;
   }
 .board-headline h1{
   font-size: 47px;
@@ -601,6 +608,10 @@
   }
   .board-card-move-btn{
     display: block;
+  }
+  .board-column-header{
+    max-width: 300px;
+    align-self: flex-start;
   }
 }
 

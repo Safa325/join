@@ -72,7 +72,7 @@ body{
 }
 
 .btn-add-contact::after {
-    content: url("/img/icons/person_add.svg");
+    content: url("../img/icons/person_add.svg");
 }
 
 #contacts-list {
@@ -358,7 +358,7 @@ label {
     top: 0;
     bottom: 0;
     width: 24px;
-    background: url("/img/icons/person-grey.svg") center / contain no-repeat;
+    background: url("../img/icons/person-grey.svg") center / contain no-repeat;
 }
 
 #contact-email-label:before {
@@ -368,7 +368,7 @@ label {
     top: 0;
     bottom: 0;
     width: 24px;
-    background: url("/img/icons/mail-grey.svg") center / contain no-repeat;
+    background: url("../img/icons/mail-grey.svg") center / contain no-repeat;
 }
 
 #contact-phone-label:before {
@@ -378,7 +378,7 @@ label {
     top: 0;
     bottom: 0;
     width: 24px;
-    background: url("/img/icons/call-grey.svg") center / contain no-repeat;
+    background: url("../img/icons/call-grey.svg") center / contain no-repeat;
 }
 
 
@@ -518,7 +518,7 @@ label {
     }
     
     .btn-add-contact::after {
-        content: url("/img/icons/person_add.svg");
+        content: url("../img/icons/person_add.svg");
         transform: translateX(-25%);
     }
 
@@ -584,7 +584,7 @@ label {
     }
 
     .cancel-x {
-        content: url('/img/icons/cancel_white.svg');
+        content: url('../img/icons/cancel_white.svg');
         width: 16px;
         height: 16px;
         position: absolute;
@@ -765,7 +765,7 @@ label {
     }
     
     .btn-details-menu::after {
-        content: url("/img/icons/more_vert.svg");
+        content: url("../img/icons/more_vert.svg");
         transform: translateX(-120%);
     }
 
