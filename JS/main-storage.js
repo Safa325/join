@@ -73,16 +73,16 @@ let userData = [
   },
 ];
 
-let userIndex = "0"; //VOR ABGABE: Index auf "" setzen und function findUserIndex(email) aktivieren!
+let userIndex = ""; //VOR ABGABE: Index auf "" setzen und function findUserIndex(email) aktivieren!
 
-// function findUserIndex(email) {
-//   for (let i = 0; i < userData.length; i++) {
-//     const userMail = userData[i]["email"];
-//     if (email == userMail) {
-//       userIndex = i;
-//     }
-//   }
-// }
+function findUserIndex(email) {
+  for (let i = 0; i < userData.length; i++) {
+    const userMail = userData[i]["email"];
+      if (email == userMail) {
+      userIndex = i;
+      }
+  }
+}
 
 //3. USERDATA - set, get and delete userData
 
