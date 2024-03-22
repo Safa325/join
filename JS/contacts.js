@@ -385,22 +385,6 @@ function renderDetailsMenuBtn(i) {
     class="btn-grey btn-details-menu"
     onclick="openDetailsMenu(${i})"></button>
     `;
-    
-    renderDetailsMenu(i);
-}
-
-function renderDetailsMenu(i) {
-
-    document.getElementById('menu-details-btn').innerHTML = /*html*/`
-    <button id="edit-btn" class="edit-delete-btn" onclick="openContactSlider(${i})">
-            <img src="/img/icons/pencil-black.svg" alt="">    
-            <span>Edit</span>
-        </button>
-        <button id="delete-btn" class="edit-delete-btn" onclick="deleteContact(${i})">
-            <img src="/img/icons/trashcan-black.svg" alt="">   
-            <span>Delete</span>
-        </button>
-    `;
 }
 
 function openDetailsMenu() {
