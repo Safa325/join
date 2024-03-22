@@ -570,8 +570,8 @@ main {
 }
 
 @media (max-width: 428px) {
-  .overview-mid-card {
-  }
+  /* .overview-mid-card {
+  } */
 
   .mid-card-left {
     width: 108px;

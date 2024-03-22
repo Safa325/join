@@ -9,7 +9,7 @@ header {
   display: flex;
   align-items: center;
   box-shadow: var(--header-box-shadow);
-  padding-left: 348px;
+  padding-left: 40px;
   padding-right: 40px;
   justify-content: space-between;
   background-color: white;
@@ -181,8 +181,9 @@ header {
 
   .main-content-container {
     /* position: unset; */
+    
     left: 0;
-    height: 100%;
+    height: calc(100% - 160px);
   }
 
   #sidebar {

@@ -153,6 +153,7 @@ function showContactDetails(i) {
         renderContactDetails(i);
         hideContactList();
         showBackAndMenuBtn();
+        renderDetailsMenuBtn(i);
     } else {
         renderContactDetails(i);
     };
@@ -185,7 +186,7 @@ function generateContactDetailsHTML(badgecolor, initials, name, email, phone, i)
             <div id="person-details-badge" class="person-details-badge" style="background-color: ${badgecolor};">${initials}</div>
             <div class="name-right">
                 <h2>${name}</h2>
-                <div class="function-container">
+                <div id="function-container" class="function-container">
                     <button id="edit-btn" class="edit-delete-btn" onclick="openContactSlider(${i})">
                         <img src="/img/icons/pencil-black.svg" alt="">    
                         <span>Edit</span>
@@ -360,8 +361,7 @@ async function deleteContact(i) {
 }
 
 async function saveEditContact(i) {
-    //hier muss noch code hin
-
+    
     let inputName = document.getElementById('contact-input-name').value;
     let inputEmail = document.getElementById('contact-input-email').value;
     let inputPhone = document.getElementById('contact-input-phone').value;
@@ -377,4 +377,42 @@ async function saveEditContact(i) {
     initContacts();
     showContactDetails(i);
     setHighlight(i);
+}
+
+function renderDetailsMenuBtn(i) {
+    document.getElementById('btn-details-container').innerHTML = /*html*/`
+    <button
+    class="btn-grey btn-details-menu"
+    onclick="openDetailsMenu(${i})"></button>
+    `;
+    
+    renderDetailsMenu(i);
+}
+
+function renderDetailsMenu(i) {
+
+    document.getElementById('menu-details-btn').innerHTML = /*html*/`
+    <button id="edit-btn" class="edit-delete-btn" onclick="openContactSlider(${i})">
+            <img src="/img/icons/pencil-black.svg" alt="">    
+            <span>Edit</span>
+        </button>
+        <button id="delete-btn" class="edit-delete-btn" onclick="deleteContact(${i})">
+            <img src="/img/icons/trashcan-black.svg" alt="">   
+            <span>Delete</span>
+        </button>
+    `;
+}
+
+function openDetailsMenu() {
+        if(document.getElementById('function-container').classList.contains('menu-slide-out-animation')){
+            document.getElementById('function-container').classList.remove('menu-slide-out-animation')
+        };
+        document.getElementById('function-container').classList.add('menu-slide-in-animation') 
+}
+
+function closeDetailsMenu() {
+    if(document.getElementById('function-container').classList.contains('menu-slide-in-animation')){
+        document.getElementById('function-container').classList.remove('menu-slide-in-animation')
+    };
+    document.getElementById('function-container').classList.add('menu-slide-out-animation') 
 }
