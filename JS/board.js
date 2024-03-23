@@ -191,7 +191,7 @@ function getSubtaskStatus(task) {
 }
 
 /**
- * Render of all contacts where the actual task is assigned to.
+ * Render all contacts where the actual task is assigned to. Used for small cards.
  * @param {Object} task
  * @returns {HTMLElement}
  */
@@ -203,7 +203,11 @@ function renderCardContacts(task) {
   }
   return assignHTML;
 }
-
+/**
+ * Render all contacts where the actual task is assigned to. Used for detail cards.
+ * @param {Object} task
+ * @returns {HTMLElement}
+ */
 function renderDetailsCardContacts(task) {
   let assignHTML = '';
   for (let i = 0; i < task['assignedTo'].length; i++) {
@@ -212,18 +216,26 @@ function renderDetailsCardContacts(task) {
   }
   return assignHTML;
 }
-
+/**
+ * Returns the color of the task category badge color
+ * @param {Object} task
+ * @returns {String} - color Hex Code
+ */
 function getBadgeColor(task) {
   return task['category'] == 'User Story' ? '#0038ff' : '#1fd7c1';
 }
-
+/**
+ * Sets all ghost cards to visible
+ */
 function showGhostcard() {
   let ghostCard = document.querySelectorAll('.board-ghostCard');
   ghostCard.forEach((element) => {
     element.classList.add('show-ghostCard');
   });
 }
-
+/**
+ * If the column is empty the margin-top of the ghost card is set to 55px
+ */
 function adjustGhostCardMargin() {
   for (let index = 0; index < columnsId.length; index++) {
     const columnId = columnsId[index];
@@ -235,14 +247,23 @@ function adjustGhostCardMargin() {
     }
   }
 }
-
+/**
+ * Adds a blue outline to the input field
+ * @param {String} id - target id
+ */
 function setOutlineBlue(id) {
   document.getElementById(id).classList.add('blue-outline');
 }
+/**
+ * Removes the blue outline of the input field
+ * @param {String} id - target id
+ */
 function clearOutlineBlue(id) {
   document.getElementById(id).classList.remove('blue-outline');
 }
-
+/**
+ * If the column is not empty the label of the column is set to display none
+ */
 function setLabelVisibity() {
   for (let index = 0; index < columnsId.length; index++) {
     const columnId = columnsId[index];
@@ -254,7 +275,10 @@ function setLabelVisibity() {
     }
   }
 }
-
+/**
+ * If drag event is startet the ghost card of the source column is disabled.
+ * @param {Event} event
+ */
 function avoidGhostCard(event) {
   console.log(event.currentTarget);
   let card = event.currentTarget.querySelector('.board-ghostCard');
@@ -262,31 +286,48 @@ function avoidGhostCard(event) {
     card.classList.add('remove-ghostCard');
   }
 }
-
+/**
+ * If drag event is started, the current card rotates.
+ * @param {Event} event
+ */
 function rotateCard(event) {
   event.currentTarget.classList.add('card-rotate');
 }
-
+/**
+ * Function sequence.
+ * Render a empty popup card, slide-in animation and render detail card.
+ * @param {Number} index
+ */
 function openDetailCard(index) {
   renderPopupCard();
   slideInPopupCard();
   renderDetailCard(index);
 }
-
+/**
+ * Removes a task from Array, save all tasks, slide-out animation for detail card and re-render all cards.
+ * @param {Number} index - selected task index
+ */
 async function deleteTask(index) {
   tasks.splice(index, 1);
   await saveTask();
   sliedeOutPopupCard();
   renderAllCards();
 }
-
+/**
+ * Toggles the subtask status when clicked in detail card, save all tasks, re-render detail card and all cards.
+ * @param {Number} firstIndex - task index
+ * @param {Number} index - subtask index
+ */
 async function toggleSubtaskStatus(firstIndex, index) {
   tasks[firstIndex]['subtasks'][index]['done'] = !tasks[firstIndex]['subtasks'][index]['done'];
   await saveTask();
   renderDetailCard(firstIndex);
   renderAllCards();
 }
-
+/**
+ * The task shown in the detail card can be edited. Prepare data for editing.
+ * @param {Number} index - task index
+ */
 function switchEditTask(index) {
   let container = document.getElementById('popup-card-container');
   container.innerHTML = '';
@@ -305,7 +346,10 @@ function switchEditTask(index) {
   renderSubtasks();
   adjustFormWhenEdit(index);
 }
-
+/**
+ * The input fields are filled with the actual data of the selected task.
+ * @param {Object} task - selected task
+ */
 function initEditTaskFields(task) {
   document.getElementById('addTask-input-title').value = task['title'];
   document.getElementById('addTask-input-description').innerText = task['description'];
