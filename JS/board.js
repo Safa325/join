@@ -1,6 +1,11 @@
 let currentCardId = '';
 let targetColumnName = '';
-let columnsId = ['todo-card-container', 'inProgress-card-container', 'awaitFeedback-card-container', 'done-card-container'];
+let columnsId = [
+  'todo-card-container',
+  'inProgress-card-container',
+  'awaitFeedback-card-container',
+  'done-card-container',
+];
 let labels = ['No task todo', 'no task in progress', 'no task await feedback', 'no task done'];
 
 function initBoard() {
@@ -26,16 +31,16 @@ function renderAllCards() {
     let task = tasks[index];
     switch (task['status']) {
       case 'todo':
-        renderCards(task, index, 'todo-card-container');
+        renderCard(task, index, 'todo-card-container');
         break;
       case 'inProgress':
-        renderCards(task, index, 'inProgress-card-container');
+        renderCard(task, index, 'inProgress-card-container');
         break;
       case 'awaitFeedback':
-        renderCards(task, index, 'awaitFeedback-card-container');
+        renderCard(task, index, 'awaitFeedback-card-container');
         break;
       case 'done':
-        renderCards(task, index, 'done-card-container');
+        renderCard(task, index, 'done-card-container');
         break;
       default:
         break;
@@ -43,6 +48,9 @@ function renderAllCards() {
   }
 }
 
+/**
+ * render ghost Cards to all columns
+ */
 function renderGhostCards() {
   for (let index = 0; index < columnsId.length; index++) {
     const column = columnsId[index];
@@ -52,7 +60,13 @@ function renderGhostCards() {
   setLabelVisibity();
 }
 
-function renderCards(tasks, index, containerId) {
+/**
+ * render a single task card
+ * @param {Array} tasks
+ * @param {Number} index
+ * @param {String} containerId
+ */
+function renderCard(tasks, index, containerId) {
   let container = document.getElementById(containerId);
   let assignHTML = renderCardContacts(tasks);
   let color = getBadgeColor(tasks);
@@ -61,7 +75,10 @@ function renderCards(tasks, index, containerId) {
   let prioHTML = priorityHTML(tasks['priority']);
   container.innerHTML += cardHTML(tasks, index, color, prioHTML, assignHTML, progressHTML);
 }
-
+/**
+ * render a detail task card of selected task
+ * @param {Number} index
+ */
 function renderDetailCard(index) {
   let container = document.getElementById('popup-card-container');
   let assignHTML = renderDetailsCardContacts(tasks[index]);
@@ -69,25 +86,44 @@ function renderDetailCard(index) {
   let prioHTML = priorityHTML(tasks[index]['priority']);
   let subtasksHTML = '';
   let firstIndex = index;
-
   tasks[index]['subtasks'].forEach((subtask, index) => {
     subtasksHTML += subtaskStatusHTML(subtask, firstIndex, index);
   });
-
   container.innerHTML = '';
-  container.innerHTML = detailCardHTML(tasks[index], index, color, assignHTML, prioHTML, subtasksHTML);
+  container.innerHTML = detailCardHTML(
+    tasks[index],
+    index,
+    color,
+    assignHTML,
+    prioHTML,
+    subtasksHTML
+  );
 }
 
 // Drag & Drop
+/**
+ * By default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element.
+ * @param {Event} ev
+ */
 function allowDrop(ev) {
   ev.preventDefault();
 }
-
+/**
+ * Specify what should happen when the element is dragged.
+ * The dataTransfer.setData() method sets the data type and the value of the dragged data:
+ * @param {Event} ev
+ */
 function drag(ev) {
   ev.dataTransfer.setData('text', ev.target.id);
   currentCardId = ev.target.id;
 }
 
+/**
+ * When a card dropped, a drop event occurs.
+ * Get index and name of dropped card then change the status of the task where the card is dropped.
+ * Render all cards and ghostcard. Save all tasks to server
+ * @param {Event} ev
+ */
 async function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData('text');
@@ -99,39 +135,54 @@ async function drop(ev) {
   renderGhostCards();
   await saveTask();
 }
-
+/**
+ * Get index of id separated by "_"
+ * @param {String} id
+ * @returns {Number}
+ */
 function extractIndexFromId(id) {
   let currentIndex = id.split('_');
   return currentIndex[1];
 }
-
+/**
+ * Get name of id separated by "-"
+ * @param {String} id
+ * @returns {String}
+ */
 function extractNameFromId(id) {
   let currentName = id.split('-');
   return currentName[0];
 }
-
+/**
+ * Change the status of the task where the card is dropped.
+ * @param {Number} index
+ * @param {String} status
+ */
 function changeStatusOfTask(index, status) {
   tasks[index]['status'] = status;
 }
-
+/**
+ * Save the task to server.
+ */
 async function saveTask() {
   await setItem('userData', JSON.stringify(userData));
 }
 
+/**
+ * Status of subtasks. Count of total subtasks and finished subtask. Calculates the progress for progressbar.
+ * @param {Object} task
+ * @returns {total, finished, progress}
+ */
 function getSubtaskStatus(task) {
   let totalSubtasks = task['subtasks'].length;
   let finishedSubtasks = 0;
-  let progress = 0;
   for (let index = 0; index < task['subtasks'].length; index++) {
     const subtask = task['subtasks'][index];
     if (subtask['done']) {
       finishedSubtasks += 1;
     }
   }
-  if (totalSubtasks > 0) {
-    progress = (finishedSubtasks / totalSubtasks) * 100;
-  }
-
+  let progress = totalSubtasks > 0 ? (finishedSubtasks / totalSubtasks) * 100 : 0;
   return {
     total: totalSubtasks,
     finished: finishedSubtasks,
@@ -139,6 +190,11 @@ function getSubtaskStatus(task) {
   };
 }
 
+/**
+ * Render of all contacts where the actual task is assigned to.
+ * @param {Object} task
+ * @returns {HTMLElement}
+ */
 function renderCardContacts(task) {
   let assignHTML = '';
   for (let i = 0; i < task['assignedTo'].length; i++) {

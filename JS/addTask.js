@@ -68,22 +68,6 @@ function initContactCopy() {
 }
 
 /**
- * by click at outside of the dropdown area the dropdown closes
- */
-document.addEventListener('click', function (e) {
-  assignContainer = document.getElementById('addTask-assigned');
-  if (assignContainer != null) {
-    var rect = assignContainer.getBoundingClientRect();
-    let bottom = rect.bottom + 250;
-    let mouseX = e.clientX;
-    let mouseY = e.clientY;
-    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
-      contactsDropdown.close();
-    }
-  }
-});
-
-/**
  * start with keydown to filter the contacts
  */
 function setFilter() {
@@ -173,7 +157,7 @@ function renderContacts() {
 }
 
 /**
- * prepare of render of the selected badges
+ * prepare of render of the selected contact badges
  */
 function renderBadges() {
   let container = document.getElementById('contact-badges-container');
@@ -211,7 +195,6 @@ async function createTask(event) {
   let assignedContacts = [];
   for (let index = 0; index < arrayOfFilterContact.length; index++) {
     let selection = arrayOfFilterContact[index]['selected'];
-
     if (selection) {
       assignedContacts.push(arrayOfFilterContact[index]);
     }
@@ -244,7 +227,6 @@ async function createTask(event) {
  */
 function createSubtask() {
   let subtaskText = document.getElementById('addTask-subtask-input');
-  console.log(subtaskText.value);
   let subtask = [];
   if (subtaskText.value) {
     subtask = {
@@ -256,148 +238,4 @@ function createSubtask() {
   renderSubtasks();
   subtaskText.value = '';
   disableSubtaskInput();
-}
-
-/**
- * enable input field of subtask, only with doubleclick in html code
- */
-function enableSubtaskInput() {
-  let input = document.getElementById('addTask-subtask-input');
-  input.readOnly = false;
-  input.classList.add('inputField-enabled');
-  input.focus();
-  document.getElementById('addTask-button-plus').classList.add('d-none');
-  document.getElementById('addTask-delete-accept-container').classList.remove('d-none');
-}
-
-/**
- * disable input field of subtask, after loosing focus
- */
-function disableSubtaskInput() {
-  let input = document.getElementById('addTask-subtask-input');
-  input.readOnly = true;
-  input.classList.remove('inputField-enabled');
-  input.value = '';
-  document.getElementById('addTask-button-plus').classList.remove('d-none');
-  document.getElementById('addTask-delete-accept-container').classList.add('d-none');
-}
-
-function disableSubtaskInputDelayed() {
-  setTimeout(() => {
-    disableSubtaskInput();
-  }, 500);
-}
-
-function enableEditSubtask(event, index) {
-  event.preventDefault();
-  removePseudo(index);
-  let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
-  input.readOnly = false;
-  input.classList.add('inputField-enabled');
-  input.focus();
-
-  document.getElementById(`subtask-edit_${index}`).classList.add('d-none');
-  document.getElementById(`subtask-accept_${index}`).classList.remove('d-none');
-}
-
-function disableEditSubtask(index) {
-  let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
-  // input.readOnly = true;
-  addPseudo(index);
-  input.classList.remove('inputField-enabled');
-  document.getElementById(`subtask-edit_${index}`).classList.remove('d-none');
-  document.getElementById(`subtask-accept_${index}`).classList.add('d-none');
-}
-
-function editSubtask(event, index) {
-  event.preventDefault();
-  let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
-  subtasks.splice(index, 1, input.value);
-}
-
-window.addEventListener('keyup', (event) => {
-  if (event.key == 'Enter') {
-    indirectDisableEditSubtask();
-  }
-});
-
-function indirectDisableEditSubtask() {
-  let elements = document.querySelectorAll('.addTask-subtask-listElement');
-  elements.forEach((element, index) => {
-    disableEditSubtask(index);
-  });
-}
-
-function createTaskEnter(event) {
-  if (event.key === 'Enter') {
-    createSubtask();
-    event.preventDefault();
-  }
-}
-
-function editSubtaskPreventEnter(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-  }
-}
-
-function indirectCreateSubtask() {
-  let activeElement = this.document.activeElement;
-  let subtask = document.getElementById('addTask-subtask-input');
-  if (activeElement == subtask) {
-    createSubtask();
-  }
-}
-
-function deleteSubtask(index) {
-  subtasks.splice(index, 1);
-  renderSubtasks();
-}
-
-function renderSubtasks() {
-  let container = document.getElementById('addTask-subtask-container');
-
-  container.innerHTML = '';
-  for (let index = 0; index < subtasks.length; index++) {
-    const subtask = subtasks[index];
-    console.log(subtask);
-    container.innerHTML += subTaskHTML(subtask, index);
-  }
-}
-
-function removePseudo(index) {
-  let subtaskElement = document.getElementById(`addTask-subtask-element_${index}`);
-  subtaskElement.classList.remove('dot-before');
-  subtaskElement.classList.add('subtask-element-selected');
-}
-
-function addPseudo(index) {
-  let subtaskElement = document.getElementById(`addTask-subtask-element_${index}`);
-  subtaskElement.classList.add('dot-before');
-  subtaskElement.classList.remove('subtask-element-selected');
-
-  let input = document.getElementById(`addTask-subtask-listElement-input_${index}`);
-  input.readOnly = true;
-}
-
-function setOutlineBlue(id) {
-  document.getElementById(id).classList.add('blue-outline');
-}
-function clearOutlineBlue(id) {
-  document.getElementById(id).classList.remove('blue-outline');
-}
-
-function confirmNewTask() {
-  let confirm = document.getElementById('task-confirmation-container');
-  confirm.classList.remove('confirm-slide-out-animation');
-  confirm.classList.add('confirm-slide-in-animation');
-  setTimeout(() => {
-    hideConfirmNewTask();
-  }, 2000);
-}
-
-function hideConfirmNewTask() {
-  let confirm = document.getElementById('task-confirmation-container');
-  confirm.classList.remove('confirm-slide-in-animation');
-  confirm.classList.add('confirm-slide-out-animation');
 }
