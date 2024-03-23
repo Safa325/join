@@ -217,6 +217,7 @@ function hideErrorMessageLogin() {
  */
 function guestLogin() {
   userIndex = 0; // Setzt den Benutzerindex auf 0 für den Gast-Login
+  sessionStorage.setItem("firstLoad", true);
   window.location.href = "index.html"; // Weiterleitung zur Hauptseite
   saveSession(); // Speichert die Sitzungsinformationen
 }
