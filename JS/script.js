@@ -104,6 +104,7 @@ function clearSessionStorage() {
   sessionStorage.removeItem("animationPlayed");
   sessionStorage.removeItem("animationGreetingPlayed");
   sessionStorage.removeItem("userIndex");
+  sessionStorage.removeItem("firstLoad");
 }
 
 function openMenu() {

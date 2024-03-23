@@ -162,6 +162,7 @@ logInForm.addEventListener("submit", function (e) {
   if (loginExists == "true") {
     saveInputs();
     localStorage.removeItem("Privacy");
+    sessionStorage.setItem("firstLoad", true);
     window.location.href = "index.html";
   } else {
     errorMessageLogin();
