@@ -1,19 +1,18 @@
 let currentCardId = '';
 let targetColumnName = '';
-let columnsId = [
-  'todo-card-container',
-  'inProgress-card-container',
-  'awaitFeedback-card-container',
-  'done-card-container',
-];
+let columnsId = ['todo-card-container', 'inProgress-card-container', 'awaitFeedback-card-container', 'done-card-container'];
 let labels = ['No task todo', 'no task in progress', 'no task await feedback', 'no task done'];
 
 function initBoard() {
+  document.querySelector('.board-column-container').style = 'opacity: 0';
   tasks = userData[userIndex]['tasks'];
   renderAllCards();
   renderGhostCards();
   document.body.classList.remove('stop-scrolling');
   selectCardIsDraggable();
+  setTimeout(() => {
+    document.querySelector('.board-column-container').style = 'opacity: 1';
+  }, 200);
 }
 
 /**
@@ -75,6 +74,7 @@ function renderCard(tasks, index, containerId) {
   let prioHTML = priorityHTML(tasks['priority']);
   container.innerHTML += cardHTML(tasks, index, color, prioHTML, assignHTML, progressHTML);
 }
+
 /**
  * render a detail task card of selected task
  * @param {Number} index
@@ -90,17 +90,9 @@ function renderDetailCard(index) {
     subtasksHTML += subtaskStatusHTML(subtask, firstIndex, index);
   });
   container.innerHTML = '';
-  container.innerHTML = detailCardHTML(
-    tasks[index],
-    index,
-    color,
-    assignHTML,
-    prioHTML,
-    subtasksHTML
-  );
+  container.innerHTML = detailCardHTML(tasks[index], index, color, assignHTML, prioHTML, subtasksHTML);
 }
 
-// Drag & Drop
 /**
  * By default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element.
  * @param {Event} ev
@@ -109,7 +101,6 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 /**
- * Specify what should happen when the element is dragged.
  * The dataTransfer.setData() method sets the data type and the value of the dragged data:
  * @param {Event} ev
  */
@@ -119,7 +110,6 @@ function drag(ev) {
 }
 
 /**
- * When a card dropped, a drop event occurs.
  * Get index and name of dropped card then change the status of the task where the card is dropped.
  * Render all cards and ghostcard. Save all tasks to server
  * @param {Event} ev
@@ -135,24 +125,7 @@ async function drop(ev) {
   renderGhostCards();
   await saveTask();
 }
-/**
- * Get index of id separated by "_"
- * @param {String} id
- * @returns {Number}
- */
-function extractIndexFromId(id) {
-  let currentIndex = id.split('_');
-  return currentIndex[1];
-}
-/**
- * Get name of id separated by "-"
- * @param {String} id
- * @returns {String}
- */
-function extractNameFromId(id) {
-  let currentName = id.split('-');
-  return currentName[0];
-}
+
 /**
  * Change the status of the task where the card is dropped.
  * @param {Number} index
@@ -161,8 +134,9 @@ function extractNameFromId(id) {
 function changeStatusOfTask(index, status) {
   tasks[index]['status'] = status;
 }
+
 /**
- * Save the task to server.
+ * Save task.
  */
 async function saveTask() {
   await setItem('userData', JSON.stringify(userData));
@@ -203,6 +177,7 @@ function renderCardContacts(task) {
   }
   return assignHTML;
 }
+
 /**
  * Render all contacts where the actual task is assigned to. Used for detail cards.
  * @param {Object} task
@@ -216,6 +191,7 @@ function renderDetailsCardContacts(task) {
   }
   return assignHTML;
 }
+
 /**
  * Returns the color of the task category badge color
  * @param {Object} task
@@ -224,6 +200,7 @@ function renderDetailsCardContacts(task) {
 function getBadgeColor(task) {
   return task['category'] == 'User Story' ? '#0038ff' : '#1fd7c1';
 }
+
 /**
  * Sets all ghost cards to visible
  */
@@ -247,55 +224,9 @@ function adjustGhostCardMargin() {
     }
   }
 }
+
 /**
- * Adds a blue outline to the input field
- * @param {String} id - target id
- */
-function setOutlineBlue(id) {
-  document.getElementById(id).classList.add('blue-outline');
-}
-/**
- * Removes the blue outline of the input field
- * @param {String} id - target id
- */
-function clearOutlineBlue(id) {
-  document.getElementById(id).classList.remove('blue-outline');
-}
-/**
- * If the column is not empty the label of the column is set to display none
- */
-function setLabelVisibity() {
-  for (let index = 0; index < columnsId.length; index++) {
-    const columnId = columnsId[index];
-    let column = document.getElementById(columnId);
-    let cards = column.querySelectorAll('.board-task-card');
-    let label = column.querySelector('.board-column-noTask');
-    if (cards.length > 0) {
-      label.classList.add('d-none');
-    }
-  }
-}
-/**
- * If drag event is startet the ghost card of the source column is disabled.
- * @param {Event} event
- */
-function avoidGhostCard(event) {
-  console.log(event.currentTarget);
-  let card = event.currentTarget.querySelector('.board-ghostCard');
-  if (card) {
-    card.classList.add('remove-ghostCard');
-  }
-}
-/**
- * If drag event is started, the current card rotates.
- * @param {Event} event
- */
-function rotateCard(event) {
-  event.currentTarget.classList.add('card-rotate');
-}
-/**
- * Function sequence.
- * Render a empty popup card, slide-in animation and render detail card.
+ * Function sequence. Render a empty popup card, slide-in animation and render detail card.
  * @param {Number} index
  */
 function openDetailCard(index) {
@@ -346,6 +277,7 @@ function switchEditTask(index) {
   renderSubtasks();
   adjustFormWhenEdit(index);
 }
+
 /**
  * The input fields are filled with the actual data of the selected task.
  * @param {Object} task - selected task
@@ -357,12 +289,20 @@ function initEditTaskFields(task) {
   document.getElementById('addTask-category').value = task['category'];
 }
 
+/**
+ * In edit mode change text of submit button. Delete Cancel button. Change function for submit button to editTaskSubmit
+ * @param {Number} index - task index
+ */
 function adjustFormWhenEdit(index) {
   changeSubmitButtonText();
   disableCancelButton();
   changeFormSubmitBehaviour(index);
 }
 
+/**
+ * In edit mode all contacts are availible and the selected contacts are set.
+ * @param {Object} task
+ */
 function setSelectedContacts(task) {
   task['assignedTo'].forEach((contact) => {
     arrayOfFilterContact.forEach((filteredContact) => {
@@ -373,45 +313,20 @@ function setSelectedContacts(task) {
   });
 }
 
-function changeSubmitButtonText() {
-  let button = document.getElementById('addTask-submit-btn');
-  button.innerHTML = /*html*/ `
-        Ok
-        <svg
-          class="create-svg"
-          width="38"
-          height="30"
-          viewBox="0 0 38 30"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408"
-            stroke="white"
-            stroke-width="7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-  `;
-}
-
-function disableCancelButton() {
-  let button = document.getElementById('addTask-cancel-btn');
-  button.style = 'display: none;';
-}
-
+/**
+ * In edit mode change onsubmit function
+ * @param {Number} index - task index
+ */
 function changeFormSubmitBehaviour(index) {
   let form = document.getElementById('addTask-form');
   form.setAttribute('onsubmit', `editTaskSubmit(${index}); return false;`);
 }
 
+/**
+ * In edit mode get all input fields and update selected task. Save all task and rerender.
+ * @param {Number} index - task index
+ */
 async function editTaskSubmit(index) {
-  let status = tasks[index]['status'];
-  let titleField = document.getElementById('addTask-input-title');
-  let descriptionField = document.getElementById('addTask-input-description');
-  let tempcategory = document.getElementById('addTask-category').value;
-  let dateField = document.getElementById('addTask-input-date');
   let assignedContacts = [];
   for (let index = 0; index < arrayOfFilterContact.length; index++) {
     let selection = arrayOfFilterContact[index]['selected'];
@@ -421,15 +336,16 @@ async function editTaskSubmit(index) {
   }
 
   let task = {
-    title: titleField.value,
-    description: descriptionField.value,
+    title: document.getElementById('addTask-input-title').value,
+    description: document.getElementById('addTask-input-description').value,
     assignedTo: assignedContacts,
     priority: priority,
-    category: tempcategory,
-    dueDate: dateField.value,
-    status: status,
+    category: document.getElementById('addTask-category').value,
+    dueDate: document.getElementById('addTask-input-date').value,
+    status: tasks[index]['status'],
     subtasks: subtasks,
   };
+
   userData[userIndex]['tasks'][index] = task;
   await saveTask();
   sliedeOutPopupCard();
@@ -437,6 +353,9 @@ async function editTaskSubmit(index) {
   renderGhostCards();
 }
 
+/**
+ * Find all tasks where title or description includes the text input. Lower opactity of all cards and highlight card which match.
+ */
 function findTask() {
   let input = document.getElementById('board-search').value;
   if (input.length > 0) {
@@ -454,32 +373,12 @@ function findTask() {
   }
 }
 
-function setCardOpacity(index) {
-  let cards = document.querySelectorAll('[data-id]');
-  cards.forEach((card) => {
-    let attr = card.getAttribute('data-id');
-    if (attr == index) {
-      card.style = 'opacity: 1';
-    }
-  });
-}
-function resetAllCardOpacity() {
-  let cards = document.querySelectorAll('[data-id]');
-  cards.forEach((card) => {
-    card.style = 'opacity: 1';
-  });
-}
-
-function lowAllCardOpcatiy() {
-  let cards = document.querySelectorAll('[data-id]');
-  cards.forEach((card) => {
-    card.style = 'opacity: 0.3';
-  });
-}
-
+/**
+ * Add Task as popup. Render empty card, slide-in animation and use html template. Set status.
+ * @param {String} initStatus - status of new task - e.g. todo, inProgress, awaitFeedback
+ */
 async function openAddTaskPopup(initStatus) {
   renderPopupCard();
-  // openAddTaskCard();
   slideInPopupCard();
   let container = document.getElementById('popup-card-container');
   container.innerHTML = '';
@@ -488,89 +387,14 @@ async function openAddTaskPopup(initStatus) {
   initialStatus = initStatus;
 }
 
-function renderPopupCard() {
-  let container = document.getElementById('board-overlay-details');
-  container.innerHTML = /*html*/ `
-     <div id="popup-card-container" class="popup-card-container"></div>
-  `;
-}
-
-function slideInPopupCard() {
-  let container = document.getElementById('board-overlay-details');
-  container.classList.remove('d-none');
-  let card = document.getElementById('popup-card-container');
-  card.classList.remove('card-slide-out-animation');
-
-  card.classList.add('card-slide-in-animation');
-  document.body.classList.add('stop-scrolling');
-}
-
-function sliedeOutPopupCard() {
-  let container = document.getElementById('board-overlay-details');
-  let card = document.getElementById('popup-card-container');
-  if (container != null && card != null) {
-    card.classList.remove('card-slide-in-animation');
-    card.classList.add('card-slide-out-animation');
-    subtasks = [];
-    setTimeout(() => {
-      container.classList.add('d-none');
-      card.classList.add('d-none');
-      document.body.classList.remove('stop-scrolling');
-    }, 300);
-  }
-}
-
-function slideOutPopupFromBg(event) {
-  let container = document.getElementById('board-overlay-details');
-  let card = document.getElementById('popup-card-container');
-  if (container.id == event.target.id) {
-    card.classList.remove('card-slide-in-animation');
-    card.classList.add('card-slide-out-animation');
-    subtasks = [];
-    setTimeout(() => {
-      container.classList.add('d-none');
-      document.body.classList.remove('stop-scrolling');
-    }, 300);
-  }
-}
-
-window.addEventListener('resize', function () {
-  console.log('rezice');
-  selectCardIsDraggable();
-});
-
-function selectCardIsDraggable() {
-  let card = document.querySelectorAll('.board-task-card');
-  if (card.length > 0) {
-    if (window.innerWidth < 1150) {
-      card.forEach((element) => {
-        element.setAttribute('draggable', 'false');
-      });
-    } else {
-      card.forEach((element) => {
-        element.setAttribute('draggable', 'true');
-      });
-    }
-  }
-}
-
-function openCardMoveMenu(event, index) {
-  event.stopPropagation();
-
-  renderPopupCard();
-  slideInPopupCard();
-  let container = document.getElementById('popup-card-container');
-  container.innerHTML = '';
-  container.innerHTML = moveCardHTML(index);
-}
-
-function moveCardTo(index, value) {
+/**
+ * Get values from radiobuttons and set new status of task. Slide-out animation and rerender all cards.
+ * @param {Number} index - task index
+ */
+function moveCardTo(index) {
   var form = document.getElementById('form-moveTo');
-
   var radVal = form.fav_language.value;
-
   changeStatusOfTask(index, radVal);
   sliedeOutPopupCard();
   renderAllCards();
-  console.log(radVal);
 }

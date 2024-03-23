@@ -359,6 +359,7 @@ function addTaskHTML() {
                 >
                 <div class="addTask-inputField addTask-assigned">
                   <input
+                    disabled
                     class="addTask-searchField"
                     type="text"
                     id="addTask-category"
@@ -514,4 +515,40 @@ function moveCardHTML(index) {
   
   
     `;
+}
+
+/**
+ * Change text and icon of submit button when in edit mode.
+ */
+function changeSubmitButtonText() {
+  let button = document.getElementById('addTask-submit-btn');
+  button.innerHTML = /*html*/ `
+        Ok
+        <svg
+          class="create-svg"
+          width="38"
+          height="30"
+          viewBox="0 0 38 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408"
+            stroke="white"
+            stroke-width="7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+  `;
+}
+
+/**
+ * Render a popup card
+ */
+function renderPopupCard() {
+  let container = document.getElementById('board-overlay-details');
+  container.innerHTML = /*html*/ `
+     <div id="popup-card-container" class="popup-card-container"></div>
+  `;
 }

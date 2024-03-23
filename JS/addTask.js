@@ -210,6 +210,7 @@ async function createTask(event) {
     status: initialStatus,
     subtasks: subtasks,
   };
+  sliedeOutPopupCard();
   userData[userIndex]['tasks'].push(task);
   await setItem('userData', JSON.stringify(userData));
   titleField.value = descriptionField.value = dateField.value = '';

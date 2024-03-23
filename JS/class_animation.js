@@ -177,12 +177,68 @@ function addPseudo(index) {
 function setOutlineBlue(id) {
   document.getElementById(id).classList.add('blue-outline');
 }
+
 /**
  * remove class at inputfield to blue outline of selected id
  * @param {String} id
  */
 function clearOutlineBlue(id) {
   document.getElementById(id).classList.remove('blue-outline');
+}
+
+/**
+ * Get index of id separated by "_"
+ * @param {String} id
+ * @returns {Number}
+ */
+function extractIndexFromId(id) {
+  let currentIndex = id.split('_');
+  return currentIndex[1];
+}
+
+/**
+ * Get name of id separated by "-"
+ * @param {String} id
+ * @returns {String}
+ */
+function extractNameFromId(id) {
+  let currentName = id.split('-');
+  return currentName[0];
+}
+
+/**
+ * If the column is not empty the label of the column is set to display none
+ */
+function setLabelVisibity() {
+  for (let index = 0; index < columnsId.length; index++) {
+    const columnId = columnsId[index];
+    let column = document.getElementById(columnId);
+    let cards = column.querySelectorAll('.board-task-card');
+    let label = column.querySelector('.board-column-noTask');
+    if (cards.length > 0) {
+      label.classList.add('d-none');
+    }
+  }
+}
+
+/**
+ * If drag event is startet the ghost card of the source column is disabled.
+ * @param {Event} event
+ */
+function avoidGhostCard(event) {
+  console.log(event.currentTarget);
+  let card = event.currentTarget.querySelector('.board-ghostCard');
+  if (card) {
+    card.classList.add('remove-ghostCard');
+  }
+}
+
+/**
+ * If drag event is started, the current card rotates.
+ * @param {Event} event
+ */
+function rotateCard(event) {
+  event.currentTarget.classList.add('card-rotate');
 }
 
 /**
@@ -203,4 +259,139 @@ function hideConfirmNewTask() {
   let confirm = document.getElementById('task-confirmation-container');
   confirm.classList.remove('confirm-slide-in-animation');
   confirm.classList.add('confirm-slide-out-animation');
+}
+
+/**
+ * Slide in animation for popup card.
+ * Show board overlay container
+ */
+function slideInPopupCard() {
+  let container = document.getElementById('board-overlay-details');
+  container.classList.remove('d-none');
+  let card = document.getElementById('popup-card-container');
+  card.classList.remove('card-slide-out-animation');
+  card.classList.add('card-slide-in-animation');
+  document.body.classList.add('stop-scrolling');
+}
+
+/**
+ * Slide out animation for popup card.
+ * Hide board overlay container delayed after animation is finished.
+ * Clear subtask array.
+ */
+function sliedeOutPopupCard() {
+  let container = document.getElementById('board-overlay-details');
+  let card = document.getElementById('popup-card-container');
+  if (container != null && card != null) {
+    card.classList.remove('card-slide-in-animation');
+    card.classList.add('card-slide-out-animation');
+    subtasks = [];
+    setTimeout(() => {
+      container.classList.add('d-none');
+      card.classList.add('d-none');
+      document.body.classList.remove('stop-scrolling');
+    }, 300);
+  }
+}
+
+/**
+ * Slide out animation for popup card when the background is clicked.
+ * Hide board overlay container delayed after animation is finished.
+ * Clear subtask array.
+ */
+function slideOutPopupFromBg(event) {
+  let container = document.getElementById('board-overlay-details');
+  let card = document.getElementById('popup-card-container');
+  if (container.id == event.target.id) {
+    card.classList.remove('card-slide-in-animation');
+    card.classList.add('card-slide-out-animation');
+    subtasks = [];
+    setTimeout(() => {
+      container.classList.add('d-none');
+      document.body.classList.remove('stop-scrolling');
+    }, 300);
+  }
+}
+
+/**
+ * When resize window, decide if cards should be draggable.
+ */
+window.addEventListener('resize', function () {
+  selectCardIsDraggable();
+});
+
+/**
+ * If window is smaller than 1150px, all cards are set undraggable.
+ * If the window is larger all cards are draggable
+ */
+function selectCardIsDraggable() {
+  let card = document.querySelectorAll('.board-task-card');
+  if (card.length > 0) {
+    if (window.innerWidth < 1150) {
+      card.forEach((element) => {
+        element.setAttribute('draggable', 'false');
+      });
+    } else {
+      card.forEach((element) => {
+        element.setAttribute('draggable', 'true');
+      });
+    }
+  }
+}
+
+/**
+ * In mobile version open popup to move a task card.
+ * Stop Propagation for avoid showing detail card.
+ * @param {Event} event
+ * @param {Number} index - task card index
+ */
+function openCardMoveMenu(event, index) {
+  event.stopPropagation();
+  renderPopupCard();
+  slideInPopupCard();
+  let container = document.getElementById('popup-card-container');
+  container.innerHTML = '';
+  container.innerHTML = moveCardHTML(index);
+}
+
+/**
+ * Set filterd card to high opacity.
+ * @param {Number} index - task index
+ */
+function setCardOpacity(index) {
+  let cards = document.querySelectorAll('[data-id]');
+  cards.forEach((card) => {
+    let attr = card.getAttribute('data-id');
+    if (attr == index) {
+      card.style = 'opacity: 1';
+    }
+  });
+}
+
+/**
+ * Set all cards to high opacity.
+ */
+function resetAllCardOpacity() {
+  let cards = document.querySelectorAll('[data-id]');
+  cards.forEach((card) => {
+    card.style = 'opacity: 1';
+  });
+}
+
+/**
+ * Set all cards to low opacity
+ */
+function lowAllCardOpcatiy() {
+  let cards = document.querySelectorAll('[data-id]');
+  cards.forEach((card) => {
+    card.style = 'opacity: 0.3';
+  });
+}
+
+/**
+ * In edit mode set cancel button invisible.
+ */
+function disableCancelButton() {
+  let button = document.getElementById('addTask-cancel-btn');
+  button.style = 'display: none;';
 }
