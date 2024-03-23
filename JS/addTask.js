@@ -137,7 +137,7 @@ function selectPrio(prio) {
 }
 
 /**
- * select category text from dropdown, close dropdown
+ * select category text from dropdown, close dropdown after selection
  * @param {Event} event
  */
 function selectCategory(event) {
