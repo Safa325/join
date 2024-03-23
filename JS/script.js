@@ -138,7 +138,6 @@ function removeMenu() {
 function firstLoad() {
   if (!sessionStorage.getItem("firstLoad")) {
     window.location.href = "login.html";
-    sessionStorage.setItem("firstLoad", true);
   }
 }
 
