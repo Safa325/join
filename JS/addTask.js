@@ -233,9 +233,10 @@ async function createTask(event) {
   subtasks = [];
   renderSubtasks();
   selectPrio('medium');
-
-  await initBoardHTML();
-  // closeAddTaskCard();
+  confirmNewTask();
+  setTimeout(() => {
+    initBoardHTML();
+  }, 2000);
 }
 
 /**
@@ -387,19 +388,16 @@ function clearOutlineBlue(id) {
 }
 
 function confirmNewTask() {
-  let container = document.getElementById('board-overlay-details');
-  container.classList.remove('d-none');
   let confirm = document.getElementById('task-confirmation-container');
   confirm.classList.remove('confirm-slide-out-animation');
   confirm.classList.add('confirm-slide-in-animation');
+  setTimeout(() => {
+    hideConfirmNewTask();
+  }, 2000);
 }
 
 function hideConfirmNewTask() {
-  let container = document.getElementById('board-overlay-details');
   let confirm = document.getElementById('task-confirmation-container');
   confirm.classList.remove('confirm-slide-in-animation');
   confirm.classList.add('confirm-slide-out-animation');
-  setTimeout(() => {
-    container.classList.add('d-none');
-  }, 300);
 }
