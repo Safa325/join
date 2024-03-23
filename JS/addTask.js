@@ -385,3 +385,21 @@ function setOutlineBlue(id) {
 function clearOutlineBlue(id) {
   document.getElementById(id).classList.remove('blue-outline');
 }
+
+function confirmNewTask() {
+  let container = document.getElementById('board-overlay-details');
+  container.classList.remove('d-none');
+  let confirm = document.getElementById('task-confirmation-container');
+  confirm.classList.remove('confirm-slide-out-animation');
+  confirm.classList.add('confirm-slide-in-animation');
+}
+
+function hideConfirmNewTask() {
+  let container = document.getElementById('board-overlay-details');
+  let confirm = document.getElementById('task-confirmation-container');
+  confirm.classList.remove('confirm-slide-in-animation');
+  confirm.classList.add('confirm-slide-out-animation');
+  setTimeout(() => {
+    container.classList.add('d-none');
+  }, 300);
+}

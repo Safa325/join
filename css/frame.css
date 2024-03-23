@@ -137,6 +137,7 @@ header {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
+  z-index: 99;
   top: 0;
   left: 0;
   opacity: 0;
@@ -172,7 +173,7 @@ header {
   display: none !important;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
   #user-profile-initials {
     position: absolute;
     top: 16px;
@@ -233,5 +234,24 @@ header {
   #page-container {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 700px){
+  .sidebar-nav-element{
+    font-size: 14px;
+  }
+  #sidebar-nav{
+    width: 100%;
+  }
+}
+
+@media(max-width:500px){
+  #sidebar-nav{
+    justify-content: space-around;
+    gap: unset;
+  }
+  .sidebar-nav-element{
+    padding-inline: 4px;
   }
 }

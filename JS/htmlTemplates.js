@@ -255,7 +255,13 @@ function priorityHTML(priority) {
 
 function addTaskHTML() {
   return /*html*/ `
+   
       <form id="addTask-form" onsubmit="createTask(event); return false;">
+      <svg id="close-detail-card" onclick="sliedeOutPopupCard()" class="board-task-detail-close flex-end" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
+            stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
         <div id="addTask-column-wrapper" class="addTask-column-wrapper">
           <div class="addTask-column left-column">
             <div class="addTask-input-element">
