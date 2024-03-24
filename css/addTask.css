@@ -523,11 +523,20 @@
     font-size: 18px;
     padding: 10px;
   }
+ 
 }
 
 @media (max-width: 1030px) {
   .addTask-column-wrapper {
     grid-template-columns: 1fr;
+  }
+  .addTask-controls{
+    width: 424px;
+    position: fixed;
+    z-index: 5;
+    bottom: 80px;
+    background-color: var(--clr-bg);
+    padding-block: 12px;
   }
 }
 
@@ -542,6 +551,7 @@
 @media(max-width:500px){
   .addTask-headline{
     font-size: 48px;
+    margin-bottom: 40px;
   }
 }
 
@@ -557,6 +567,12 @@
     /* width: auto; */
     padding-block: 4px;
     width: 110px;
+  }
+  .addTask-controls{
+    max-width: 100%;
+    left: 0;
+    margin-inline: auto;
+    padding-inline: 16px;
   }
 }
 
