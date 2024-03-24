@@ -197,6 +197,7 @@ body{
     cursor: pointer;
     border: none;
     color: var(--clr-dark-gray);
+    background-color: white;
 }
 
 .edit-delete-btn:hover {
