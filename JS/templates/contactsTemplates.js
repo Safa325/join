@@ -20,72 +20,92 @@ function generateContactDetailsHTML(badgecolor, initials, name, email, phone, i)
         <div class="contact-information-header">Contact Information</div>
         <div class="contact-information-container">
             <h6>E-Mail</h6>
-            <a href="mailto:${email}" id="email-selected-contact">${email}</a>    
+            <a href="mailto:${email}">${email}</a>    
             <h6>Phone</h6>
-            <span id="phone-selected-contact">${phone}</span>
+            <span>${phone}</span>
         </div>
         <div id="confirmed"></div>
     </div>
     `;
 }
 
-function generateContactSliderContentHTML() {
+function generateAddContactSliderContentHTML() {
     return /*html*/ `
-    <div class="left-container">
+    <div class="slider-header-container">
         <img src="./img/join_logo.svg" alt="">
         <h1 id="window-headline" class="no-margin clr-white"></h1>
         <div id="window-claim" class="add-claim"></div>
         <div class="separator-across-lightblue"></div>
     </div>
-    <div class="right-container">
+    <div class="contact-input-container">
         <div class="cancel-x" onclick="setSlideOutEffects()"><img src="./img/icons/cancel.svg" alt=""></div>
 
-        <div id="person-badge" class="person-badge"></div>
-        <div class="control-elements-container">
+        <div id="contact-badge" class="contact-badge"></div>
+        <form id="addContact-form" onsubmit="createContact(); return false;" class="input-form-container">
             <div class="inputfields">
-                <label id="contact-name-label">
+                <label id="input-name-label">
                     <input class="contact-inputField" type="text" id="contact-input-name" placeholder="Name" required>
                 </label>
-                <label id="contact-email-label">
+                <label id="input-email-label">
                     <input class="contact-inputField" type="email" id="contact-input-email" placeholder="Email" required>
                 </label>
-                <label id="contact-phone-label">
+                <label id="input-phone-label">
                     <input class="contact-inputField" type="tel" id="contact-input-phone" placeholder="Phone" required>
                 </label>
             </div>
-            <div id="buttons-container" class="cancel-create-buttons-container"></div>
-        </div>
+            <div id="buttons-container" class="cancel-create-buttons-container">
+                <button id="cancelBtn" class="btn-white btn-pos" type="reset" onclick="setSlideOutEffects()">
+                Cancel<img src="./img/icons/cancel.svg"></button>
+                <button id="createContactBtn" type="submit" class="btn-grey img-white btn-pos">
+                Create contact<img src="./img/icons/checked.svg"></button>
+            </div>
+        </form>
     </div>
     `;
 }
 
-function openNewContactSliderHTML() {
+function generateOpenContactSliderContentHTML(i) {
     return /*html*/ `
-        <button id="cancelBtn" class="btn-white btn-pos" onclick="setSlideOutEffects()">
-            Cancel<img src="./img/icons/cancel.svg"></button>
-        <button id="createContactBtn" class="btn-grey img-white btn-pos" onclick="createContact()">
-            Create contact<img src="./img/icons/checked.svg"></button>
-    `;
-}
+    <div class="slider-header-container">
+        <img src="./img/join_logo.svg" alt="">
+        <h1 id="window-headline" class="no-margin clr-white"></h1>
+        <div id="window-claim" class="add-claim"></div>
+        <div class="separator-across-lightblue"></div>
+    </div>
+    <div class="contact-input-container">
+        <div class="cancel-x" onclick="setSlideOutEffects()"><img src="./img/icons/cancel.svg" alt=""></div>
 
-function openContactSliderHTML(i) {
-    return /*html*/ `
-         <button class="btn-white btn-pos" onclick="deleteContact(${i})">
-            Delete</button>
-        <button id="createContactBtn" class="btn-grey img-white btn-pos" onclick="saveEditContact(${i})">
-            Save<img src="./img/icons/checked.svg"></button> 
+        <div id="contact-badge" class="contact-badge"></div>
+        <form id="addContact-form" onsubmit="saveEditContact(${i}); return false;" class="input-form-container">
+            <div class="inputfields">
+                <label id="input-name-label">
+                    <input class="contact-inputField" type="text" id="contact-input-name" placeholder="Name" required>
+                </label>
+                <label id="input-email-label">
+                    <input class="contact-inputField" type="email" id="contact-input-email" placeholder="Email" required>
+                </label>
+                <label id="input-phone-label">
+                    <input class="contact-inputField" type="tel" id="contact-input-phone" placeholder="Phone" required>
+                </label>
+            </div>
+            <div id="buttons-container" class="cancel-create-buttons-container">
+                <button class="btn-white btn-pos" type="reset" onclick="deleteContact(${i})">
+                Delete</button>
+                <button id="createContactBtn" type="submit" class="btn-grey img-white btn-pos">
+                Save<img src="./img/icons/checked.svg"></button> 
+            </div>
+        </form>
+    </div>
     `;
 }
 
 function generateContactHTML(i, badgecolor, initials, name, email) {
     return /*html*/ `
-        <div name="test" id="person-container-${i}" class="person-container" onclick="showContactDetails(${i}); setHighlight(${i})">
-        <div class="initials-circle" style="background-color: ${badgecolor};">${initials}</div>
+        <div id="contact-container-${i}" class="contact-container" onclick="showContactDetails(${i}); setHighlight(${i})">
+        <div class="initials-badge" style="background-color: ${badgecolor};">${initials}</div>
         <div class="d-column-flex-start">
-            <div class="person-name">
-                <div>${name}</div>
-            </div>
-            <div class="person-email">${email}</div>
+            <div class="contact-name">${name}</div>
+            <div class="contact-email">${email}</div>
         </div>
     </div>
     `;
