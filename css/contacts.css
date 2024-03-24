@@ -46,7 +46,7 @@ body{
     display: flex;
 }
 
-.contacts-left-column {
+.contacts-list {
     min-width: 452px;
     background-color: white;
     display: flex;
@@ -58,7 +58,7 @@ body{
 .btn-container {
     width: 100%;
     padding: 22.5px 52px 22.5px 52px;
-    position: sticky;
+    position: relative;
     top: 0;
     left: 0;
 }
@@ -75,7 +75,7 @@ body{
     content: url("../img/icons/person_add.svg");
 }
 
-#contacts-list {
+#register-container {
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -95,7 +95,7 @@ body{
     font-weight: 400;
 }
 
-.person-container {
+.contact-container {
     display: flex;
     align-items: center;
     gap: 35px;
@@ -106,7 +106,7 @@ body{
     padding: 15px 24px 15px 24px;
 }
 
-.initials-circle {
+.initials-badge {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -119,32 +119,32 @@ body{
     border: 2px solid white;
 }
 
-.person-name {
+.contact-name {
     font-size: 20px;
     font-weight: 400;
     display: flex;
     margin-bottom: 5px;
 }
 
-.person-email {  
+.contact-email {  
     font-size: 16px;
     font-weight: 400;
     color: var(--clr-light-blue);
 }
 
-.element-active:not(.person-email) {
+.element-active:not(.contact-email) {
     background-color: var(--clr-dark-gray);
     color: white;
 }
 
-.person-container:hover:not(.element-active) {
+.contact-container:hover:not(.element-active) {
     background-image: var(--linear-gradient-hvr-light-grey);
 }
 
 
 
 /*Contact Details*/
-.contacts-details-headline {
+.contacts-section-headline {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -160,7 +160,7 @@ body{
     border-radius: 10px;
 }
 
-.contacts-claim {
+.headline-claim {
     font-weight: 400;
     font-size: 27px;
     color: var(--clr-dark-gray)
@@ -238,7 +238,7 @@ body{
     justify-content: space-between;
   }
 
-  #email-selected-contact {
+  .contact-information-container a {
     text-decoration: none;
     color: var(--clr-light-blue);
     
@@ -290,7 +290,7 @@ body{
     display: none !important;
   }
 
-.left-container {
+.slider-header-container {
     background-color: var(--clr-dark-gray);
     width: 467px;
     height: 100%;
@@ -301,7 +301,7 @@ body{
     padding-left: 48px;
 }
 
-.left-container img {
+.slider-header-container img {
     width: 55.6px;
     height: 66.48px;
     margin-bottom: 12px;
@@ -326,14 +326,14 @@ body{
     color: white;
 }
 
-.right-container {
+.contact-input-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-left: 83px;
 }
 
-.control-elements-container {
+.input-form-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -351,7 +351,7 @@ label {
     position: relative;
   }
   
-#contact-name-label:before {
+#input-name-label:before {
     content: "";
     position: absolute;
     right: 10px;
@@ -361,7 +361,7 @@ label {
     background: url("../img/icons/person-grey.svg") center / contain no-repeat;
 }
 
-#contact-email-label:before {
+#input-email-label:before {
     content: "";
     position: absolute;
     right: 10px;
@@ -371,7 +371,7 @@ label {
     background: url("../img/icons/mail-grey.svg") center / contain no-repeat;
 }
 
-#contact-phone-label:before {
+#input-phone-label:before {
     content: "";
     position: absolute;
     right: 10px;
@@ -404,7 +404,7 @@ label {
     color: var(--clr-light-gray);;
 }
 
-.person-badge {
+.contact-badge {
     width: 120px;
     height: 120px;
     padding: 30px;
@@ -479,10 +479,10 @@ label {
 
 
 @media(max-width: 1250px) {
-    .contacts-details-headline h1{
+    .contacts-section-headline h1{
         font-size: 54px;
     }
-    .contacts-claim{
+    .headline-claim{
         font-size: 21px;
     }
 }
@@ -493,7 +493,7 @@ label {
         width: 100vw;
         overflow-x: hidden;
     }
-    .contacts-left-column {
+    .contacts-list {
         min-width: 100vw;
         padding-bottom: 100px;
         
@@ -524,7 +524,7 @@ label {
         transform: translateX(-25%);
     }
 
-    #contacts-list {
+    #register-container {
         height: 100%;
     }
 
@@ -539,7 +539,7 @@ label {
         font-weight: 400;
     }
 
-    .person-container {
+    .contact-container {
         display: flex;
         align-items: center;
         gap: 35px;
@@ -566,7 +566,7 @@ label {
         transform: translate(+200%, -50%);
     }
 
-    .left-container {
+    .slider-header-container {
         background-color: var(--clr-dark-gray);
         width: 100%;
         height: 50%;
@@ -577,11 +577,11 @@ label {
        
     }
 
-    .left-container h1{
+    .slider-header-container h1{
         font-size: 47px;
     }
     
-    .left-container img {
+    .slider-header-container img {
         display: none;
     }
 
@@ -611,7 +611,7 @@ label {
         color: white;
     }
     
-    .right-container {
+    .contact-input-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -619,7 +619,7 @@ label {
         padding-left: 0;
     }
     
-    .control-elements-container {
+    .input-form-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -634,7 +634,7 @@ label {
         margin-bottom: 48px;
     }
 
-    .person-badge {
+    .contact-badge {
         position: absolute;
         top: 0;
         left: 0;
@@ -655,7 +655,7 @@ label {
         margin-right: 20px;
     }
         
-    .contacts-details-headline {
+    .contacts-section-headline {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -668,7 +668,7 @@ label {
         display: none;
     }
     
-    .contacts-details-headline::after {
+    .contacts-section-headline::after {
         content: "";
         height: 3px;
         width: 90px;
@@ -676,7 +676,7 @@ label {
         border-radius: 10px;
     }
 
-    .contacts-claim {
+    .headline-claim {
         font-weight: 400;
         font-size: 27px;
         color: var(--clr-dark-gray)
@@ -687,13 +687,13 @@ label {
         margin-top: 48px;
     }
 
-    .contacts-details-headline h1 {
+    .contacts-section-headline h1 {
         font-size: 47px;
         font-weight: 700;
         
     }
 
-    .contacts-details-headline span {
+    .contacts-section-headline span {
         font-size: 20px;
         font-weight: 400;
     }

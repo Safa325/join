@@ -6,51 +6,43 @@ async function initContacts() {
     await renderListOfContacts();
 }
 
+//find registerletter in saved contacts of the current user and sort them in a temporary array (registerLetters)
 async function getArrayOfRegisterLetters() {
-    let userContacts = userData[userIndex]['contacts'];
-    registerLetters = [];
+    let userContacts = userData[userIndex]['contacts']; //declare userContacts
+    registerLetters = []; //clear array registerLetters
     for (let i = 0; i < userContacts.length; i++) {
-        let register = userContacts[i]['register'];
-        if (!registerLetters.includes(register)) {
+        let register = userContacts[i]['register']; //find registerLetter of each contact
+        if (!registerLetters.includes(register)) { //if found letter doesn't contains in registerLetters yet, then push it (if it already contains then not)
             registerLetters.push(register);
         }
     }
-    registerLetters.sort();
+    registerLetters.sort(); //sort the registerLetters array
 }
 
+//render letters of registerletter in contactlist
 async function renderRegisterboxes() {
-    document.getElementById('contacts-list').innerHTML = '';
+    document.getElementById('register-container').innerHTML = '';
 
     for (let i = 0; i < registerLetters.length; i++) {
-        let registerLetter = registerLetters[i];
-        generateRegisterboxHTML(registerLetter);
+        let registerLetter = registerLetters[i]; //find letters in array...
+        generateRegisterboxHTML(registerLetter); //...and generate the HTML-Container
     }
 }
 
 function generateRegisterboxHTML(registerLetter) {
-    document.getElementById('contacts-list').innerHTML += /*HTML*/ `
+    document.getElementById('register-container').innerHTML += /*HTML*/ `
         <div id="registerbox-${registerLetter}" class="d-column-flex-start">
             <div class="registerbox">${registerLetter}</div>
         </div>
         `;
 }
 
-async function fetchData() {
-    let resp = await fetch('dummy.json');
-    dummyUser = await resp.json();
-    return dummyUser;
-
-    /*  return fetch(url)
-    .then((res) => res.json())
-    .then((res) => res.data.value); */
-}
-
+//render entire list of all contacts
 async function renderListOfContacts() {
     let userContacts = userData[userIndex]['contacts'];
-
     for (let i = 0; i < userContacts.length; i++) {
-        let objContact = userContacts[i];
-        generateContact(objContact, i);
+        let objContact = userContacts[i]; //find contacts in storage...
+        generateContact(objContact, i); //...and generate the contact-container
     }
 }
 
@@ -60,8 +52,18 @@ async function generateContact(objContact, i) {
     let register = objContact['register'];
     let name = objContact['name'];
     let email = objContact['email'];
-
     document.getElementById(`registerbox-${register}`).innerHTML += generateContactHTML(i, badgecolor, initials, name, email);
+}
+
+//try to create a function to get backupfiles of the guest user
+async function fetchData() {
+    let resp = await fetch('dummy.json');
+    dummyUser = await resp.json();
+    return dummyUser;
+
+    /*  return fetch(url)
+    .then((res) => res.json())
+    .then((res) => res.data.value); */
 }
 
 async function createContact() {
@@ -116,11 +118,11 @@ function clearAddContactForm() {
 
 function setHighlight(i) {
     removeHighlight();
-    document.getElementById(`person-container-${i}`).classList.add('element-active');
+    document.getElementById(`contact-container-${i}`).classList.add('element-active');
 }
 
 function removeHighlight() {
-    let containers = document.querySelectorAll('.person-container');
+    let containers = document.querySelectorAll('.contact-container');
     containers.forEach((element) => {
         element.classList.remove('element-active');
     });
@@ -138,7 +140,7 @@ function showContactDetails(i) {
 }
 
 function hideContactList() {
-    document.getElementById('contacts-left-column').classList.add('d-none');
+    document.getElementById('contacts-list').classList.add('d-none');
 }
 
 function renderContactDetails(i) {
@@ -148,7 +150,7 @@ function renderContactDetails(i) {
     let name = userContacts[i]['name'];
     let email = userContacts[i]['email'];
     let phone = userContacts[i]['phone'];
-    let details = document.getElementById('contacts-details');
+    let details = document.getElementById('contact-details');
     details.innerHTML = ``;
     details.innerHTML = generateContactDetailsHTML(badgecolor, initials, name, email, phone, i);
 }
@@ -166,17 +168,21 @@ function showBackAndMenuBtn() {
     document.getElementById('btn-details-container').classList.remove('d-none');
 }
 
-function openNewContactSlider() {
+function openAddContactSlider() {
     removeHighlight();
 
+    if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
+        document.getElementById('dark-background').classList.remove('fade-out-animation');
+    };
+
     document.getElementById('contact-slider').innerHTML = ``;
-    document.getElementById('contact-slider').innerHTML = generateContactSliderContentHTML();
-    document.getElementById('person-badge').style.backgroundColor = 'var(--clr-light-gray)';
-    document.getElementById('person-badge').innerHTML = `<img src="./img/icons/person.svg" alt="">`;
+    document.getElementById('contact-slider').innerHTML = generateAddContactSliderContentHTML();
+    document.getElementById('contact-badge').style.backgroundColor = 'var(--clr-light-gray)';
+    document.getElementById('contact-badge').innerHTML = `<img src="./img/icons/person.svg" alt="">`;
     document.getElementById('window-headline').innerHTML = `Add contact`;
     document.getElementById('window-claim').innerHTML = `Tasks are better with a team!`;
 
-    document.getElementById('buttons-container').innerHTML = openNewContactSliderHTML();
+    
     setSlideInEffects();
 }
 
@@ -195,17 +201,16 @@ function openContactSlider(i) {
     let phone = userContacts[i]['phone'];
 
     document.getElementById('contact-slider').innerHTML = ``;
-    document.getElementById('contact-slider').innerHTML = generateContactSliderContentHTML();
+    document.getElementById('contact-slider').innerHTML = generateOpenContactSliderContentHTML(i);
 
-    document.getElementById('person-badge').style.backgroundColor = `${badgecolor}`;
-    document.getElementById('person-badge').innerHTML = `${initials}`;
+    document.getElementById('contact-badge').style.backgroundColor = `${badgecolor}`;
+    document.getElementById('contact-badge').innerHTML = `${initials}`;
     document.getElementById('window-headline').innerHTML = `Edit contact`;
 
     document.getElementById('contact-input-name').value = `${name}`;
     document.getElementById('contact-input-email').value = `${email}`;
     document.getElementById('contact-input-phone').value = `${phone}`;
 
-    document.getElementById('buttons-container').innerHTML = openContactSliderHTML(i);
 
     setSlideInEffects();
 }
@@ -255,7 +260,7 @@ function hideDarkBackground() {
 async function deleteContact(i) {
     userData[userIndex]['contacts'].splice(i, 1);
     await setItem('userData', JSON.stringify(userData));
-    document.getElementById('contacts-details').innerHTML = ``;
+    document.getElementById('contact-details').innerHTML = ``;
     initContacts();
 }
 

@@ -11,20 +11,20 @@
 
     
     <div class="main-contacts-container">
-      <div id="contacts-left-column" class="contacts-left-column">
+      <div id="contacts-list" class="contacts-list">
         <div class="btn-container">
           <button
             class="btn-grey btn-add-contact"
-            onclick="openNewContactSlider()"
+            onclick="openAddContactSlider()"
           >
         
           </button>
         </div>
 
-        <div id="contacts-list"></div>
+        <div id="register-container"></div>
       </div>
 
-      <div id="contacts-right-column">
+      <div id="contact-details-section">
         <div id="btn-details-container" class="btn-details-container d-none">
           <button
             class="btn-grey btn-details-menu"
@@ -34,13 +34,13 @@
           </button>
         </div>
         <div id="arrow-back-lightblue" class="d-none" onclick="initContactsHTML()"><img src="./img/icons/arrow-back-lightblue.svg" alt=""></div>
-        <div class="contacts-details-headline">
+        <div class="contacts-section-headline">
           <h1 class="no-margin">Contacts</h1>
           <div class="separator-upright-lightblue"></div>
-          <span class="contacts-claim">Better with a team</span>
+          <span class="headline-claim">Better with a team</span>
         </div>
 
-        <div id="contacts-details"></div>
+        <div id="contact-details"></div>
       </div>
     </div>
   </body>
