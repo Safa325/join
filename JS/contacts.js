@@ -84,7 +84,7 @@ async function createContact() {
 function getContactInput() {
     let newContact = {
         badgecolor: getRandomBadgeColor(),
-        initials: getInitials(),
+        initials: getInitialsFromInput(),
         register: getRegisterLetter(),
         name: document.getElementById('contact-input-name').value,
         email: document.getElementById('contact-input-email').value,
@@ -94,7 +94,7 @@ function getContactInput() {
 }
 
 
-function getInitials() {
+function getInitialsFromInput() {
     let inputName = document.getElementById('contact-input-name').value;
 
     let string = inputName; //set value as string

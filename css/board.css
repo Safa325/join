@@ -1,10 +1,13 @@
 /* @import url(general.css); */
 
-#content-container {
+#board-content-container {
   margin-left: 96px;
   margin-top: 110px;
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  padding-left: 12px;
+  padding-bottom: 80px;
 }
 
 .board-headline {
@@ -395,7 +398,9 @@
   gap: 24px;
   flex-grow: 0;
   overflow-x: auto;
-  /* transform: translateX(200%); */
+  z-index: 100;
+ 
+ 
 }
 
 .board-task-detail-header {
@@ -584,14 +589,11 @@
     display: none;
   }
 
-  #content-container {
-    /* margin-inline: 24px !important; */
-    max-width: 320px;
-  }
+ 
   .board-headline-menu {
     flex-direction: column;
     align-items: flex-start;
-    width: 95%;
+    width: max-content
   }
   .board-headline {
     width: 100%;
@@ -605,14 +607,19 @@
     display: flex;
     cursor: pointer;
   }
-  .board-btn-addTask {
-    display: none;
-  }
+ 
   .card-rotate {
     transform: rotate(0);
   }
   .board-card-move-btn {
     display: block;
+  }
+ 
+}
+
+@media (max-width:1420px){
+  .board-btn-addTask {
+    display: none;
   }
   .board-column-header {
     max-width: min(300px, 98%);
@@ -620,8 +627,9 @@
   }
 }
 
+
 @media (max-width: 400px) {
-  #content-container {
+  #board-content-container {
     margin-inline: 12px;
     max-width: 320px;
   }

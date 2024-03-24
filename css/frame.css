@@ -130,6 +130,7 @@ header {
   position: absolute;
   left: 232px;
   top: 96px;
+ 
 }
 
 .dark-background {
@@ -176,7 +177,7 @@ header {
 @media (max-width: 1200px) {
 
   header {
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     width: 100vw;
     height: 96px;
@@ -202,6 +203,10 @@ header {
     
     left: 0;
     height: calc(100% - 160px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   #sidebar {
