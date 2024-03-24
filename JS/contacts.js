@@ -245,6 +245,10 @@ function openNewContactSlider() {
 }
 
 function openContactSlider(i) {
+
+    if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
+        document.getElementById('dark-background').classList.remove('fade-out-animation');
+    };
     
     let userContacts = userData[userIndex]['contacts'];
     
@@ -327,7 +331,7 @@ function setSlideOutEffects() {
     document.getElementById('contact-slider').classList.add('slide-out-animation');   
     
     setTimeout(clearDarkBackground, 300);
-    setTimeout(removeZindex, 1000);
+    setTimeout(hideDarkBackground, 1000);
 }
 
 function setDarkBackground() { 
@@ -348,7 +352,7 @@ function clearDarkBackground() {
     
 }
 
-function removeZindex() {
+function hideDarkBackground() {
     document.getElementById('dark-background').style = ('z-index: 0;');
     document.getElementById('dark-background').classList.add('d-none');
 }
