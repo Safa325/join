@@ -551,7 +551,10 @@
 @media (max-width: 1200px) {
   .board-overlay {
     margin-left: 0;
-    padding-bottom: 80px !important;
+   
+  }
+  #board-content-container{
+    margin-top: 48px;
   }
 }
 
@@ -651,12 +654,9 @@
     border-radius: 0;
   }
 }
-/* @media (max-width: 370px) {
-  #content-container {
-    margin-inline: auto;
-    padding-inline: 8px;
-  }
-} */
+.board-task-title.detail-card-title{
+  font-size: 48px;
+}
 
 .stop-scrolling {
   height: 100%;

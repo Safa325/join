@@ -539,6 +539,12 @@
   }
 }
 
+@media(max-width:500px){
+  .addTask-headline{
+    font-size: 48px;
+  }
+}
+
 @media (max-width: 450px) {
   /* .addTask-column-wrapper * {
     font-size: 16px;
