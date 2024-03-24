@@ -551,6 +551,7 @@
 @media (max-width: 1200px) {
   .board-overlay {
     margin-left: 0;
+    padding-bottom: 80px !important;
   }
 }
 
@@ -640,7 +641,7 @@
 
 @media (max-width: 500px) {
 .board-overlay{
-  padding: 0;
+  padding: 0 0 80px 0 !important;
 }
 
   .popup-card-container {

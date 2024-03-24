@@ -268,8 +268,8 @@ function hideConfirmNewTask() {
 function slideInPopupCard() {
     let header = document.querySelector('header');
     let sidebar = document.getElementById('sidebar');
+    header.style = sidebar.style = 'z-index: 5';
 
-    header.style = sidebar.style = 'z-index: 0';
     let container = document.getElementById('board-overlay-details');
     container.classList.remove('d-none');
     let card = document.getElementById('popup-card-container');
@@ -296,6 +296,7 @@ function sliedeOutPopupCard() {
             document.body.classList.remove('stop-scrolling');
         }, 300);
     }
+   
 }
 
 /**
@@ -315,6 +316,7 @@ function slideOutPopupFromBg(event) {
             document.body.classList.remove('stop-scrolling');
         }, 300);
     }
+  
 }
 
 /**
