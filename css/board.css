@@ -108,6 +108,8 @@
   display: flex;
   gap: 24px;
   flex-shrink: 0;
+  opacity: 0;
+  transition: all 75ms ease-in;
 }
 
 .board-column {

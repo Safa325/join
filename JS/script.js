@@ -104,6 +104,7 @@ function clearSessionStorage() {
   sessionStorage.removeItem("animationPlayed");
   sessionStorage.removeItem("animationGreetingPlayed");
   sessionStorage.removeItem("userIndex");
+  sessionStorage.removeItem("firstLoad");
 }
 
 function openMenu() {
@@ -137,7 +138,6 @@ function removeMenu() {
 function firstLoad() {
   if (!sessionStorage.getItem("firstLoad")) {
     window.location.href = "login.html";
-    sessionStorage.setItem("firstLoad", true);
   }
 }
 
