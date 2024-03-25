@@ -3,35 +3,33 @@
  * Initializes the summary of user interactions.
  */
 function initSummary() {
-  greetingUser(); // Begrüßt den Benutzer
-  date(); // Zeigt das aktuelle Datum an
-  showTasks(); // Zeigt die Aufgaben an
-  greetingResponsiv(); // Begrüßt den Benutzer je nach Bildschirmgröße
-  showGreeting(); // Zeigt die Begrüßungsnachricht an
+  greetingUser();
+  date();
+  showTasks();
+  greetingResponsiv();
+  showGreeting();
 }
 
-let day; // Die Tageszeit für die Begrüßung
+let day;
 
 /**
  * Begrüßt den Benutzer entsprechend der Tageszeit und zeigt den Namen an, falls vorhanden.
  * Greets the user based on the time of the day and displays the name if available.
  */
 function greetingUser() {
-  let userName = userData[userIndex]["name"]; // Holt sich den Benutzernamen
-  let greeting = document.getElementById("greeting"); // Holt sich das Begrüßungselement
-  greeting.innerHTML = ""; // Leert das Begrüßungselement
-  greetingDay(); // Bestimmt die Tageszeit für die Begrüßung
+  let userName = userData[userIndex]["name"];
+  let greeting = document.getElementById("greeting");
+  greeting.innerHTML = "";
+  greetingDay();
   if (userIndex == 0) {
-    // Überprüft, ob es sich um den ersten Benutzer handelt
     if (window.innerWidth < 1200) {
-      // Überprüft die Bildschirmbreite für responsive Anpassung
-      day = day + "!"; // Fügt ein Ausrufezeichen hinzu, wenn der Bildschirm klein ist
-      greeting.innerHTML += greetingHtml1(day); // Fügt die Begrüßung für den ersten Benutzer hinzu
+      day = day + "!";
+      greeting.innerHTML += greetingHtml1(day);
     } else {
-      greeting.innerHTML += greetingHtml1(day); // Fügt die Begrüßung für den ersten Benutzer hinzu
+      greeting.innerHTML += greetingHtml1(day);
     }
   } else {
-    greeting.innerHTML += greetingHtml2(userName, day); // Fügt die personalisierte Begrüßung für andere Benutzer hinzu
+    greeting.innerHTML += greetingHtml2(userName, day);
   }
 }
 
@@ -62,14 +60,14 @@ function greetingHtml2(name, day) {
  * Determines the time of day for the greeting based on the current time.
  */
 function greetingDay() {
-  const currentTime = new Date(); // Holt sich die aktuelle Zeit
-  const currentHour = currentTime.getHours(); // Holt sich die aktuelle Stunde
+  const currentTime = new Date();
+  const currentHour = currentTime.getHours();
   if (currentHour < 12) {
-    day = "Good morning"; // Begrüßung für den Morgen
+    day = "Good morning";
   } else if (currentHour < 18) {
-    day = "Good day"; // Begrüßung für den Tag
+    day = "Good day";
   } else {
-    day = "Good evening"; // Begrüßung für den Abend
+    day = "Good evening";
   }
 }
 
@@ -153,12 +151,12 @@ function includeDate(x) {
  * Displays the number of tasks in different categories.
  */
 function showTasks() {
-  let taskDo = filterBoardStatus("todo"); // Anzahl der Aufgaben im Status "ToDo"
-  let taskDone = filterBoardStatus("done"); // Anzahl der erledigten Aufgaben
-  let taskUrgent = filterBoardPrio("urgent"); // Anzahl der dringenden Aufgaben
-  let taskProgress = filterBoardStatus("inProgress"); // Anzahl der Aufgaben im Status "In Progress"
-  let taskFeedback = filterBoardStatus("awaitFeedback"); // Anzahl der Aufgaben im Status "Awaiting Feedback"
-  let taskBoard = taskDo + taskDone + taskProgress + taskFeedback; // Gesamtanzahl der Aufgaben im Board
+  let taskDo = filterBoardStatus("todo");
+  let taskDone = filterBoardStatus("done");
+  let taskUrgent = filterBoardPrio("urgent");
+  let taskProgress = filterBoardStatus("inProgress");
+  let taskFeedback = filterBoardStatus("awaitFeedback");
+  let taskBoard = taskDo + taskDone + taskProgress + taskFeedback;
   document.getElementById("toDo").innerHTML = taskDo;
   document.getElementById("done1").innerHTML = taskDone;
   document.getElementById("urgent").innerHTML = taskUrgent;
@@ -175,10 +173,10 @@ function showGreeting() {
   const greeting = document.getElementById("summaryGreet");
   if (!sessionStorage.getItem("animationGreetingPlayed")) {
     if (window.innerWidth <= 1200) {
-      greeting.classList.remove("none"); // Entfernt die Klasse "none", um die Begrüßungsnachricht anzuzeigen
-      sessionStorage.setItem("animationGreetingPlayed", true); // Speichert, dass die Begrüßungsanimation abgespielt wurde
+      greeting.classList.remove("none");
+      sessionStorage.setItem("animationGreetingPlayed", true);
       setTimeout(function () {
-        greeting.classList.add("none"); // Fügt die Klasse "none" hinzu, um die Begrüßungsnachricht nach einer Sekunde auszublenden
+        greeting.classList.add("none");
       }, 1000);
     }
   }
@@ -194,18 +192,18 @@ function greetingResponsiv() {
     if (window.innerWidth <= 1385) {
       if (greeting.classList.contains("none")) {
       } else {
-        greeting.classList.add("none"); // Blendet die Begrüßungsnachricht aus, wenn der Bildschirm zu klein ist
+        greeting.classList.add("none");
       }
     } else {
       if (greeting.classList.contains("none")) {
-        greeting.classList.remove("none"); // Zeigt die Begrüßungsnachricht wieder an, wenn der Bildschirm groß genug ist
+        greeting.classList.remove("none");
       }
     }
   }
 }
 
 window.onresize = function () {
-  greetingResponsiv(); // Überprüft die Bildschirmgröße beim Ändern der Fenstergröße
+  greetingResponsiv();
 };
 
 /**
@@ -215,8 +213,8 @@ window.onresize = function () {
  * @returns {number} - Die Anzahl der Aufgaben mit dem angegebenen Status.
  */
 function filterBoardStatus(x) {
-  let userTasks = userData[userIndex]["tasks"]; // Holt sich die Aufgaben des Benutzers
-  const result = userTasks.filter((task) => task.status === x).length; // Filtert die Aufgaben nach dem angegebenen Status und zählt sie
+  let userTasks = userData[userIndex]["tasks"];
+  const result = userTasks.filter((task) => task.status === x).length;
   return result;
 }
 
@@ -227,8 +225,8 @@ function filterBoardStatus(x) {
  * @returns {number} - Die Anzahl der Aufgaben mit der angegebenen Priorität.
  */
 function filterBoardPrio(x) {
-  let userTasks = userData[userIndex]["tasks"]; // Holt sich die Aufgaben des Benutzers
-  const result = userTasks.filter((task) => task.priority === x).length; // Filtert die Aufgaben nach der angegebenen Priorität und zählt sie
+  let userTasks = userData[userIndex]["tasks"];
+  const result = userTasks.filter((task) => task.priority === x).length;
   return result;
 }
 
