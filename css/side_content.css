@@ -1,50 +1,64 @@
 @import url(general.css);
 
 .main-sidecontent-container {
-    width: calc(100vw - 232px);
-    height: calc(100vh - 96px);
-    overflow-y: scroll;
-    padding-left: 96px;
-    padding-right: 96px;
+  width: calc(100vw - 232px);
+  height: calc(100vh - 96px);
+  overflow-y: scroll;
+  padding-left: 96px;
+  padding-right: 96px;
 }
 
 /* Scrollbar */
 .main-sidecontent-container::-webkit-scrollbar {
-    scrollbar-width: 0px;
+  scrollbar-width: 0px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: none;
+  background: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: none;
+  background: none;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: none;
+  background: none;
 }
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .htu-list-container {
-    display: flex;
-    gap: 35px;
-    margin-bottom: 16px;
+  display: flex;
+  gap: 35px;
+  margin-bottom: 16px;
 }
 
 .main-content-container a {
-    color: var(--clr-light-blue)
+  color: var(--clr-light-blue);
 }
 
 mark {
-    color: var(--clr-light-blue);
-    background-color: transparent;
+  color: var(--clr-light-blue);
+  background-color: transparent;
+}
+
+@media (max-width: 1200px) {
+  .main-sidecontent-container {
+    margin-inline: auto;
+    width: calc(100% - 32px);
+    padding: 0;
+  }
+
+  .header-container h1 {
+    margin-top: 48px;
+    margin-bottom: 32px;
+    font-size: 47px;
+  }
 }

@@ -353,7 +353,7 @@ footer {
     top: 165.5px;
     left: 0;
     right: 0;
-    margin: 0 16px;
+    margin-inline: auto;
     padding: 32px 8px;
   }
 
@@ -375,5 +375,13 @@ footer {
 @media (max-width: 330px) {
   .signUp {
     margin: 0 8px;
+  }
+}
+
+@media (max-height: 900px) {
+  footer {
+    position: absolute;
+    top: 848px;
+    bottom: none;
   }
 }
