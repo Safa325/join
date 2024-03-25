@@ -55,7 +55,11 @@ async function initContactsHTML() {
 
 function clearAllNavActive() {
   let nav = document.querySelectorAll(".sidebar-nav-element");
+  let link = document.querySelectorAll(".sidebar-link-element");
   nav.forEach((element) => {
+    element.classList.remove("sidebar-element-active");
+  });
+  link.forEach((element) => {
     element.classList.remove("sidebar-element-active");
   });
 }
@@ -79,6 +83,8 @@ async function openLegalNoticeHTML() {
     <div w3-include-html="legalnotice.html"></div>
     `;
   await includeHTML();
+  clearAllNavActive();
+  setNavActive("sideLegal");
 }
 
 async function openPrivacyPolicyHTML() {
@@ -87,6 +93,8 @@ async function openPrivacyPolicyHTML() {
     <div w3-include-html="privacypolicy.html"></div>
     `;
   await includeHTML();
+  clearAllNavActive();
+  setNavActive("sidePrivacy");
 }
 
 function getInitials() {
@@ -105,6 +113,7 @@ function clearSessionStorage() {
   sessionStorage.removeItem("animationGreetingPlayed");
   sessionStorage.removeItem("userIndex");
   sessionStorage.removeItem("firstLoad");
+  userIndex = "";
 }
 
 function openMenu() {
