@@ -195,3 +195,13 @@ const backToLogin = document.getElementById("backToLogIn");
 backToLogin.addEventListener("click", function () {
   window.location.href = "login.html";
 });
+
+function newTab(x) {
+  if (x == "1") {
+    window.open("newTab.html", "_blank");
+    localStorage.setItem("Privacy", "true");
+  } else {
+    window.open("newTab.html", "_blank");
+    localStorage.setItem("Privacy", "false");
+  }
+}

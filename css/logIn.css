@@ -11,7 +11,6 @@ body {
   justify-content: center;
   height: 100vh;
   min-height: 900px;
-  overflow: hidden;
   margin: 0;
   background-color: var(--clr-background-boton);
 }
@@ -244,7 +243,7 @@ input:hover {
 }
 
 footer {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   display: flex;
   justify-content: center;
@@ -411,6 +410,14 @@ footer {
 
   .logoAnimation {
     background-color: var(--clr-dark-gray);
+  }
+
+  @media (max-height: 900px) {
+    footer {
+      position: absolute;
+      top: 848px;
+      bottom: none;
+    }
   }
 
   @keyframes slide-topLeft {

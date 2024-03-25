@@ -138,7 +138,7 @@ function removeMenu() {
 function firstLoad() {
   if (!sessionStorage.getItem("firstLoad")) {
     window.location.href = "login.html";
-      }
+  }
 }
 
 function loadText() {
@@ -155,3 +155,18 @@ function backToLogin2() {
     window.location.href = "login.html";
   }
 }
+
+function hideSidebar() {
+  if (
+    window.location.pathname.includes("newTab.html") &&
+    window.innerWidth < 1200
+  ) {
+    document.getElementById("sidebar").style.display = "none";
+  } else {
+    document.getElementById("sidebar").style.display = "flex";
+  }
+}
+
+window.onresize = function () {
+  hideSidebar();
+};
