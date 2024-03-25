@@ -23,7 +23,7 @@ async function initSummaryHTML() {
 async function initAddTaskHTML() {
   document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
   document.getElementById("main-content-container").innerHTML = /*HTML*/ `
-    <div w3-include-html="addTask.html" class="fade-in-animation">></div>
+    <div w3-include-html="addTask.html" class="fade-in-animation"></div>
     `;
   await includeHTML();
   addTaskInit();
@@ -34,7 +34,7 @@ async function initAddTaskHTML() {
 async function initBoardHTML() {
   document.getElementById("main-content-container").innerHTML = /*HTML*/ ``;
   document.getElementById("main-content-container").innerHTML = /*HTML*/ `
-    <div w3-include-html="board.html" class="fade-in-animation">></div>
+    <div w3-include-html="board.html" id="board" class="fade-in-animation"></div>
     `;
   await includeHTML();
   initBoard();
