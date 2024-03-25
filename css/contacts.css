@@ -1,5 +1,5 @@
-@import url(general.css);
-
+/* @import url(general.css);
+ */
 @keyframes fade-in {
     0% {
         opacity: 0.0;
@@ -490,14 +490,13 @@ label {
 
 @media(max-width: 1200px) {
     .main-contacts-container {
-        height: 100vh;
+        height: calc(100vh - 176px);
         width: 100vw;
         overflow-x: hidden;
     }
     .contacts-list {
         min-width: 100vw;
         padding-bottom: 100px;
-        
     }
         
     .btn-container {
@@ -558,7 +557,6 @@ label {
         position: absolute;
         top: 50%;
         left: 50%;
-        
         background-color: white;
         display: flex;
         flex-direction: column;
@@ -713,8 +711,8 @@ label {
 
     .function-container{
         flex-direction: column;
-        position: absolute;
-        bottom: 48px;
+        position: fixed;
+        bottom: 96px;
         right: 8px;
         background-color: white;
         width: 116px;
@@ -750,11 +748,11 @@ label {
     .btn-details-container {
         width: 56px;
         padding: 0;
-        position: absolute;
+        position: fixed;
         top: auto;
-        bottom: 48px;
         left: auto;
         right: 16px;
+        bottom: 96px;
     }
 
     .btn-details-menu {
@@ -771,8 +769,6 @@ label {
         content: url("../img/icons/more_vert.svg");
         transform: translateX(-120%);
     }
-
-    
 
 .contact-inputField {
     width: 100%;

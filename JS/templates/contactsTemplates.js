@@ -1,3 +1,12 @@
+
+function generateRegisterboxHTML(registerLetter) {
+    document.getElementById('register-container').innerHTML += /*HTML*/ `
+        <div id="registerbox-${registerLetter}" class="d-column-flex-start">
+            <div class="registerbox">${registerLetter}</div>
+        </div>
+        `;
+}
+
 function generateContactDetailsHTML(badgecolor, initials, name, email, phone, i) {
     return /*HTML*/ `
     <div id="details-container" class="details-container d-column-flex-start">

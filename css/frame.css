@@ -1,5 +1,5 @@
-@import url(general.css);
-@import url(contacts.css);
+/* @import url(general.css);
+@import url(contacts.css); */
 
 header {
   position: fixed;
@@ -202,7 +202,7 @@ header {
     /* position: unset; */
     
     left: 0;
-    height: calc(100% - 160px);
+    height: calc(100vh - 176px);
     display: flex;
     flex-direction: column;
     align-items: center;
