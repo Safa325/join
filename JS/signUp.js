@@ -153,21 +153,14 @@ cpwInput.addEventListener("change", function () {
 signUpForm.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevents the default behavior of the form
 
-  // Holt sich die eingegebenen Werte für Name, E-Mail und Passwort
-  let name = document.getElementById("name").value; // Gets the entered value for name
-  let email = document.getElementById("email").value; // Gets the entered value for email
-  let password = document.getElementById("password").value; // Gets the entered value for password
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
 
-  // Überprüft, ob die Datenschutzrichtlinie akzeptiert wurde
   if (checkboxAccept == "false") {
-    alert("Bitte akzeptieren Sie die Datenschutzrichtlinie!"); // Zeigt eine Benachrichtigung an, wenn die Datenschutzrichtlinie nicht akzeptiert wurde
-  }
-
-  // Überprüft, ob die Passwörter übereinstimmen
-  if (matchingPw == "false") {
-    alert("Bitte stellen Sie sicher, dass Ihre Passwörter übereinstimmen."); // Zeigt eine Benachrichtigung an, wenn die Passwörter nicht übereinstimmen
+    alert("Bitte akzeptieren Sie die Datenschutzrichtlinie!");
   } else {
-    chekEmailExists(name, email, password); // Ruft die Funktion auf, um zu überprüfen, ob die E-Mail bereits registriert ist
+    chekEmailExists(name, email, password);
     e.preventDefault(); // Verhindert das erneute Einreichen des Formulars
   }
 });
@@ -202,42 +195,3 @@ const backToLogin = document.getElementById("backToLogIn");
 backToLogin.addEventListener("click", function () {
   window.location.href = "login.html";
 });
-
-/**
- * Speichert die Benutzerdaten in einem Array.
- * Saves the user data in an array.
- * @param {string} name - Der Benutzername.
- * @param {string} email - Die E-Mail-Adresse des Benutzers.
- * @param {string} password - Das Passwort des Benutzers.
- */
-function saveUserData(name, email, password) {
-  const useData = {
-    name: `${name}`,
-    email: `${email}`,
-    password: `${password}`,
-    contacts: [],
-    tasks: [],
-  };
-  userData.push(useData);
-  save();
-}
-
-/**
- * Führt die erfolgreiche Registrierung aus und leitet zur Anmeldeseite weiter.
- * Executes successful registration and redirects to the login page.
- */
-function chekEmailExists(name, email, password) {
-  let existingUser = false;
-  for (let i = 0; i < userData.length; i++) {
-    if (userData[i].email === email) {
-      existingUser = true;
-      break;
-    }
-  }
-  if (!existingUser) {
-    saveUserData(name, email, password);
-    animationSuccess();
-  } else {
-    alert("This email already exists. Please use a different email.");
-  }
-}
