@@ -48,8 +48,8 @@ async function renderListOfContacts() {
 }
 /**
  * declare objects of the contact and generate HTML for contact-list
- * @param {contact of signed user} objContact 
- * @param {index of selected contact} i 
+ * @param {array} objContact object with information of single contact
+ * @param {number} i index of selected contact
  */
 async function generateContact(objContact, i) {
     let badgecolor = objContact['badgecolor'];
@@ -131,7 +131,7 @@ function getRandomBadgeColor() {
 
 /**
  * save the new contact on fileserver
- * @param {array of created contact details} newContact 
+ * @param {array} newContact objects of created contact
  */
 async function setNewContact(newContact) {
     userData[userIndex]['contacts'].push(newContact);
@@ -149,7 +149,7 @@ function clearAddContactForm() {
 
 /**
  * highlight contacts entry
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact
  */
 function setHighlight(i) {
     removeHighlight();
@@ -168,7 +168,7 @@ function removeHighlight() {
 
 /**
  * render the contact-details
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact
  */
 function showContactDetails(i) {
     if (window.innerWidth < 1200) {
@@ -199,7 +199,7 @@ function closeOnClickOutside(event) {
 
 /**
  * get contact-details from userdata and generate details HTML
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact 
  */
 function renderContactDetails(i) {
     let userContacts = userData[userIndex]['contacts'];
@@ -230,7 +230,7 @@ function showBackAndMenuBtn() {
 
 /**
  * render menu button
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact
  */
 function renderDetailsMenuBtn(i) {
     document.getElementById('btn-details-container').innerHTML = renderDetailsMenuBtnHTML(i);
@@ -269,7 +269,7 @@ function openAddContactSlider() {
 
 /**
  * open overlay window with an input-form of the selected contact
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact
  */
 function openContactSlider(i) {
     if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
@@ -349,7 +349,7 @@ function hideDarkBackground() {
 
 /**
  * splice selected contact from array and save the array on fileserver
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact
  */
 async function deleteContact(i) {
     userData[userIndex]['contacts'].splice(i, 1); 
@@ -361,7 +361,7 @@ async function deleteContact(i) {
 
 /**
  * save amended user details on fileserver
- * @param {index of selected contact} i 
+ * @param {number} i index of selected contact
  */
 async function saveEditContact(i) {
     let contact = userData[userIndex]['contacts'][i];
