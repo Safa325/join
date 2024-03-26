@@ -446,7 +446,7 @@ function addTaskHTML() {
             </div>
           </div>
   
-          <div class="addTask-controls">
+          <div class="addTask-controls on-mobile">
             <p class="addTask-hint">This field is required</p>
             <div class="addTask-control-btn-container">
               <button id="addTask-cancel-btn" type="reset" class="addTask-control-btn cancel-btn">
