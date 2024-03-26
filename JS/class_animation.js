@@ -1,18 +1,34 @@
 /**
- * by click at outside of the dropdown area the dropdown closes
+ * by click at outside of the contact dropdown area the dropdown closes
  */
 document.addEventListener('click', function (e) {
     assignContainer = document.getElementById('addTask-assigned');
+    categoryContainer = document.getElementById('category-container');
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
     if (assignContainer != null) {
-        var rect = assignContainer.getBoundingClientRect();
-        let bottom = rect.bottom + 250;
-        let mouseX = e.clientX;
-        let mouseY = e.clientY;
-        if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
-            contactsDropdown.close();
-        }
+        contactDropdownLeave(mouseX, mouseY);
+    }
+    if (categoryContainer != null) {
+        categoryDropdownLeave(mouseX, mouseY);
     }
 });
+
+function contactDropdownLeave(mouseX, mouseY) {
+    var rect = assignContainer.getBoundingClientRect();
+    let bottom = rect.bottom + 250;
+    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
+        contactsDropdown.close();
+    }
+}
+
+function categoryDropdownLeave(mouseX, mouseY) {
+    var rect = categoryContainer.getBoundingClientRect();
+    let bottom = rect.bottom + 89;
+    if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > bottom) {
+        categoryDropdown.close();
+    }
+}
 
 /**
  * enable input field of subtask, only with doubleclick in html code
@@ -119,14 +135,6 @@ function editSubtaskPreventEnter(event) {
     }
 }
 
-// function indirectCreateSubtask() {
-//   let activeElement = this.document.activeElement;
-//   let subtask = document.getElementById('addTask-subtask-input');
-//   if (activeElement == subtask) {
-//     createSubtask();
-//   }
-// }
-
 /**
  * delete selected subtask
  * @param {Number} index
@@ -142,7 +150,7 @@ function deleteSubtask(index) {
 function renderSubtasks() {
     let container = document.getElementById('addTask-subtask-container');
     container.innerHTML = '';
-    for (let index = 0; index < subtasks.length; index++) {   
+    for (let index = 0; index < subtasks.length; index++) {
         const subtask = subtasks[index];
         container.innerHTML += subTaskHTML(subtask, index);
     }
@@ -262,8 +270,7 @@ function hideConfirmNewTask() {
 }
 
 /**
- * Slide in animation for popup card.
- * Show board overlay container
+ * Slide in animation for popup card. Show board overlay container
  */
 function slideInPopupCard() {
     let header = document.querySelector('header');
@@ -280,8 +287,7 @@ function slideInPopupCard() {
 
 /**
  * Slide out animation for popup card.
- * Hide board overlay container delayed after animation is finished.
- * Clear subtask array.
+ * Hide board overlay container delayed after animation is finished. Clear subtask array.
  */
 function sliedeOutPopupCard() {
     let container = document.getElementById('board-overlay-details');
@@ -296,13 +302,11 @@ function sliedeOutPopupCard() {
             document.body.classList.remove('stop-scrolling');
         }, 300);
     }
-   
 }
 
 /**
  * Slide out animation for popup card when the background is clicked.
- * Hide board overlay container delayed after animation is finished.
- * Clear subtask array.
+ * Hide board overlay container delayed after animation is finished. Clear subtask array.
  */
 function slideOutPopupFromBg(event) {
     let container = document.getElementById('board-overlay-details');
@@ -316,7 +320,6 @@ function slideOutPopupFromBg(event) {
             document.body.classList.remove('stop-scrolling');
         }, 300);
     }
-  
 }
 
 /**

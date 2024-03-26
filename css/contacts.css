@@ -860,8 +860,11 @@ label {
 }
 
 @media (max-width: 400px){
-    .contact-container,
-    .registerbox{
+    .contact-container{
         padding-inline: 0;
+    }
+
+    .registerbox{
+        padding-inline: 15px 0;
     }
 }
