@@ -87,7 +87,7 @@ body {
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    width: 95%;
+    width: 100%;
     height: 100%;
 }
 
@@ -178,6 +178,7 @@ body {
 .detail-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .name-right {
@@ -774,7 +775,7 @@ label {
 
     .btn-details-menu::after {
         content: url('../img/icons/more_vert.svg');
-        transform: translateX(-120%);
+        transform: translateX(-130%);
     }
 
     .contact-inputField {
