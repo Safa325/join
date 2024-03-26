@@ -45,6 +45,7 @@ function renderAllCards() {
                 break;
         }
     }
+    setLabelVisibity();
 }
 
 /**
