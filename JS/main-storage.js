@@ -90,9 +90,6 @@ async function setUserData(name, email, password) {
     let newUserContacts = await getDataFromJSON('./dummyContacts.json');
     let newUserTasks = await getDataFromJSON('./dummyTasks.json');
 
-    console.log(newUserContacts);
-    console.log(newUserTasks);
-
     let newUser = {
         name: name,
         email: email,
@@ -106,7 +103,6 @@ async function setUserData(name, email, password) {
 }
 
 async function getDataFromJSON(url) {
-    // const response = await fetch('./dishes.json');
     const response = await fetch(url);
     data = await response.json();
     return data;
