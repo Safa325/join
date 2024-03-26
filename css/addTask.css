@@ -365,7 +365,7 @@
 
 .addTask-subtask-container {
   width: 100%;
-  min-height: 90px;
+  min-height: 50px;
   padding-bottom: 12px;
 }
 
@@ -537,6 +537,9 @@
     bottom: 80px;
     background-color: var(--clr-bg);
     padding-block: 12px;
+  }
+  .addTask-subtask-container {
+    margin-bottom: 80px;
   }
 }
 

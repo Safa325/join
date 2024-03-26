@@ -142,7 +142,7 @@ function deleteSubtask(index) {
 function renderSubtasks() {
     let container = document.getElementById('addTask-subtask-container');
     container.innerHTML = '';
-    for (let index = 0; index < subtasks.length; index++) {
+    for (let index = 0; index < subtasks.length; index++) {   
         const subtask = subtasks[index];
         container.innerHTML += subTaskHTML(subtask, index);
     }
