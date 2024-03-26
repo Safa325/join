@@ -176,26 +176,12 @@ function showContactDetails(i) {
         hideContactList();
         showBackAndMenuBtn();
         renderDetailsMenuBtn(i);
-        document.getElementById('function-container').classList.add('d-none');
-
-        //experiment mit EventListener
-        let detailsMenuBtn = document.getElementById('btn-details-container');
-        detailsMenuBtn.addEventListener("click", openDetailsMenu);
+        /* document.getElementById('function-container').classList.add('d-none'); */
         
     } else {
         renderContactDetails(i);
     }
 }
-
-function closeOnClickOutside(event) {
-    let functionContainer = document.getElementById('function-container');
-    let detailsMenuBtn = document.getElementById('btn-details-container');
-    if (!functionContainer.contains(event.target) && event.target !== detailsMenuBtn) {
-      // Überprüft, ob das Klickereignis außerhalb des Containers und des Buttons liegt
-      closeDetailsMenu();
-      document.removeEventListener('click', closeOnClickOutside); // Entfernt den Event Listener
-    }
-  }
 
 /**
  * get contact-details from userdata and generate details HTML
@@ -255,9 +241,7 @@ function hideConfirmNewContact() {
  */
 function openAddContactSlider() {
     removeHighlight();
-    if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
-        document.getElementById('dark-background').classList.remove('fade-out-animation');
-    };
+    removeFadeOutAnimation();
     document.getElementById('contact-slider').innerHTML = ``;
     document.getElementById('contact-slider').innerHTML = generateAddContactSliderContentHTML();
     document.getElementById('contact-badge').style.backgroundColor = 'var(--clr-light-gray)';
@@ -272,9 +256,8 @@ function openAddContactSlider() {
  * @param {number} i index of selected contact
  */
 function openContactSlider(i) {
-    if(document.getElementById('dark-background').classList.contains('fade-out-animation')){
-        document.getElementById('dark-background').classList.remove('fade-out-animation');
-    };
+    removeFadeOutAnimation();
+    
     let userContacts = userData[userIndex]['contacts'];
     let badgecolor = userContacts[i]['badgecolor'];
     let initials = userContacts[i]['initials'];
@@ -297,34 +280,30 @@ function openContactSlider(i) {
  */
 function setSlideInEffects() {
     document.getElementById('overlay-window').classList.remove('d-none'); 
-    if (document.getElementById('contact-slider').classList.contains('slide-out-animation')) {
-        document.getElementById('contact-slider').classList.remove('slide-out-animation');
-    }; 
+    removeSlideOutAnimation();
     document.getElementById('contact-slider').classList.add('slide-in-animation'); 
     document.getElementById('dark-background').classList.remove('d-none'); 
     setTimeout(setDarkBackground, 300); 
+    
 }
 
 /**
  * remove slide in animation and set slide out animation to the overlay window and lightening background
  */
 function setSlideOutEffects() {
-    if (document.getElementById('contact-slider').classList.contains('slide-in-animation')) {
-        document.getElementById('contact-slider').classList.remove('slide-in-animation');
-    };
+    removeSlideInAnimation();
     document.getElementById('contact-slider').classList.add('slide-out-animation'); 
+    
     setTimeout(clearDarkBackground, 300);
     setTimeout(hideDarkBackground, 1000); 
+    closeDetailsMenu();
 }
 
 /**
  * darkening background
  */
 function setDarkBackground() {
-    document.getElementById('dark-background').style = 'z-index: 1;';
-    if (document.getElementById('dark-background').classList.contains('fade-out-animation')) {
-        document.getElementById('dark-background').classList.remove('fade-out-animation');
-    };
+    removeFadeOutAnimation();
     document.getElementById('dark-background').classList.add('fade-in-animation'); 
 }
 
@@ -332,9 +311,7 @@ function setDarkBackground() {
  * lightening background
  */
 function clearDarkBackground() {
-    if (document.getElementById('dark-background').classList.contains('fade-in-animation')) {
-        document.getElementById('dark-background').classList.remove('fade-in-animation');
-    } 
+    removeFadeInAnimation();
     document.getElementById('dark-background').classList.add('fade-out-animation');
     document.getElementById('overlay-window').classList.add('d-none');
 }
@@ -343,7 +320,7 @@ function clearDarkBackground() {
  * hide nackground layer to avoid conflicts with it
  */
 function hideDarkBackground() {
-    document.getElementById('dark-background').style = ('z-index: 0;'); 
+    
     document.getElementById('dark-background').classList.add('d-none'); 
 }
 
@@ -382,27 +359,78 @@ async function saveEditContact(i) {
  */
 function openDetailsMenu() { 
     document.getElementById('function-container').classList.remove('d-none');
-    
-    if (document.getElementById('function-container').classList.contains('menu-slide-out-animation')) {
-        document.getElementById('function-container').classList.remove('menu-slide-out-animation');
-    }; 
+    document.getElementById('click-background').classList.remove('d-none'); 
+    removeFadeOutAnimation();
+    removeSlideOutAnimation();    
+    removeMenuSlideOutAnimation();
     document.getElementById('function-container').classList.add('menu-slide-in-animation'); 
-    document.getElementById('overlay-window').classList.remove('d-none');
-
-    //experiment mit EventListener
-    let mainContainer = document.getElementById('main-contacts-container');
-    mainContainer.addEventListener('click', closeOnClickOutside);
 }
 
 /**
  * set slide out animation in responsive design
  */
 function closeDetailsMenu() {
-    if (document.getElementById('function-container').classList.contains('menu-slide-in-animation')) {
-        document.getElementById('function-container').classList.remove('menu-slide-in-animation');
-    };
+    removeMenuSlideInAnimation();
+    removeFadeOutAnimation();
+    let functionMenu = document.querySelectorAll('function-container');
+    functionMenu.forEach((element) => {
+        element.classList.add('menu-slide-out-animation');
+    });
+    document.getElementById('click-background').classList.add('d-none'); 
     document.getElementById('function-container').classList.add('menu-slide-out-animation');
-    document.getElementById('function-container').classList.add('d-none');
-    document.getElementById('overlay-window').classList.add('d-none');
 }
 
+/**
+ * check if any container got the slide in animation and remove it
+ */
+function removeSlideInAnimation() {
+    let containers = document.querySelectorAll('.slide-in-animation');
+    containers.forEach((element) => {
+        element.classList.remove('slide-in-animation');
+    });
+}
+/**
+ * check if any container got the slide out animation and remove it
+ */
+function removeSlideOutAnimation() {
+    let containers = document.querySelectorAll('.slide-out-animation');
+    containers.forEach((element) => {
+        element.classList.remove('slide-out-animation');
+    });
+}
+/**
+ * check if any container got the fade in animation and remove it
+ */
+function removeFadeInAnimation() {
+    let containers = document.querySelectorAll('.fade-in-animation');
+    containers.forEach((element) => {
+        element.classList.remove('fade-in-animation');
+    });
+}
+/**
+ * check if any container got the fade out animation and remove it
+ */
+function removeFadeOutAnimation() {
+    let containers = document.querySelectorAll('.fade-out-animation');
+    containers.forEach((element) => {
+        element.classList.remove('fade-out-animation');
+    });
+}
+/**
+ * check if any container got the menu slide in animation and remove it
+ */
+function removeMenuSlideInAnimation() {
+    let containers = document.querySelectorAll('.menu-slide-in-animation');
+    containers.forEach((element) => {
+        element.classList.remove('menu-slide-in-animation');
+    });
+}
+/**
+ * check if any container got the menu slide out animation and remove it
+ */
+function removeMenuSlideOutAnimation() {
+    let containers = document.querySelectorAll('.menu-slide-out-animation');
+    containers.forEach((element) => {
+        element.classList.remove('menu-slide-out-animation');
+    });
+}

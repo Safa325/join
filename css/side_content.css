@@ -1,4 +1,4 @@
-@import url(general.css);
+/* @import url(general.css); */
 
 .main-sidecontent-container {
   width: calc(100vw - 232px);
@@ -53,6 +53,7 @@ mark {
   .main-sidecontent-container {
     margin-inline: auto;
     width: calc(100% - 32px);
+    height: calc(100vh - 176px);
     padding: 0;
   }
 

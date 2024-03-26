@@ -44,7 +44,17 @@ body{
     width: calc(100vw - 232px);
     height: calc(100vh - 96px);
     display: flex;
+    position: inherit;
+    z-index: 1;
 }
+
+#dark-background {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 20;
+}
+
 
 .contacts-list {
     min-width: 452px;
@@ -258,7 +268,6 @@ body{
     background-color: white;
     display: flex;
     z-index: 100;
-    
 }
 
 .slide-in-animation {
@@ -722,6 +731,15 @@ label {
         box-shadow: var(--header-box-shadow);
         border-radius: 20px 20px 0 20px;
         transform: translateX(+200%);
+        z-index: 23;
+    }
+
+    
+    #click-background {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 22;
     }
 
     .menu-slide-in-animation {
@@ -753,6 +771,7 @@ label {
         left: auto;
         right: 16px;
         bottom: 96px;
+        z-index: 2;
     }
 
     .btn-details-menu {
