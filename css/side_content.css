@@ -1,5 +1,9 @@
 /* @import url(general.css); */
 
+* {
+  scroll-behavior: smooth;
+}
+
 .main-sidecontent-container {
   width: calc(100vw - 232px);
   height: calc(100vh - 96px);
