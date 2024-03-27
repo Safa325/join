@@ -280,26 +280,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 1600);
 });
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   if (!sessionStorage.getItem("animationPlayed")) {
-//     document.body.insertAdjacentHTML("beforeend", logoAnimation());
-//     checkWidth();
-//     sessionStorage.setItem("animationPlayed", true);
-//     addAnimation();
-//     setTimeout(function () {
-//       document.getElementById("logInLogo").style.display = "flex";
-//     }, 1500);
-//     setTimeout(function () {
-//       let logo = document.getElementById("animationLogo1");
-//       if (logo) {
-//         logo.remove();
-//       }
-//     }, 1600);
-//   } else {
-//     document.getElementById("logInLogo").style.display = "flex";
-//   }
-// });
-
 function newTab(x) {
   if (x == "1") {
     window.open("newTab.html", "_blank");
