@@ -291,15 +291,9 @@ function setSlideInEffects() {
 function setSlideOutEffects() {
     removeSlideInAnimation();
     document.getElementById('contact-slider').classList.add('slide-out-animation');
-
     setTimeout(clearDarkBackground, 300);
     setTimeout(hideDarkBackground, 1000);
-
-    if (window.innerWidth < 1200) {
-        closeDetailsMenu();
-    }
 }
-
 /**
  * darkening background
  */
