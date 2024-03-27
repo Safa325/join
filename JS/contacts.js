@@ -296,7 +296,10 @@ function setSlideOutEffects() {
     
     setTimeout(clearDarkBackground, 300);
     setTimeout(hideDarkBackground, 1000); 
-    closeDetailsMenu();
+    
+    if (window.innerWidth < 1200) {
+        closeDetailsMenu();        
+    } 
 }
 
 /**
@@ -332,8 +335,9 @@ async function deleteContact(i) {
     userData[userIndex]['contacts'].splice(i, 1); 
     await setItem('userData', JSON.stringify(userData));
     document.getElementById('contact-details').innerHTML = ``;
-    setSlideOutEffects();
     await initContacts();
+    setSlideOutEffects();
+    
 }
 
 /**
