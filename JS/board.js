@@ -392,11 +392,12 @@ async function openAddTaskPopup(initStatus) {
  * Get values from radiobuttons and set new status of task. Slide-out animation and rerender all cards.
  * @param {Number} index - task index
  */
-function moveCardTo(index) {
+async function moveCardTo(index) {
     var form = document.getElementById('form-moveTo');
     var radVal = form.fav_language.value;
     changeStatusOfTask(index, radVal);
     sliedeOutPopupCard();
     renderAllCards();
     setLabelVisibity();
+    await saveTask();
 }

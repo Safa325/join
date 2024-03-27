@@ -333,7 +333,7 @@ async function deleteContact(i) {
     await setItem('userData', JSON.stringify(userData));
     document.getElementById('contact-details').innerHTML = ``;
     setSlideOutEffects();
-    initContacts();
+    await initContacts();
 }
 
 /**
