@@ -58,6 +58,7 @@ function disableSubtaskInputDelayed() {
         disableSubtaskInput();
     }, 500);
 }
+
 /**
  * enable input of subtask, change look of inputfield, set focus
  * @param {Event} event
@@ -115,6 +116,7 @@ function indirectDisableEditSubtask() {
         disableEditSubtask(index);
     }
 }
+
 /**
  * hit enter create the subtask but doesn´t submit form
  * @param {Event} event
@@ -234,7 +236,6 @@ function setLabelVisibity() {
  * @param {Event} event
  */
 function avoidGhostCard(event) {
-    console.log(event.currentTarget);
     let card = event.currentTarget.querySelector('.board-ghostCard');
     if (card) {
         card.classList.add('remove-ghostCard');
@@ -260,6 +261,7 @@ function confirmNewTask() {
         hideConfirmNewTask();
     }, 2000);
 }
+
 /**
  * hide label "Task added to board"
  */

@@ -101,6 +101,7 @@ function renderDetailCard(index) {
 function allowDrop(ev) {
     ev.preventDefault();
 }
+
 /**
  * The dataTransfer.setData() method sets the data type and the value of the dragged data:
  * @param {Event} ev
@@ -235,6 +236,7 @@ function openDetailCard(index) {
     slideInPopupCard();
     renderDetailCard(index);
 }
+
 /**
  * Removes a task from Array, save all tasks, slide-out animation for detail card and re-render all cards.
  * @param {Number} index - selected task index
@@ -245,6 +247,7 @@ async function deleteTask(index) {
     sliedeOutPopupCard();
     renderAllCards();
 }
+
 /**
  * Toggles the subtask status when clicked in detail card, save all tasks, re-render detail card and all cards.
  * @param {Number} firstIndex - task index
@@ -256,6 +259,7 @@ async function toggleSubtaskStatus(firstIndex, index) {
     renderDetailCard(firstIndex);
     renderAllCards();
 }
+
 /**
  * The task shown in the detail card can be edited. Prepare data for editing.
  * @param {Number} index - task index

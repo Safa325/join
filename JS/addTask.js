@@ -58,6 +58,7 @@ function getContactsFromUser() {
     let user = userData[userIndex];
     contacts = [...user.contacts];
 }
+
 /**
  * prepare an array for selection
  */
@@ -229,6 +230,10 @@ async function createTask(event) {
  */
 function clearForm() {
     subtasks = [];
+    initContactCopy();
+    renderContacts(arrayOfContacts);
+    selectPrio('medium');
+    renderBadges();
     renderSubtasks();
 }
 
