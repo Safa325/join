@@ -13,15 +13,15 @@ async function initContacts() {
  * find registerletter in saved contacts of the current user and sort them in a temporary array (registerLetters)
  */
 async function getArrayOfRegisterLetters() {
-    let userContacts = userData[userIndex]['contacts']; 
-    registerLetters = []; 
+    let userContacts = userData[userIndex]['contacts'];
+    registerLetters = [];
     for (let i = 0; i < userContacts.length; i++) {
-        let register = userContacts[i]['register']; 
-        if (!registerLetters.includes(register)) { 
+        let register = userContacts[i]['register'];
+        if (!registerLetters.includes(register)) {
             registerLetters.push(register);
         }
     }
-    registerLetters.sort(); 
+    registerLetters.sort();
 }
 
 /**
@@ -32,7 +32,7 @@ async function renderRegisterboxes() {
 
     for (let i = 0; i < registerLetters.length; i++) {
         let registerLetter = registerLetters[i];
-        generateRegisterboxHTML(registerLetter); 
+        generateRegisterboxHTML(registerLetter);
     }
 }
 
@@ -42,8 +42,8 @@ async function renderRegisterboxes() {
 async function renderListOfContacts() {
     let userContacts = userData[userIndex]['contacts'];
     for (let i = 0; i < userContacts.length; i++) {
-        let objContact = userContacts[i]; 
-        generateContact(objContact, i); 
+        let objContact = userContacts[i];
+        generateContact(objContact, i);
     }
 }
 /**
@@ -66,14 +66,14 @@ async function generateContact(objContact, i) {
 async function createContact() {
     let newContact = getContactInput();
     setNewContact(newContact);
-    let i = userData[userIndex]['contacts'].length - 1; 
-    clearAddContactForm(); 
+    let i = userData[userIndex]['contacts'].length - 1;
+    clearAddContactForm();
     await initContacts();
     setSlideOutEffects();
     showContactDetails(i);
     confirmNewContact();
     setTimeout(hideConfirmNewContact, 800);
-    setHighlight(i); 
+    setHighlight(i);
 }
 
 /**
@@ -94,34 +94,34 @@ function getContactInput() {
 
 /**
  * get the initials by splitting the name string and take each first letters
- * @returns 
+ * @returns
  */
 function getInitialsFromInput() {
     let inputName = document.getElementById('contact-input-name').value;
 
     let string = inputName;
-    let names = string.split(' '); 
-    let firstletters = names[0].substring(0, 1).toUpperCase(); 
+    let names = string.split(' ');
+    let firstletters = names[0].substring(0, 1).toUpperCase();
     if (names.length > 1) {
-        firstletters += names[1].substring(0, 1).toUpperCase(); 
+        firstletters += names[1].substring(0, 1).toUpperCase();
     }
     return firstletters;
 }
 
 /**
  * get registerletter by taking the first letter of the surname
- * @returns 
+ * @returns
  */
 function getRegisterLetter() {
     let inputName = document.getElementById('contact-input-name').value;
     let firstletter = inputName.charAt(0);
-    firstletter = firstletter.toUpperCase(); 
-    return firstletter; 
+    firstletter = firstletter.toUpperCase();
+    return firstletter;
 }
 
 /**
  * create random index the get a random color of the badge
- * @returns 
+ * @returns
  */
 function getRandomBadgeColor() {
     let max = profileBadgeColors.length;
@@ -177,7 +177,6 @@ function showContactDetails(i) {
         showBackAndMenuBtn();
         renderDetailsMenuBtn(i);
         /* document.getElementById('function-container').classList.add('d-none'); */
-        
     } else {
         renderContactDetails(i);
     }
@@ -185,7 +184,7 @@ function showContactDetails(i) {
 
 /**
  * get contact-details from userdata and generate details HTML
- * @param {number} i index of selected contact 
+ * @param {number} i index of selected contact
  */
 function renderContactDetails(i) {
     let userContacts = userData[userIndex]['contacts'];
@@ -245,10 +244,10 @@ function openAddContactSlider() {
     document.getElementById('contact-slider').innerHTML = ``;
     document.getElementById('contact-slider').innerHTML = generateAddContactSliderContentHTML();
     document.getElementById('contact-badge').style.backgroundColor = 'var(--clr-light-gray)';
-    document.getElementById('contact-badge').innerHTML = `<img src="./img/icons/person.svg" alt="">`; 
-    document.getElementById('window-headline').innerHTML = `Add contact`; 
-    document.getElementById('window-claim').innerHTML = `Tasks are better with a team!`; 
-    setSlideInEffects(); 
+    document.getElementById('contact-badge').innerHTML = `<img src="./img/icons/person.svg" alt="">`;
+    document.getElementById('window-headline').innerHTML = `Add contact`;
+    document.getElementById('window-claim').innerHTML = `Tasks are better with a team!`;
+    setSlideInEffects();
 }
 
 /**
@@ -257,7 +256,7 @@ function openAddContactSlider() {
  */
 function openContactSlider(i) {
     removeFadeOutAnimation();
-    
+
     let userContacts = userData[userIndex]['contacts'];
     let badgecolor = userContacts[i]['badgecolor'];
     let initials = userContacts[i]['initials'];
@@ -272,19 +271,18 @@ function openContactSlider(i) {
     document.getElementById('contact-input-name').value = `${name}`;
     document.getElementById('contact-input-email').value = `${email}`;
     document.getElementById('contact-input-phone').value = `${phone}`;
-    setSlideInEffects(); 
+    setSlideInEffects();
 }
 
 /**
  * set slide in animation to the overlay window and darkening background
  */
 function setSlideInEffects() {
-    document.getElementById('overlay-window').classList.remove('d-none'); 
+    document.getElementById('overlay-window').classList.remove('d-none');
     removeSlideOutAnimation();
-    document.getElementById('contact-slider').classList.add('slide-in-animation'); 
-    document.getElementById('dark-background').classList.remove('d-none'); 
-    setTimeout(setDarkBackground, 300); 
-    
+    document.getElementById('contact-slider').classList.add('slide-in-animation');
+    document.getElementById('dark-background').classList.remove('d-none');
+    setTimeout(setDarkBackground, 300);
 }
 
 /**
@@ -292,14 +290,14 @@ function setSlideInEffects() {
  */
 function setSlideOutEffects() {
     removeSlideInAnimation();
-    document.getElementById('contact-slider').classList.add('slide-out-animation'); 
-    
+    document.getElementById('contact-slider').classList.add('slide-out-animation');
+
     setTimeout(clearDarkBackground, 300);
-    setTimeout(hideDarkBackground, 1000); 
-    
+    setTimeout(hideDarkBackground, 1000);
+
     if (window.innerWidth < 1200) {
-        closeDetailsMenu();        
-    } 
+        closeDetailsMenu();
+    }
 }
 
 /**
@@ -307,7 +305,7 @@ function setSlideOutEffects() {
  */
 function setDarkBackground() {
     removeFadeOutAnimation();
-    document.getElementById('dark-background').classList.add('fade-in-animation'); 
+    document.getElementById('dark-background').classList.add('fade-in-animation');
 }
 
 /**
@@ -323,8 +321,7 @@ function clearDarkBackground() {
  * hide nackground layer to avoid conflicts with it
  */
 function hideDarkBackground() {
-    
-    document.getElementById('dark-background').classList.add('d-none'); 
+    document.getElementById('dark-background').classList.add('d-none');
 }
 
 /**
@@ -332,12 +329,12 @@ function hideDarkBackground() {
  * @param {number} i index of selected contact
  */
 async function deleteContact(i) {
-    userData[userIndex]['contacts'].splice(i, 1); 
+    userData[userIndex]['contacts'].splice(i, 1);
+    syncContactsWithTasks();
     await setItem('userData', JSON.stringify(userData));
     document.getElementById('contact-details').innerHTML = ``;
     await initContacts();
     setSlideOutEffects();
-    
 }
 
 /**
@@ -347,27 +344,27 @@ async function deleteContact(i) {
 async function saveEditContact(i) {
     let contact = userData[userIndex]['contacts'][i];
 
-    contact['name'] = document.getElementById('contact-input-name').value; 
-    contact['email'] = document.getElementById('contact-input-email').value; 
-    contact['phone'] = document.getElementById('contact-input-phone').value; 
+    contact['name'] = document.getElementById('contact-input-name').value;
+    contact['email'] = document.getElementById('contact-input-email').value;
+    contact['phone'] = document.getElementById('contact-input-phone').value;
 
     await setItem('userData', JSON.stringify(userData));
-    setSlideOutEffects(); 
-    initContacts(); 
-    showContactDetails(i); 
-    setHighlight(i); 
+    setSlideOutEffects();
+    initContacts();
+    showContactDetails(i);
+    setHighlight(i);
 }
 
 /**
  * set slide in animation in responsive design
  */
-function openDetailsMenu() { 
+function openDetailsMenu() {
     document.getElementById('function-container').classList.remove('d-none');
-    document.getElementById('click-background').classList.remove('d-none'); 
+    document.getElementById('click-background').classList.remove('d-none');
     removeFadeOutAnimation();
-    removeSlideOutAnimation();    
+    removeSlideOutAnimation();
     removeMenuSlideOutAnimation();
-    document.getElementById('function-container').classList.add('menu-slide-in-animation'); 
+    document.getElementById('function-container').classList.add('menu-slide-in-animation');
 }
 
 /**
@@ -380,7 +377,7 @@ function closeDetailsMenu() {
     functionMenu.forEach((element) => {
         element.classList.add('menu-slide-out-animation');
     });
-    document.getElementById('click-background').classList.add('d-none'); 
+    document.getElementById('click-background').classList.add('d-none');
     document.getElementById('function-container').classList.add('menu-slide-out-animation');
 }
 
@@ -436,5 +433,28 @@ function removeMenuSlideOutAnimation() {
     let containers = document.querySelectorAll('.menu-slide-out-animation');
     containers.forEach((element) => {
         element.classList.remove('menu-slide-out-animation');
+    });
+}
+
+/**
+ * When a contact is deleted the tasks contacts will also be deleted
+ */
+function syncContactsWithTasks() {
+    let allTasks = [...userData[userIndex].tasks];
+    let allContacts = [...userData[userIndex].contacts];
+
+    allTasks.forEach((task, taskIndex) => {
+        let assignToArray = task.assignedTo;
+        assignToArray.forEach((assignTo, assignedIndex) => {
+            let found = 0;
+            allContacts.forEach((contact) => {
+                if (assignTo['name'] == contact['name']) {
+                    found++;
+                }
+            });
+            if (found == 0) {
+                userData[userIndex].tasks[taskIndex].assignedTo.splice(assignedIndex, 1);
+            }
+        });
     });
 }
