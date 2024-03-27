@@ -37,52 +37,9 @@ let profileBadgeColors = [
     '#FFBB2B',
 ];
 
-let userData = [
-    //backup-user if there is no connection to storage
-    {
-        name: 'Bill Gates',
-        email: 'billy-g@apple.com',
-        password: '12345678',
-        contacts: [
-            {
-                badgecolor: '#FF7A00',
-                initials: 'CG',
-                register: 'C',
-                name: 'Claire Grube',
-                email: 'cgrube@mail.de',
-                phone: '+49 40 276 5436',
-            },
-            {
-                badgecolor: '#FF5EB3',
-                initials: 'VP',
-                register: 'V',
-                name: 'Volker Putt',
-                email: 'volkerputt@yahoo.com',
-                phone: '+49 30 2589963',
-            },
-            {
-                badgecolor: '#6E52FF',
-                initials: 'ME',
-                register: 'M',
-                name: 'Mister Ed',
-                email: 'ed@add.at',
-                phone: '+43 77 94836',
-            },
-        ],
-        tasks: [],
-    },
-];
+let userData = [];
 
-let userIndex = ''; //VOR ABGABE: Index auf "" setzen und function findUserIndex(email) aktivieren!
-
-function findUserIndex(email) {
-    for (let i = 0; i < userData.length; i++) {
-        const userMail = userData[i]['email'];
-        if (email == userMail) {
-            userIndex = i;
-        }
-    }
-}
+let userIndex = '';
 
 //3. USERDATA - set, get and delete userData
 
@@ -120,7 +77,6 @@ async function chekEmailExists(name, email, password) {
     }
     if (emailExist == 'false') {
         setUserData(name, email, password);
-        // findUserIndex(email);
         animationSuccess();
     }
 }
