@@ -449,7 +449,7 @@ function addTaskHTML() {
           <div class="addTask-controls on-mobile">
             <p class="addTask-hint">This field is required</p>
             <div class="addTask-control-btn-container">
-              <button id="addTask-cancel-btn" type="reset" class="addTask-control-btn cancel-btn">
+              <button onclick="clearForm()" id="addTask-cancel-btn" type="reset" class="addTask-control-btn cancel-btn">
                 Cancel
                 <svg
                   class="cancel-svg"

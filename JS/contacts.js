@@ -374,7 +374,7 @@ function closeDetailsMenu() {
     document.getElementById('click-background').classList.add('d-none');
     
     //Wird das wirklich benötigt???
-    document.getElementById('function-container').classList.add('menu-slide-out-animation');
+    // document.getElementById('function-container').classList.add('menu-slide-out-animation');
 }
 
 /**
