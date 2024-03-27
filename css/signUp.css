@@ -163,8 +163,19 @@ body {
   width: 100%;
 }
 
-.confirmPassword p {
+.signUp-error-pw p {
   display: flex;
+  justify-content: flex-start;
+  font-size: 12px;
+  color: var(--clr-prio-red);
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.confirmBox p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 12px;
   color: var(--clr-prio-red);
   margin: 0;

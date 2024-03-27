@@ -62,12 +62,17 @@ const cpwIcon = document.getElementById("cpwIcon");
 let signUpForm = document.getElementById("signUpForm");
 
 function acceptCheckbox() {
+  let checkBox = document.getElementById("errorMessageBox");
   if (checkboxAccept == "true") {
     checkbox.src = "./img/icons/checkbox-unchecked.svg";
     checkboxAccept = "false";
   } else {
     checkbox.src = "./img/icons/checkbox-checked.svg";
     checkboxAccept = "true";
+    if (checkBox.classList.contains("none")) {
+    } else {
+      checkBox.classList.add("none");
+    }
   }
 }
 
@@ -146,22 +151,40 @@ cpwInput.addEventListener("change", function () {
   }
 });
 
+let email = document.getElementById("email");
+
+email.addEventListener("change", function () {
+  let emailField = document.getElementById("emailField");
+  let errorM = document.getElementById("errorMessageEmail");
+  if (emailField.classList.contains("confirmPassword-field")) {
+    emailField.classList.remove("confirmPassword-field");
+    errorM.classList.add("none");
+  }
+});
+
+function errorEmail() {
+  let emailField = document.getElementById("emailField");
+  let errorM = document.getElementById("errorMessageEmail");
+  emailField.classList.add("confirmPassword-field");
+  errorM.classList.remove("none");
+}
+
 /**
  * Verhindert das Standardverhalten des Formulars beim Einreichen und überprüft die eingegebenen Daten.
  * Prevents the default behavior of the form submission and validates the entered data.
  */
 signUpForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevents the default behavior of the form
-
+  e.preventDefault();
+  let checkBox = document.getElementById("errorMessageBox");
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
   if (checkboxAccept == "false") {
-    alert("Bitte akzeptieren Sie die Datenschutzrichtlinie!");
+    checkBox.classList.remove("none");
   } else {
     chekEmailExists(name, email, password);
-    e.preventDefault(); // Verhindert das erneute Einreichen des Formulars
+    e.preventDefault();
   }
 });
 

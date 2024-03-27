@@ -35,10 +35,15 @@
             <img src="./img/icons/person-grey.svg" alt="Person" />
           </div>
         </div>
-        <div class="input-field">
-          <input type="email" id="email" required placeholder="Email" />
-          <div class="icon">
-            <img src="./img/icons/mail.svg" alt="E-Mail" />
+        <div class="confirmPassword">
+          <div class="input-field" id="emailField">
+            <input type="email" id="email" required placeholder="Email" />
+            <div class="icon">
+              <img src="./img/icons/mail.svg" alt="E-Mail" />
+            </div>
+          </div>
+          <div class="signUp-error-pw none" id="errorMessageEmail">
+            <p>Ups! your email already exists</p>
           </div>
         </div>
         <div class="input-field">
@@ -80,6 +85,9 @@
           />
           <p>I accept the</p>
           <a href="#" onclick="newTab('1')"> Privacy policy</a>
+        </div>
+        <div class="signUp-error-pw confirmBox none" id="errorMessageBox">
+          <p>Please accept the privacy policy</p>
         </div>
       </div>
       <input class="signUp-btn" type="submit" value="Sign up" />
