@@ -216,10 +216,10 @@ function hideErrorMessageLogin() {
  * Performs a guest login.
  */
 function guestLogin() {
-  userIndex = 0; // Setzt den Benutzerindex auf 0 für den Gast-Login
+  userIndex = 0;
   sessionStorage.setItem("firstLoad", true);
-  window.location.href = "index.html"; // Weiterleitung zur Hauptseite
-  saveSession(); // Speichert die Sitzungsinformationen
+  window.location.href = "index.html";
+  saveSession();
 }
 
 /**
@@ -258,33 +258,47 @@ function checkWidth() {
 function addAnimation() {
   setTimeout(function () {
     document.getElementById("animationLogo").style.animation =
-      "slide-topLeft 1.2s ease forwards"; // Führt die Slide-TopLeft Animation für das Logo durch
+      "slide-topLeft 1.2s ease forwards";
     document.getElementById("animationLogo1").style.animation =
-      "fade-out 1.2s ease forwards"; // Führt die Fade-Out Animation für das Animationselement durch
+      "fade-out 1.2s ease forwards";
   }, 200);
 }
 
 // Führt die Animation beim Laden der Seite aus
 document.addEventListener("DOMContentLoaded", function () {
-  if (!sessionStorage.getItem("animationPlayed")) {
-    // Überprüft, ob die Animation bereits abgespielt wurde
-    document.body.insertAdjacentHTML("beforeend", logoAnimation()); // Fügt die HTML-Struktur für die Animation ein
-    checkWidth(); // Überprüft die Bildschirmbreite für die Logo-Anpassung
-    sessionStorage.setItem("animationPlayed", true); // Speichert, dass die Animation abgespielt wurde
-    addAnimation(); // Fügt die Animationseffekte hinzu
-    setTimeout(function () {
-      document.getElementById("logInLogo").style.display = "flex"; // Zeigt das Logo nach 1,5 Sekunden an
-    }, 1500);
-    setTimeout(function () {
-      let logo = document.getElementById("animationLogo1");
-      if (logo) {
-        logo.remove(); // Entfernt das Animationselement nach 1,6 Sekunden
-      }
-    }, 1600);
-  } else {
-    document.getElementById("logInLogo").style.display = "flex"; // Zeigt das Logo an, wenn die Animation bereits abgespielt wurde
-  }
+  document.body.insertAdjacentHTML("beforeend", logoAnimation());
+  checkWidth();
+  addAnimation();
+  setTimeout(function () {
+    document.getElementById("logInLogo").style.display = "flex";
+  }, 1500);
+  setTimeout(function () {
+    let logo = document.getElementById("animationLogo1");
+    if (logo) {
+      logo.remove();
+    }
+  }, 1600);
 });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   if (!sessionStorage.getItem("animationPlayed")) {
+//     document.body.insertAdjacentHTML("beforeend", logoAnimation());
+//     checkWidth();
+//     sessionStorage.setItem("animationPlayed", true);
+//     addAnimation();
+//     setTimeout(function () {
+//       document.getElementById("logInLogo").style.display = "flex";
+//     }, 1500);
+//     setTimeout(function () {
+//       let logo = document.getElementById("animationLogo1");
+//       if (logo) {
+//         logo.remove();
+//       }
+//     }, 1600);
+//   } else {
+//     document.getElementById("logInLogo").style.display = "flex";
+//   }
+// });
 
 function newTab(x) {
   if (x == "1") {
