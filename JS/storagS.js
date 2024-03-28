@@ -25,7 +25,7 @@ function load() {
   let rememberMepwS = localStorage.getItem("rememberMePw"); // Retrieves JSON string for rememberMepw from local storage
 
   // Überprüft, ob die gespeicherten Daten vorhanden sind, und konvertiert sie zurück in Objekte
-  if (rememberMeActivS && rememberMeEmailS && rememberMepwS) {
+  if (rememberMeActivS !== null && rememberMeEmailS !== null && rememberMepwS !== null) {
     rememberMeActiv = JSON.parse(rememberMeActivS); // Parses JSON string for rememberMeActiv
     rememberMeEmail = JSON.parse(rememberMeEmailS); // Parses JSON string for rememberMeEmail
     rememberMepw = JSON.parse(rememberMepwS); // Parses JSON string for rememberMepw

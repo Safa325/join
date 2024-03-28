@@ -20,13 +20,13 @@ const loadSignUp = document.getElementById("loadSignUp");
  * Das Passwort, an das sich "Remember Me" erinnern soll.
  * The password to be remembered by "Remember Me".
  */
-let rememberMepw;
+let rememberMepw = "";
 
 /**
  * Die E-Mail-Adresse, an die sich "Remember Me" erinnern soll.
  * The email to be remembered by "Remember Me".
  */
-let rememberMeEmail;
+let rememberMeEmail = "";
 
 /**
  * Das Kontrollkästchenelement für "Remember Me".

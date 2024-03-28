@@ -59,7 +59,7 @@ function generateAddContactSliderContentHTML() {
                     <input class="contact-inputField" type="email" id="contact-input-email" placeholder="Email" required>
                 </label>
                 <label id="input-phone-label"> 
-                    <input class="contact-inputField" type="tel" id="contact-input-phone" placeholder="Phone" title="+49123456789" pattern="[+][0-9]{11}" required>
+                    <input class="contact-inputField" type="tel" id="contact-input-phone" placeholder="Phone" title="+0123456789" pattern="[+][0-9]{9}" required>
                 </label>
             </div>
             <div id="buttons-container" class="cancel-create-buttons-container">
