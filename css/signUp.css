@@ -336,6 +336,10 @@ footer {
     display: none;
 }
 
+.zero-opacity{
+    opacity: 0;
+}
+
 @media (max-width: 1000px) {
     .signUp-logo {
         top: 37px;

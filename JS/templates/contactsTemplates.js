@@ -52,14 +52,14 @@ function generateAddContactSliderContentHTML() {
         <div id="contact-badge" class="contact-badge"></div>
         <form id="addContact-form" onsubmit="createContact(); return false;" class="input-form-container">
             <div class="inputfields">
-                <label id="input-name-label">
+                <label id="input-name-label"> 
                     <input class="contact-inputField" type="text" id="contact-input-name" placeholder="Name" required>
                 </label>
-                <label id="input-email-label">
+                <label id="input-email-label"> 
                     <input class="contact-inputField" type="email" id="contact-input-email" placeholder="Email" required>
                 </label>
-                <label id="input-phone-label">
-                    <input class="contact-inputField" type="tel" id="contact-input-phone" placeholder="Phone" required>
+                <label id="input-phone-label"> 
+                    <input class="contact-inputField" type="tel" id="contact-input-phone" placeholder="Phone" title="+49123456789" pattern="[+][0-9]{11}" required>
                 </label>
             </div>
             <div id="buttons-container" class="cancel-create-buttons-container">
